@@ -4,47 +4,68 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    public float jumpForce = 8f;
-    public float gravityMultiplier = 2f;
-    
-    private Rigidbody rb;
+    public CharacterController controller;
+    public Transform cameraTransform;
+    public float speed = 4f;
+    public float jumpHeight = 1f;
+    public float gravity = -9.81f;
+    public float rotationSpeed = 10f;
+
+    private Vector3 velocity;
     private bool isGrounded;
+
+    //public Transform cameraTransform;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
     }
 
     void Update()
     {
-        // Movimiento
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
-
-        Vector3 move = new Vector3(moveX, 0, moveZ).normalized;
-        rb.velocity = new Vector3(move.x * speed, rb.velocity.y, move.z * speed);
-
-        // Salto
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        isGrounded = controller.isGrounded;
+        if (isGrounded && velocity.y < 0)
         {
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+            velocity.y = -2f; 
         }
 
-        // Aplicar gravedad extra
-        if (!isGrounded)
+        // Obtener entrada del jugador
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        // Obtener dirección basada en la cámara
+        Vector3 cameraForward = cameraTransform.forward;
+        Vector3 cameraRight = cameraTransform.right;
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        Vector3 movement = (cameraForward * moveVertical + cameraRight * moveHorizontal);
+
+        if (movement.magnitude > 1f)
         {
-            rb.velocity += Vector3.up * Physics.gravity.y * (gravityMultiplier - 1) * Time.deltaTime;
+            movement.Normalize();  
         }
-    }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        isGrounded = true;
-    }
+        // Mover al personaje
+        controller.Move(movement * speed * Time.deltaTime);
 
-    private void OnCollisionExit(Collision collision)
-    {
-        isGrounded = false;
+        if (movement.magnitude > 0.1f) // Solo rota si se está moviendo
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        // Manejar salto
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        // Aplicar gravedad
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
+        
 }
