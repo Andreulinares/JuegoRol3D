@@ -12,10 +12,13 @@ public class ElementalBehaviour : MonoBehaviour
     private bool HayJugadorCerca = false;
     private bool HayEnemigoMeleeEnArea = false; 
 
+    private ElementalPatrol ElementalPatrolScript;
+
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        ElementalPatrolScript = GetComponent<ElementalPatrol>();
     }
 
     // Update is called once per frame
@@ -39,13 +42,21 @@ public class ElementalBehaviour : MonoBehaviour
                 if(!EnemigoTieneTipoElemental()){
                     AsignarTipo();
                 } else if(HayJugadorCerca){
-                    AtacarDistancia();
+                    if (JugadorEnRangoDeAtaque()){
+                        AtacarDistancia();
+                    }else{
+                        AcercarseAlJugador();
+                    }
                 }
             }
         }
         else if (HayJugadorCerca)
         {
-            AtacarDistancia();
+            if (JugadorEnRangoDeAtaque()){
+                AtacarDistancia();
+            }else{
+                AcercarseAlJugador();
+            }
         }
         else
         {
@@ -54,19 +65,23 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     bool ComprobarEnemigosMelee(){
-
+        return true;
     }
 
     bool ComprobarJugador(){
-
+        return true;
     }
 
     bool ComprobarAreaInfluencia(){
-
+        return true;
     }
 
     bool EnemigoTieneTipoElemental(){
+        return true;
+    }
 
+    bool JugadorEnRangoDeAtaque(){
+        return true;
     }
 
     void Muerte(){
@@ -77,12 +92,16 @@ public class ElementalBehaviour : MonoBehaviour
 
     }
 
+    void AcercarseAlJugador(){
+
+    }
+
     void AtacarDistancia(){
 
     }
 
     void Patrullar(){
-
+        ElementalPatrolScript.ActivarPatrullaje();
     }
 
     void LlamarEnemigoMelee(){

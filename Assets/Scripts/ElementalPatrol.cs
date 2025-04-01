@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
-using System;
 
 public class ElementalPatrol : MonoBehaviour
 {
@@ -16,7 +15,7 @@ public class ElementalPatrol : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        SetNewPatrolPoint();
+        enabled = false;
     }
 
     // Update is called once per frame
@@ -30,16 +29,29 @@ public class ElementalPatrol : MonoBehaviour
                 SetNewPatrolPoint();
             }else{
                 Debug.Log("El temporizador aun no ha finalizado");
+                return;
             }
         }
 
-        if (!agent.pathPending && agent.remainingDistance < 1){
+        if (!agent.pathPending && agent.remainingDistance < 1 && !isWaiting){
             isWaiting = true;
             temporizadorEspera = tiempoEspera;
         }
     }
 
+    public void ActivarPatrullaje(){
+        enabled = true;
+        SetNewPatrolPoint();
+    }
     void SetNewPatrolPoint(){
-        
+        Vector3 randomDirection = Random.insideUnitSphere * radioPatrullaje;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(randomDirection, out hit, radioPatrullaje, 1))
+        {
+            puntoPatrullaje = hit.position; 
+            agent.SetDestination(puntoPatrullaje); 
+        }
     }
 }
