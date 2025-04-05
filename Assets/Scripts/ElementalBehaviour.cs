@@ -6,6 +6,8 @@ using UnityEngine;
 public class ElementalBehaviour : MonoBehaviour
 {
     private NavMeshAgent agent;
+    private GameObject jugador;
+    public EnemigoMelee enemigo;
 
     private bool isAlive = true;
     private bool HayEnemigoMeleeCerca = false;
@@ -13,12 +15,15 @@ public class ElementalBehaviour : MonoBehaviour
     private bool HayEnemigoMeleeEnArea = false; 
 
     private ElementalPatrol ElementalPatrolScript;
+    private AsignarTipo AsignadorDeTipos;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         ElementalPatrolScript = GetComponent<ElementalPatrol>();
+        AsignadorDeTipos = GetComponent<AsignarTipo>();
+        jugador = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -77,7 +82,7 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     bool EnemigoTieneTipoElemental(){
-        return true;
+        return enemigo.tieneTipo;
     }
 
     bool JugadorEnRangoDeAtaque(){
@@ -89,11 +94,12 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     void AsignarTipo(){
-
+        AsignadorDeTipos.AsignarTipoElemental(enemigo);
     }
 
     void AcercarseAlJugador(){
-
+        agent.SetDestination(jugador.transform.position);
+        Debug.Log("Moviendose hacia el jugador");
     }
 
     void AtacarDistancia(){
@@ -105,6 +111,6 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     void LlamarEnemigoMelee(){
-
+        enemigo.MoverHaciaElemental(transform.position);
     }
 }

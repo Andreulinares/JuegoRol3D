@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class AsignarTipo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public enum TipoElemental{
+        Fuego,
+        Agua,
+        Tierra,
+        Electricidad
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    
+    public void AsignarTipoElemental(EnemigoMelee enemigo){
+        if (enemigo == null || enemigo.tieneTipo){
+            return;
+        }else{
+            TipoElemental tipoAleatorio = (TipoElemental)Random.Range(0, System.Enum.GetValues(typeof(TipoElemental)).Length);
+            enemigo.ObtenerTipoElemental(tipoAleatorio);
+            Debug.Log("Tipo elemental asignado: " + tipoAleatorio);
+        }
     }
 }
