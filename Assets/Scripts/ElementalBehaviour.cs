@@ -9,6 +9,7 @@ public class ElementalBehaviour : MonoBehaviour
     private GameObject jugador;
     public EnemigoMelee enemigo;
 
+
     private bool isAlive = true;
     private bool HayEnemigoMeleeCerca = false;
     private bool HayJugadorCerca = false;
@@ -79,6 +80,20 @@ public class ElementalBehaviour : MonoBehaviour
 
     bool ComprobarAreaInfluencia(){
         return true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<EnemigoMelee>() == enemigo){
+            Debug.Log("El enemigo específico entró en el área.");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.GetComponent<EnemigoMelee>() == enemigo){
+            Debug.Log("El enemigo específico salio del área.");
+        }
     }
 
     bool EnemigoTieneTipoElemental(){

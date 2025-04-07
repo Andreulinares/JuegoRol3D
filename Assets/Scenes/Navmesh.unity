@@ -829,7 +829,7 @@ Transform:
   m_GameObject: {fileID: 1244028101}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7103015, y: 0.89, z: 2.8536663}
+  m_LocalPosition: {x: -2.01, y: 0.89, z: 2.8536663}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1114,6 +1114,7 @@ GameObject:
   - component: {fileID: 1510340332}
   - component: {fileID: 1510340333}
   - component: {fileID: 1510340334}
+  - component: {fileID: 1510340335}
   m_Layer: 0
   m_Name: Elemental
   m_TagString: Untagged
@@ -1225,7 +1226,7 @@ Transform:
   m_GameObject: {fileID: 1510340325}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7803025, y: 0.99, z: 6.78}
+  m_LocalPosition: {x: 5.3, y: 0.99, z: 0.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1258,6 +1259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemigo: {fileID: 2135833983}
+  radioInfluencia: 5
 --- !u!114 &1510340334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,6 +1272,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4fc3f2f65336bd40ad1c7a7611c030a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &1510340335
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510340325}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1552136413
 GameObject:
   m_ObjectHideFlags: 0
