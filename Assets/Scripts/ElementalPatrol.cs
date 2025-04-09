@@ -41,8 +41,8 @@ public class ElementalPatrol : MonoBehaviour
 
     public void ActivarPatrullaje(){
         enabled = true;
-        SetNewPatrolPoint();
     }
+    
     void SetNewPatrolPoint(){
         Vector3 randomDirection = Random.insideUnitSphere * radioPatrullaje;
         randomDirection += transform.position;

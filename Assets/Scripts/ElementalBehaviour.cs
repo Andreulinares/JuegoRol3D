@@ -17,6 +17,7 @@ public class ElementalBehaviour : MonoBehaviour
 
     private ElementalPatrol ElementalPatrolScript;
     private AsignarTipo AsignadorDeTipos;
+    public MeleeDetection meleeDetection;
 
     // Start is called before the first frame update
     void Start()
@@ -71,31 +72,27 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     bool ComprobarEnemigosMelee(){
-        return true;
+        if (meleeDetection.enemigoDetectado){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     bool ComprobarJugador(){
-        return true;
+        return false;
     }
 
+    //Comprobar si el enemigo esta en el area de influencia
     bool ComprobarAreaInfluencia(){
-        return true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.GetComponent<EnemigoMelee>() == enemigo){
-            Debug.Log("El enemigo específico entró en el área.");
+        if (meleeDetection.enemigoEstaEnAreaInfluencia){
+            return true;
+        }else{
+            return false;
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.GetComponent<EnemigoMelee>() == enemigo){
-            Debug.Log("El enemigo específico salio del área.");
-        }
-    }
-
+    //Comprobar si el enemigo tiene un tipo elemental asignado
     bool EnemigoTieneTipoElemental(){
         return enemigo.tieneTipo;
     }
@@ -108,10 +105,12 @@ public class ElementalBehaviour : MonoBehaviour
 
     }
 
+    //Asignar tipo al enemigo
     void AsignarTipo(){
         AsignadorDeTipos.AsignarTipoElemental(enemigo);
     }
 
+    //Acercarse al jugador para que este en el rango de ataque para atacar a distancia
     void AcercarseAlJugador(){
         agent.SetDestination(jugador.transform.position);
         Debug.Log("Moviendose hacia el jugador");
@@ -121,10 +120,12 @@ public class ElementalBehaviour : MonoBehaviour
 
     }
 
+    //Patrullar
     void Patrullar(){
         ElementalPatrolScript.ActivarPatrullaje();
     }
 
+    //Llamar al enemigo melee para que se acerque al elemental para poder obtener tipo 
     void LlamarEnemigoMelee(){
         enemigo.MoverHaciaElemental(transform.position);
     }
