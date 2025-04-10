@@ -7,6 +7,7 @@ public class MeleeDetection : MonoBehaviour
 
     public bool enemigoDetectado = false;
     public bool enemigoEstaEnAreaInfluencia = false;
+    public bool jugadorDetectado = false;
     // Start is called before the first frame update
     
     private void OnTriggerEnter(Collider other){
@@ -15,6 +16,10 @@ public class MeleeDetection : MonoBehaviour
                 enemigoDetectado = true;
             }else if(gameObject.name == "AreaInfluencia"){
                 enemigoEstaEnAreaInfluencia = true;
+            }
+        }else if (other.CompareTag("Player")){
+            if(gameObject.name == "DetectarJugador"){
+                jugadorDetectado = true;
             }
         }
     }
@@ -26,6 +31,10 @@ public class MeleeDetection : MonoBehaviour
                 enemigoDetectado = false;
             }else if(gameObject.name == "AreaInfluencia"){
                 enemigoEstaEnAreaInfluencia = false;
+            }
+        }else if (other.CompareTag("Player")){
+            if(gameObject.name == "DetectarJugador"){
+                jugadorDetectado = false;
             }
         }
     }

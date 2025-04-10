@@ -80,7 +80,11 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     bool ComprobarJugador(){
-        return false;
+        if (meleeDetection.jugadorDetectado){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     //Comprobar si el enemigo esta en el area de influencia
