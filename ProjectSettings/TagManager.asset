@@ -5,8 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Destination
+<<<<<<< HEAD
   - CinemachineTarget
   - Enemy
+=======
+  - AreaDeteccionMelee
+  - AreaInfluencia
+  - Melee
+>>>>>>> 937c278829a5719c9a106c3d074ebfa5a3979ce3
   layers:
   - Default
   - TransparentFX
