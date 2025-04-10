@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+ using UnityEngine;
+ using UnityEngine.SceneManagement;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -12,9 +13,28 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM 
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
         [Header("Player")]
+        // Referencia al prefab de la esfera
+    public GameObject spherePrefab;
+    public float sphereDistance = 2f;
+    private GameObject currentSphere;
+    
+    // Daño que la esfera causará a los enemigos
+    public float sphereDamage = 10f;
+
+    public int vidaMaxPlayer = 5;
+    public int vidaActualPlayer;
+    private bool _isDead = false;
+    public GameObject deathScreenUI; // <- Asigna este desde el Inspector
+    public enum AttackType { Fire, Water, Electricity, Earth, None }
+    private AttackType currentAttackType = AttackType.None;
+    
+
+
+    // Tiempo de vida de la esfera
+    public float sphereLifetime = 2f;
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
@@ -134,6 +154,7 @@ namespace StarterAssets
 
         private void Start()
         {
+            vidaActualPlayer=vidaMaxPlayer;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -156,6 +177,16 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
+            if (MouseLeftClick())
+            {
+                CreateStaticSphere();
+            }
+            // Actualizar la posición de la esfera para que siga al personaje
+            if (currentSphere != null)
+            {
+                FollowPlayer();
+            }
+
             JumpAndGravity();
             GroundedCheck();
             Move();
@@ -165,6 +196,40 @@ namespace StarterAssets
         {
             CameraRotation();
         }
+         private bool MouseLeftClick()
+        {
+            return Input.GetMouseButtonDown(0); // Detecta el clic izquierdo
+        }
+        private void CreateStaticSphere()
+        {
+            if (currentSphere == null)
+            {
+                // Calculamos la posición delante del personaje
+                Vector3 spawnPosition = transform.position + transform.forward * sphereDistance + transform.up * 1;
+
+                // Instanciamos la esfera en la posición calculada
+                currentSphere = Instantiate(spherePrefab, spawnPosition, Quaternion.identity);
+
+                // Asegurarnos de que el collider sea trigger y no tenga física
+                Collider collider = currentSphere.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    collider.isTrigger = true; // Activar el modo trigger
+                }
+            }
+        }
+        private void FollowPlayer()
+        {
+            // Calculamos la nueva posición de la esfera, frente al jugador
+            Vector3 newPosition = transform.position + transform.forward * sphereDistance + transform.up * 1;
+
+            // Movemos la esfera a esa posición
+            currentSphere.transform.position = newPosition;
+
+            // La esfera siempre debe rotar con el personaje
+            currentSphere.transform.rotation = transform.rotation;
+        }
+
 
         private void AssignAnimationIDs()
         {
@@ -388,5 +453,63 @@ namespace StarterAssets
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
+    
+    private void PerformAttack(AttackType attack)
+    {
+        currentAttackType = attack;
+
+        switch (currentAttackType)
+        {
+            case AttackType.Fire:
+                Debug.Log("Jugador realiza un ataque de Fuego!");
+                break;
+            case AttackType.Water:
+                Debug.Log("Jugador realiza un ataque de Agua!");
+                break;
+            case AttackType.Electricity:
+                Debug.Log("Jugador realiza un ataque de Electricidad!");
+                break;
+            case AttackType.Earth:
+                Debug.Log("Jugador realiza un ataque de Tierra!");
+                break;
+            case AttackType.None:
+                break;
+        }
     }
+    public void TakeDamage(int damage)
+{
+    vidaActualPlayer -= damage;
+
+    if (vidaActualPlayer <= 0 && !_isDead)
+    {
+        Muerto();
+    }
+}
+    public void Muerto()
+{
+    _isDead = true;
+
+    // Desactivar controles
+    _input.move = Vector2.zero;
+    _input.jump = false;
+    _input.sprint = false;
+    _playerInput.enabled = false;
+
+    // Activar animación de muerte
+    if (_hasAnimator)
+    {
+        _animator.SetTrigger("Death"); // Asegúrate de tener este trigger en el Animator
+    }
+
+    // Mostrar UI de muerte
+    if (deathScreenUI != null)
+    {
+        deathScreenUI.SetActive(true);
+    }
+}
+public void RestartGame()
+{
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+}
+}
 }

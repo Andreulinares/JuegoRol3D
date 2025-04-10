@@ -1,36 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class BossAI : MonoBehaviour
 {
+    public GameManager gameManager;
     public Transform player;
     public NavMeshAgent agent;
-    public float attackRangeClose = 2f;
-    public float attackRangeMedium = 5f;
-    public float detectionRange = 10f;
+    public int attackRangeClose = 2;
+    public int attackRangeMedium = 5;
+    public int detectionRange = 10;
     public int PVMax = 100;
     public int PVActual;
-    public float AD = 5f;
-    public float velocidad = 5f;
+    public int AD = 5;
+    public int AS = 5;
     public int fragmentosJugador = 0;
     public bool invencibility = false;
 
-    public bool WaterEffect = true;
-    public bool FireEffect = true;
-    public bool EarthEffect = true;
-    public bool ElectricityEffect = true;
-    
     public enum AttackType { Fire, Water, Electricity, Earth, None }
     private AttackType currentAttackType = AttackType.None;
+    private AttackType debilidadActual = AttackType.None;
 
     private float distanceToPlayer;
     private bool isChasing = false;
+    private bool isInCooldown = false;
+    private bool isApproaching = false;
+    public float cooldownTiempo = 2f;
+    private float cooldownTimer = 0f;
+    public bool muerto = false;
 
     private void Start()
     {
-        PVActual=PVMax;
+        PVActual = PVMax;
         if (agent == null)
         {
             agent = GetComponent<NavMeshAgent>();
@@ -39,7 +42,39 @@ public class BossAI : MonoBehaviour
 
     private void Update()
     {
+        if (muerto ==true)
+        {
+            return;
+        }
+        if (PVActual == 0)
+        {
+            Muerte();
+            return;
+        }
+
+        fragmentosJugador=gameManager.fragmentosRecolectados;
+
+        // Manejo del cooldown
+        if (isInCooldown)
+        {
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0f)
+            {
+                isInCooldown = false;
+                agent.isStopped = false;
+                debilidadActual = AttackType.None;
+                invencibility=false;
+                AD=5;
+                AS=5;
+            }
+        }
+
         distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (isApproaching && distanceToPlayer <= attackRangeClose)
+        {
+            isApproaching = false;
+        }
 
         if (distanceToPlayer <= detectionRange)
         {
@@ -52,7 +87,7 @@ public class BossAI : MonoBehaviour
             Patrol();
         }
 
-        if (isChasing)
+        if (isChasing && !isInCooldown && !isApproaching)
         {
             if (distanceToPlayer <= attackRangeMedium && distanceToPlayer > attackRangeClose)
             {
@@ -65,14 +100,20 @@ public class BossAI : MonoBehaviour
         }
     }
 
+    private void StartCooldown()
+    {
+        isInCooldown = true;
+        cooldownTimer = cooldownTiempo;
+        agent.isStopped = true;
+    }
 
     public void ActualizarFragmentos(int cantidad)
     {
         fragmentosJugador = Mathf.Clamp(cantidad, 0, 4); // máximo 4 fragmentos
     }
+
     private void Patrol()
     {
-        // Lógica de patrullaje (puedes agregar puntos de patrullaje si es necesario)
         agent.SetDestination(transform.position + transform.forward);
     }
 
@@ -81,12 +122,17 @@ public class BossAI : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
-    public void IntentarHacerDanio(int pega)
+    public void TakeDamage(int pega, AttackType tipoAtaque)
     {
         int vidaVulnerable = fragmentosJugador * 25;
         int vidaMinimaPermitida = PVMax - vidaVulnerable;
 
-        // Solo permite bajar la vida hasta el mínimo permitido
+        if (tipoAtaque == debilidadActual)
+        {
+            pega += 4;
+            Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del boss.");
+        }
+
         int nuevaVida = Mathf.Max(PVActual - pega, vidaMinimaPermitida);
 
         int pegaReal = PVActual - nuevaVida;
@@ -97,41 +143,41 @@ public class BossAI : MonoBehaviour
 
     private void AttackMediumRange()
     {
-        int attackChoice = Random.Range(0, 3); // 0 = primer ataque, 1 = segundo ataque, 2 = acercarse
+        int attackChoice = Random.Range(0, 3);
         switch (attackChoice)
         {
             case 0:
-                // Realizar el primer ataque a media distancia
-                if (ElectricityEffect==true){
-                    //Poner corazon Amarillo, hacer debil a la roca
-                    velocidad = velocidad +3;
-                    //Activar animacion con Electricidad
+                if (gameManager.ElectricityEffect==true)
+                {
+                    debilidadActual = AttackType.Earth;
+                    AS += 3;
                     PerformAttack(AttackType.Electricity);
+                    StartCooldown();
                 }
-                else{
-                    //Poner corazon Amarillo, hacer debil a la roca
-                    //Activar animacion sin Electricidad
+                else
+                {
+                    debilidadActual = AttackType.Earth;
                     PerformAttack(AttackType.Electricity);
+                    StartCooldown();
                 }
-                
                 break;
             case 1:
-                // Realizar el segundo ataque a media distancia
-                if(EarthEffect==true){
-                    //Poner corazon marrón, hacer debil al fuego
+                if (gameManager.EarthEffect==true)
+                {
+                    debilidadActual = AttackType.Fire;
                     invencibility = true;
-                    //Activar animacion con Roca
                     PerformAttack(AttackType.Earth);
+                    StartCooldown();
                 }
-                
-                else{
-                    //Poner corazon marrón, hacer debil al fuego
-                    //Activar animacion sin Roca
+                else
+                {
+                    debilidadActual = AttackType.Fire;
                     PerformAttack(AttackType.Earth);
+                    StartCooldown();
                 }
                 break;
             case 2:
-                // Acercarse al jugador
+                isApproaching = true;
                 agent.SetDestination(player.position);
                 break;
         }
@@ -139,42 +185,38 @@ public class BossAI : MonoBehaviour
 
     private void AttackCloseRange()
     {
-        int attackChoice = Random.Range(0, 2); // 0 = primer ataque, 1 = segundo ataque
+        int attackChoice = Random.Range(0, 2);
         switch (attackChoice)
         {
             case 0:
-                // Realizar el primer ataque a corta distancia
-                if(FireEffect==true){
-                    //Poner corazon rojo, hacer debil al agua
-                    AD = AD + 3f;
-                    //Activar animacion con fuego
+                if (gameManager.FireEffect==true)
+                {
+                    debilidadActual = AttackType.Water;
+                    AD += 3;
                     PerformAttack(AttackType.Fire);
+                    StartCooldown();
                 }
-                else{
-                    //Poner corazon rojo, hacer debil al agua
-                    //Activar animacion sin fuego
+                else
+                {
+                    debilidadActual = AttackType.Water;
                     PerformAttack(AttackType.Fire);
+                    StartCooldown();
                 }
                 break;
             case 1:
-                // Realizar el segundo ataque a corta distancia
-                if(WaterEffect==true){
-                    //Poner corazon azul, hacer debil a la electricidad
-                    //Activar aniamcion con agua
+                if (gameManager.WaterEffect==true)
+                {
+                    debilidadActual = AttackType.Electricity;
                     PerformAttack(AttackType.Water);
-                    if(PVActual<=85){
-                        PVActual=PVActual+15;
-                    }
-                    else if(PVActual>=86){
-                        PVActual=100;
-                    }
+                    PVActual = Mathf.Min(PVActual + 15, PVMax);
+                    StartCooldown();
                 }
-                else{
-                    //Poner corazon azul, hacer debil a la electricidad
-                    //Activar aniamcion sin agua
+                else
+                {
+                    debilidadActual = AttackType.Electricity;
                     PerformAttack(AttackType.Water);
+                    StartCooldown();
                 }
-                
                 break;
         }
     }
@@ -187,22 +229,37 @@ public class BossAI : MonoBehaviour
         {
             case AttackType.Fire:
                 Debug.Log("Boss realiza un ataque de Fuego!");
-                // Implementa el ataque de Fuego aquí
                 break;
             case AttackType.Water:
                 Debug.Log("Boss realiza un ataque de Agua!");
-                // Implementa el ataque de Agua aquí
                 break;
             case AttackType.Electricity:
                 Debug.Log("Boss realiza un ataque de Electricidad!");
-                // Implementa el ataque de Electricidad aquí
                 break;
             case AttackType.Earth:
                 Debug.Log("Boss realiza un ataque de Tierra!");
-                // Implementa el ataque de Tierra aquí
                 break;
             case AttackType.None:
                 break;
         }
     }
+
+    private void Muerte()
+    {
+        agent.isStopped = true;
+        agent.enabled = false;
+        muerto=true;
+
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
+
+        //animator.SetTrigger("Muerte");
+        //animator.speed = 0f;
+        GameManager.Instance.CambiarEscena("FinalScene");
+        GameManager.Instance.BossDerrotado();
+    }
 }
+
