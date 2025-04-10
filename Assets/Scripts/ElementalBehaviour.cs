@@ -74,6 +74,7 @@ public class ElementalBehaviour : MonoBehaviour
         }
     }
 
+    //Comprobar si el enemigo melee esta en el area de deteccion
     bool ComprobarEnemigosMelee(){
         if (meleeDetection.enemigoDetectado){
             return true;
@@ -82,6 +83,7 @@ public class ElementalBehaviour : MonoBehaviour
         }
     }
 
+    //Comprobar si el jugador esta en el area de deteccion
     bool ComprobarJugador(){
         if (meleeDetection.jugadorDetectado){
             return true;
