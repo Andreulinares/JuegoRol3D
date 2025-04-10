@@ -25,6 +25,7 @@ public class ElementalBehaviour : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         ElementalPatrolScript = GetComponent<ElementalPatrol>();
         AsignadorDeTipos = GetComponent<AsignarTipo>();
+        meleeDetection = GetComponent<MeleeDetection>();
         jugador = GameObject.FindWithTag("Player");
     }
 
@@ -41,6 +42,7 @@ public class ElementalBehaviour : MonoBehaviour
 
         if (HayEnemigoMeleeCerca)
         {
+            agent.isStopped = true;
             HayEnemigoMeleeEnArea = ComprobarAreaInfluencia();
             if (!HayEnemigoMeleeEnArea){
                 LlamarEnemigoMelee();
@@ -67,6 +69,7 @@ public class ElementalBehaviour : MonoBehaviour
         }
         else
         {
+            agent.isStopped = false;
             Patrullar();
         }
     }
