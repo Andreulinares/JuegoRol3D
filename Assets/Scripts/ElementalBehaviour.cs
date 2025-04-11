@@ -17,7 +17,7 @@ public class ElementalBehaviour : MonoBehaviour
 
     private ElementalPatrol ElementalPatrolScript;
     private AsignarTipo AsignadorDeTipos;
-    public MeleeDetection meleeDetection;
+    private MeleeDetection meleeDetection;
 
     // Start is called before the first frame update
     void Start()
@@ -136,6 +136,7 @@ public class ElementalBehaviour : MonoBehaviour
 
     //Llamar al enemigo melee para que se acerque al elemental para poder obtener tipo 
     void LlamarEnemigoMelee(){
-        enemigo.MoverHaciaElemental(transform.position);
+        enemigo.Llamada(transform);
+        Debug.Log("Llamando al enemigo melee para que se acerque.");
     }
 }

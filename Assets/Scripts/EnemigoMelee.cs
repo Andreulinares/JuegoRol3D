@@ -6,8 +6,13 @@ using UnityEngine;
 public class EnemigoMelee : MonoBehaviour
 {
     public bool tieneTipo = false; 
+    private bool transformado = false;
+    private bool EstoySiendoLlamado = false;
+    private bool isAlive = true;
+    private bool EstoyConvertido = false;
+    private bool EstoyEnAreaInfluencia = false;
     public AsignarTipo.TipoElemental tipoActual;
-    public ElementalBehaviour enemigoElemental;
+    public Transform enemigoElemental;
 
     private NavMeshAgent agent;
     // Start is called before the first frame update
@@ -19,28 +24,22 @@ public class EnemigoMelee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (!isAlive){
+        if (!isAlive){
             Muerte();
         }else{
             EstoyConvertido = ComprobarConversion();
         }
 
         if (!EstoyConvertido){
-            EstoySiendoLlamado = ComprobarLlamada();
-
             if(EstoySiendoLlamado){
                 EstoyEnAreaInfluencia = ComprobarAreaConversion();
                 if(EstoyEnAreaInfluencia){
-                    if (!tieneTipo){
-                        ObtenerTipoElemental((AsignarTipo.TipoElemental)Random.Range(0, System.Enum.GetValues(typeof(AsignarTipo.TipoElemental)).Length));
-                    }else{
-                        AplicarTransformacion();
-                    }
+                    AplicarTransformacion();
                 }else{
-                    
+                    MoverHaciaElemental(enemigoElemental.position);
                 }
             }
-        }*/
+        }
     }
 
     public void ObtenerTipoElemental(AsignarTipo.TipoElemental tipo)
@@ -48,29 +47,35 @@ public class EnemigoMelee : MonoBehaviour
         tipoActual = tipo;
         tieneTipo = true;
 
-        // Aquí puedes añadir efectos visuales, cambios de color, partículas, etc.
         Debug.Log("Enemigo melee ha recibido tipo elemental: " + tipo);
     }
 
     void AplicarTransformacion()
-{
-    switch (tipoActual)
     {
-        case AsignarTipo.TipoElemental.Fuego:
-            GetComponent<Renderer>().material.color = Color.red;
-            break;
-        case AsignarTipo.TipoElemental.Agua:
-            GetComponent<Renderer>().material.color = Color.blue;
-            break;
-        case AsignarTipo.TipoElemental.Tierra:
-            GetComponent<Renderer>().material.color = Color.green;
-            break;
-        case AsignarTipo.TipoElemental.Electricidad:
-            GetComponent<Renderer>().material.color = Color.yellow;
-            break;
+        transformado = true;
+
+        switch (tipoActual)
+        {
+            case AsignarTipo.TipoElemental.Fuego:
+                GetComponent<Renderer>().material.color = Color.red;
+                break;
+            case AsignarTipo.TipoElemental.Agua:
+                GetComponent<Renderer>().material.color = Color.blue;
+                break;
+            case AsignarTipo.TipoElemental.Tierra:
+                GetComponent<Renderer>().material.color = Color.green;
+                break;
+            case AsignarTipo.TipoElemental.Electricidad:
+                GetComponent<Renderer>().material.color = Color.yellow;
+                break;
+        }
+        Debug.Log("Transformación aplicada correctamente");
     }
-    Debug.Log("Transformación aplicada: " + tipoActual);
-}
+
+    public void Llamada(Transform elemental){
+        enemigoElemental = elemental;
+        EstoySiendoLlamado = true;
+    }
 
     public void MoverHaciaElemental(Vector3 enemigoElemental)
     {
@@ -79,5 +84,17 @@ public class EnemigoMelee : MonoBehaviour
             agent.SetDestination(enemigoElemental);
             Debug.Log("Enemigo melee se está moviendo hacia el elemental");
         }
+    }
+
+    void Muerte(){
+
+    }
+
+    bool ComprobarConversion(){
+        return false;
+    }
+
+    bool ComprobarAreaConversion(){
+        return false;
     }
 }
