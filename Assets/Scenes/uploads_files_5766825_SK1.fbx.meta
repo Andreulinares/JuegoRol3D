@@ -1,0 +1,195 @@
+fileFormatVersion: 2
+guid: dbd60b50aa4ab9c49b82f9a4dad22291
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Hips' not found\n"
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: uploads_files_5766825_SK1(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Area
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 5.108289, y: 5.9607325, z: -1.0012145}
+      rotation: {x: 0.50715816, y: 0.13366926, z: -0.8377266, w: 0.1521096}
+      scale: {x: 977.98206, y: 977.9821, z: 977.9821}
+    - name: Area.001
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: -4.6408825, y: 3.9948528, z: 9.112696}
+      rotation: {x: 0.95777893, y: 0.090560555, z: 0.25196907, w: 0.10473743}
+      scale: {x: 977.98206, y: 977.9822, z: 977.9822}
+    - name: Arms & Legs
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 0.04496932, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 61.98773, y: 61.98773, z: 61.98773}
+    - name: Camera
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: -6.0852804, y: 0.89881337, z: 4.4265676}
+      rotation: {x: -0.011997327, y: 0.8978092, z: 0.024506696, w: 0.43953863}
+      scale: {x: 100, y: 99.99999, z: 100}
+    - name: Feets
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 0.04496932, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 61.98773, y: 61.98773, z: 61.98773}
+    - name: Hands
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 0.04496932, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 61.98773, y: 61.98773, z: 61.98773}
+    - name: Jaw
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 1.7670343, z: 0.01828629}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 21.795265, y: 25.198614, z: 21.795265}
+    - name: RibCage
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 1.4470406, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 25.933313, y: 25.933313, z: 25.933313}
+    - name: Shin
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 0.04496932, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 61.98773, y: 61.98773, z: 61.98773}
+    - name: Shoulders
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 0.04496932, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 61.98773, y: 61.98773, z: 61.98773}
+    - name: Skirt
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 1.0694456, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 24.57457, y: 24.57457, z: 6.2342587}
+    - name: Skull
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 2.087228, z: 0.01828629}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 20.645163, y: 23.868921, z: 20.645163}
+    - name: Sphere
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 2.2262344, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 36.612164, y: 36.612164, z: 36.612164}
+    - name: Spine
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 1.0242729, z: -0.19041292}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 6.305597, y: 6.305597, z: 6.305597}
+    - name: Sword
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: -0.93095607, y: 0.581743, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 8.2582245, y: 8.2582245, z: 8.2582245}
+    - name: forearms
+      parentName: uploads_files_5766825_SK1(Clone)
+      position: {x: 0.0014841557, y: 0.04496932, z: -0.006357175}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 61.98773, y: 61.98773, z: 61.98773}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
