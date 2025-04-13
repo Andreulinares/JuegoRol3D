@@ -42,7 +42,6 @@ public class ElementalBehaviour : MonoBehaviour
 
         if (HayEnemigoMeleeCerca)
         {
-            agent.isStopped = true;
             HayEnemigoMeleeEnArea = ComprobarAreaInfluencia();
             if (!HayEnemigoMeleeEnArea){
                 LlamarEnemigoMelee();
@@ -69,7 +68,6 @@ public class ElementalBehaviour : MonoBehaviour
         }
         else
         {
-            agent.isStopped = false;
             Patrullar();
         }
     }

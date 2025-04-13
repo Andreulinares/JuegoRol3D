@@ -10,6 +10,7 @@ public class EnemigoMelee : MonoBehaviour
     private bool EstoySiendoLlamado = false;
     private bool isAlive = true;
     private bool EstoyConvertido = false;
+    private bool EstoyViendoJugador = false;
     private bool EstoyEnAreaInfluencia = false;
     public AsignarTipo.TipoElemental tipoActual;
     public Transform enemigoElemental;
@@ -28,6 +29,7 @@ public class EnemigoMelee : MonoBehaviour
             Muerte();
         }else{
             EstoyConvertido = ComprobarConversion();
+            EstoyViendoJugador = ComprobarDeteccionJugador();
         }
 
         if (!EstoyConvertido){
@@ -38,7 +40,25 @@ public class EnemigoMelee : MonoBehaviour
                 }else{
                     MoverHaciaElemental(enemigoElemental.position);
                 }
+            }else{
+                if(EstoyViendoJugador){
+                    if(JugadorEnRangoDeAtaque()){
+                        Atacar();
+                    }else{
+                        AcercarseAlJugador();
+                    }
+                }
             }
+        }else if(EstoyConvertido){
+            if(EstoyViendoJugador){
+                if(JugadorEnRangoDeAtaque()){
+                    Atacar();
+                }else{
+                    AcercarseAlJugador();
+                }
+            }
+        }else{
+            Patrullar();
         }
     }
 
@@ -86,15 +106,35 @@ public class EnemigoMelee : MonoBehaviour
         }
     }
 
-    void Muerte(){
-
-    }
-
     bool ComprobarConversion(){
-        return false;
+        return transformado;
     }
 
     bool ComprobarAreaConversion(){
         return false;
+    }
+
+    bool ComprobarDeteccionJugador(){
+        return false;
+    }
+
+    bool JugadorEnRangoDeAtaque(){
+        return true;
+    }
+
+    void Muerte(){
+
+    }
+
+    void AcercarseAlJugador(){
+        
+    }
+
+    void Atacar(){
+        
+    }
+
+    void Patrullar(){
+        
     }
 }
