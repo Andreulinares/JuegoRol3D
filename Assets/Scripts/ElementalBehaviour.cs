@@ -9,11 +9,17 @@ public class ElementalBehaviour : MonoBehaviour
     private GameObject jugador;
     public EnemigoMelee enemigo;
 
+    public GameObject proyectil;
+    public Transform puntoDisparo;
+    public float velocidadProyectil = 20f;
+
 
     private bool isAlive = true;
     private bool HayEnemigoMeleeCerca = false;
     private bool HayJugadorCerca = false;
     private bool HayEnemigoMeleeEnArea = false; 
+
+    public float rangoDeAtaque = 10f;
 
     private ElementalPatrol ElementalPatrolScript;
     private AsignarTipo AsignadorDeTipos;
@@ -105,7 +111,8 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     bool JugadorEnRangoDeAtaque(){
-        return true;
+        float distancia = Vector3.Distance(transform.position, jugador.transform.position);
+        return distancia <= rangoDeAtaque;
     }
 
     void Muerte(){
@@ -124,7 +131,15 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     void AtacarDistancia(){
+        if (proyectil != null && puntoDisparo != null){
+            GameObject nuevoProyectil = Instantiate(proyectil, puntoDisparo.position, puntoDisparo.rotation); 
 
+            Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
+            if(rb != null){
+                Vector3 direccion = jugador.transform.position - puntoDisparo.position;
+                rb.velocity = direccion * velocidadProyectil;
+            }
+        }
     }
 
     //Patrullar
