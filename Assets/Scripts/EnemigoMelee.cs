@@ -12,14 +12,21 @@ public class EnemigoMelee : MonoBehaviour
     private bool EstoyConvertido = false;
     private bool EstoyViendoJugador = false;
     private bool EstoyEnAreaInfluencia = false;
+
+    private bool EstoyDentro = false; 
     public AsignarTipo.TipoElemental tipoActual;
     public Transform enemigoElemental;
 
     private NavMeshAgent agent;
+    private GameObject jugador;
+
+    private MeleePatrol PatrolMelee;
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        PatrolMelee = GetComponent<MeleePatrol>();
+        jugador = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -110,8 +117,13 @@ public class EnemigoMelee : MonoBehaviour
         return transformado;
     }
 
+    public void NotificarEstadoArea(bool estaEnArea)
+{
+    EstoyDentro = estaEnArea;
+}
+
     bool ComprobarAreaConversion(){
-        return false;
+        return EstoyDentro;
     }
 
     bool ComprobarDeteccionJugador(){
@@ -127,7 +139,8 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     void AcercarseAlJugador(){
-        
+        agent.SetDestination(jugador.transform.position);
+        Debug.Log("Moviendose hacia el jugador");
     }
 
     void Atacar(){
@@ -135,6 +148,6 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     void Patrullar(){
-        
+        PatrolMelee.ActivarPatrullaje();
     }
 }

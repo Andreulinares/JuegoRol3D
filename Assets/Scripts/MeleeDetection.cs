@@ -17,6 +17,7 @@ public class MeleeDetection : MonoBehaviour
                 Debug.Log("Melee detectado");
             }else if(gameObject.name == "AreaInfluencia"){
                 enemigoEstaEnAreaInfluencia = true;
+                other.GetComponent<EnemigoMelee>().NotificarEstadoArea(true);
                 Debug.Log("El melee esta en la area de influencia");
             }
         }else if (other.CompareTag("Player")){
@@ -35,6 +36,7 @@ public class MeleeDetection : MonoBehaviour
                 Debug.Log("No detecto ningun enemigo melee");
             }else if(gameObject.name == "AreaInfluencia"){
                 enemigoEstaEnAreaInfluencia = false;
+                other.GetComponent<EnemigoMelee>().NotificarEstadoArea(false);
                 Debug.Log("El melee ya no esta en el area de influencia");
             }
         }else if (other.CompareTag("Player")){
