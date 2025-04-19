@@ -44,37 +44,35 @@ public class ElementalBehaviour : MonoBehaviour
         }else{
             HayEnemigoMeleeCerca = ComprobarEnemigosMelee();
             HayJugadorCerca = ComprobarJugador();
-        }
 
-        if (HayEnemigoMeleeCerca)
-        {
-            HayEnemigoMeleeEnArea = ComprobarAreaInfluencia();
-            if (!HayEnemigoMeleeEnArea){
-                LlamarEnemigoMelee();
-            } else{
+            if (HayEnemigoMeleeCerca)
+            {
+                HayEnemigoMeleeEnArea = ComprobarAreaInfluencia();
+                if (!HayEnemigoMeleeEnArea){
+                    LlamarEnemigoMelee();
+                } else{
 
-                if(!EnemigoTieneTipoElemental()){
-                    AsignarTipo();
-                } else if(HayJugadorCerca){
-                    if (JugadorEnRangoDeAtaque()){
-                        AtacarDistancia();
+                    if(!EnemigoTieneTipoElemental()){
+                        AsignarTipo();
+                    } else if(HayJugadorCerca){
+                        if (JugadorEnRangoDeAtaque()){
+                            AtacarDistancia();
+                        }else{
+                            AcercarseAlJugador();
+                        }
                     }else{
-                        AcercarseAlJugador();
+                        Patrullar();
                     }
                 }
-            }
-        }
-        else if (HayJugadorCerca)
-        {
-            if (JugadorEnRangoDeAtaque()){
+            } else if (HayJugadorCerca){
+                if (JugadorEnRangoDeAtaque()){
                 AtacarDistancia();
+                }else{
+                    AcercarseAlJugador();
+                }
             }else{
-                AcercarseAlJugador();
+                Patrullar();
             }
-        }
-        else
-        {
-            Patrullar();
         }
     }
 

@@ -14,6 +14,10 @@ public class EnemigoMelee : MonoBehaviour
     private bool EstoyEnAreaInfluencia = false;
 
     private bool EstoyDentro = false; 
+    public bool jugadorDetectado = false;
+
+    public float rangoDeAtaque = 2.5f;
+
     public AsignarTipo.TipoElemental tipoActual;
     public Transform enemigoElemental;
 
@@ -37,38 +41,40 @@ public class EnemigoMelee : MonoBehaviour
         }else{
             EstoyConvertido = ComprobarConversion();
             EstoyViendoJugador = ComprobarDeteccionJugador();
-        }
 
-        if (!EstoyConvertido){
-            if(EstoySiendoLlamado){
-                EstoyEnAreaInfluencia = ComprobarAreaConversion();
-                if(EstoyEnAreaInfluencia){
-                    AplicarTransformacion();
+            if (!EstoyConvertido){
+                if(EstoySiendoLlamado){
+                    EstoyEnAreaInfluencia = ComprobarAreaConversion();
+                    if(EstoyEnAreaInfluencia){
+                        AplicarTransformacion();
+                    }else{
+                        MoverHaciaElemental(enemigoElemental.position);
+                    }
                 }else{
-                    MoverHaciaElemental(enemigoElemental.position);
+                    if(EstoyViendoJugador){
+                        if(JugadorEnRangoDeAtaque()){
+                            Atacar();
+                        }else{
+                            AcercarseAlJugador();
+                        }
+                    }else{
+                        Patrullar();
+                    }
                 }
-            }else{
+            }else if(EstoyConvertido){
                 if(EstoyViendoJugador){
                     if(JugadorEnRangoDeAtaque()){
                         Atacar();
                     }else{
                         AcercarseAlJugador();
                     }
-                }
-            }
-        }else if(EstoyConvertido){
-            if(EstoyViendoJugador){
-                if(JugadorEnRangoDeAtaque()){
-                    Atacar();
                 }else{
-                    AcercarseAlJugador();
+                    Patrullar(); 
                 }
             }
-        }else{
-            Patrullar();
         }
     }
-
+    
     public void ObtenerTipoElemental(AsignarTipo.TipoElemental tipo)
     {
         tipoActual = tipo;
@@ -113,25 +119,42 @@ public class EnemigoMelee : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other){
+        if(other.CompareTag("Player")){
+            if(gameObject.name == "DetectarJugador"){
+                jugadorDetectado = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other){
+        if(other.CompareTag("Player")){
+            if(gameObject.name == "DetectarJugador"){
+                jugadorDetectado = false;
+            }
+        }
+    }
+
     bool ComprobarConversion(){
         return transformado;
     }
 
     public void NotificarEstadoArea(bool estaEnArea)
-{
-    EstoyDentro = estaEnArea;
-}
+    {
+        EstoyDentro = estaEnArea;
+    }
 
     bool ComprobarAreaConversion(){
         return EstoyDentro;
     }
 
     bool ComprobarDeteccionJugador(){
-        return false;
+        return jugadorDetectado;
     }
 
     bool JugadorEnRangoDeAtaque(){
-        return true;
+        float distancia = Vector3.Distance(transform.position, jugador.transform.position);
+        return distancia <= rangoDeAtaque;
     }
 
     void Muerte(){
@@ -144,7 +167,7 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     void Atacar(){
-        
+        //Atacando al jugador
     }
 
     void Patrullar(){
