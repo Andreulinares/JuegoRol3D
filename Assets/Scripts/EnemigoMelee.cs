@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemigoMelee : MonoBehaviour
 {
     public bool tieneTipo = false; 
-    private bool transformado = false;
+    private bool transformado = true;
     private bool EstoySiendoLlamado = false;
     private bool isAlive = true;
     private bool EstoyConvertido = false;
@@ -14,7 +14,6 @@ public class EnemigoMelee : MonoBehaviour
     private bool EstoyEnAreaInfluencia = false;
 
     private bool EstoyDentro = false; 
-    public bool jugadorDetectado = false;
 
     public float rangoDeAtaque = 2.5f;
 
@@ -25,12 +24,14 @@ public class EnemigoMelee : MonoBehaviour
     private GameObject jugador;
 
     private MeleePatrol PatrolMelee;
+    private PlayerDetection playerDetection;
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         PatrolMelee = GetComponent<MeleePatrol>();
         jugador = GameObject.FindWithTag("Player");
+        playerDetection = GetComponentInChildren<PlayerDetection>();
     }
 
     // Update is called once per frame
@@ -119,22 +120,6 @@ public class EnemigoMelee : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other){
-        if(other.CompareTag("Player")){
-            if(gameObject.name == "DetectarJugador"){
-                jugadorDetectado = true;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other){
-        if(other.CompareTag("Player")){
-            if(gameObject.name == "DetectarJugador"){
-                jugadorDetectado = false;
-            }
-        }
-    }
-
     bool ComprobarConversion(){
         return transformado;
     }
@@ -149,7 +134,11 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     bool ComprobarDeteccionJugador(){
-        return jugadorDetectado;
+        if (playerDetection.jugadorDetectado){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     bool JugadorEnRangoDeAtaque(){
@@ -168,6 +157,7 @@ public class EnemigoMelee : MonoBehaviour
 
     void Atacar(){
         //Atacando al jugador
+        Debug.Log("Golpeando al jugador");
     }
 
     void Patrullar(){

@@ -6,9 +6,8 @@ using UnityEngine;
 public class GhostMeleeRunner : MonoBehaviour
 {
     public Transform CentroPatrullaje;
-    public float radio = 15f;
-    public float esperaEntreMovimientos = 2f;
-    private float temporizador = 0f;
+    public float radio = 10f;
+    public float cambioDistancia = 1f;
     private NavMeshAgent agent;
     // Start is called before the first frame update
     void Start()
@@ -22,14 +21,9 @@ public class GhostMeleeRunner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (!agent.pathPending && agent.remainingDistance <= cambioDistancia)
         {
-            temporizador += Time.deltaTime;
-            if (temporizador >= esperaEntreMovimientos)
-            {
-                MoverANuevoPunto();
-                temporizador = 0f;
-            }
+            MoverANuevoPunto();
         }
     }
 
@@ -44,10 +38,10 @@ public class GhostMeleeRunner : MonoBehaviour
 
     bool PuntoAleatorio(Vector3 centro, float radio, out Vector3 resultado)
     {
-        for (int i = 0; i < 30; i++) // intentar varias veces si hace falta
+        for (int i = 0; i < 20; i++) 
         {
             Vector3 randomPos = centro + Random.insideUnitSphere * radio;
-            randomPos.y = centro.y; // mantener altura
+            randomPos.y = centro.y; 
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomPos, out hit, 2f, NavMesh.AllAreas))
             {
