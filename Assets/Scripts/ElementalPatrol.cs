@@ -27,4 +27,9 @@ public class ElementalPatrol : MonoBehaviour
     {
         enabled = true;
     }
+
+    public void DesactivarPatrullaje(){
+        enabled = false;
+        agent.ResetPath();
+    }
 }

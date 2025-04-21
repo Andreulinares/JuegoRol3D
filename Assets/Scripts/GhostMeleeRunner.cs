@@ -52,4 +52,8 @@ public class GhostMeleeRunner : MonoBehaviour
         resultado = Vector3.zero;
         return false;
     }
+
+    public void Detener(){
+        agent.ResetPath();
+    }
 }

@@ -55,6 +55,7 @@ public class ElementalBehaviour : MonoBehaviour
                     if(!EnemigoTieneTipoElemental()){
                         AsignarTipo();
                     } else if(HayJugadorCerca){
+                        DetenerPatrullaje();
                         if (JugadorEnRangoDeAtaque()){
                             AtacarDistancia();
                         }else{
@@ -65,6 +66,7 @@ public class ElementalBehaviour : MonoBehaviour
                     }
                 }
             } else if (HayJugadorCerca){
+                DetenerPatrullaje();
                 if (JugadorEnRangoDeAtaque()){
                 AtacarDistancia();
                 }else{
@@ -143,6 +145,12 @@ public class ElementalBehaviour : MonoBehaviour
     //Patrullar
     void Patrullar(){
         ElementalPatrolScript.ActivarPatrullaje();
+    }
+
+    void DetenerPatrullaje(){
+        ElementalPatrolScript.DesactivarPatrullaje();
+
+        ElementalPatrolScript.ghost.GetComponent<GhostRunner>().Detener();
     }
 
     //Llamar al enemigo melee para que se acerque al elemental para poder obtener tipo 

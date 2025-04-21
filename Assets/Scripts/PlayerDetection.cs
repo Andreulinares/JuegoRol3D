@@ -8,18 +8,14 @@ public class PlayerDetection : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other){
         if(other.CompareTag("Player")){
-            if(gameObject.name == "DetectarJugador"){
                 jugadorDetectado = true;
                 Debug.Log("Jugador detectado");
-            }
         }
     }
 
     private void OnTriggerExit(Collider other){
         if(other.CompareTag("Player")){
-            if(gameObject.name == "DetectarJugador"){
                 jugadorDetectado = false;
-            }
         }
     }
 }

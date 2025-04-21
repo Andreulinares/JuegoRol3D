@@ -53,6 +53,7 @@ public class EnemigoMelee : MonoBehaviour
                     }
                 }else{
                     if(EstoyViendoJugador){
+                        DetenerPatrullaje();
                         if(JugadorEnRangoDeAtaque()){
                             Atacar();
                         }else{
@@ -64,6 +65,7 @@ public class EnemigoMelee : MonoBehaviour
                 }
             }else if(EstoyConvertido){
                 if(EstoyViendoJugador){
+                    DetenerPatrullaje();
                     if(JugadorEnRangoDeAtaque()){
                         Atacar();
                     }else{
@@ -162,5 +164,11 @@ public class EnemigoMelee : MonoBehaviour
 
     void Patrullar(){
         PatrolMelee.ActivarPatrullaje();
+    }
+
+    void DetenerPatrullaje(){
+        PatrolMelee.DesactivarPatrullaje();
+
+        PatrolMelee.ghost.GetComponent<GhostMeleeRunner>().Detener();
     }
 }
