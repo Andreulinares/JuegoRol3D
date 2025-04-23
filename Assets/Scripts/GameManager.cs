@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     // Jugador
     public PlayerController jugador;
+    public bool jugadorMelee=true;
 
     // Eventos globales
     public UnityEvent onFragmentoRecolectado;
