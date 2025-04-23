@@ -9,15 +9,26 @@ public class ElementalBehaviour : MonoBehaviour
     private GameObject jugador;
     public EnemigoMelee enemigo;
 
+    public GameObject proyectil;
+    public Transform puntoDisparo;
+    public float velocidadProyectil = 20f;
+    public float cooldownDisparo = 1.5f;
+    private float cooldownUltimoDisparo = 0f;
+
 
     private bool isAlive = true;
-    private bool HayEnemigoMeleeCerca = false;
+    /*private bool HayEnemigoMeleeCerca = false;
     private bool HayJugadorCerca = false;
-    private bool HayEnemigoMeleeEnArea = false; 
+    private bool HayEnemigoMeleeEnArea = false; */
+
+    public bool enemigoDetectado = false;
+    public bool enemigoEstaEnAreaInfluencia = false;
+    public bool jugadorDetectado = false;
+
+    public float rangoDeAtaque = 10f;
 
     private ElementalPatrol ElementalPatrolScript;
     private AsignarTipo AsignadorDeTipos;
-    public MeleeDetection meleeDetection;
 
     // Start is called before the first frame update
     void Start()
@@ -35,65 +46,58 @@ public class ElementalBehaviour : MonoBehaviour
         {
             Muerte();
         }else{
-            HayEnemigoMeleeCerca = ComprobarEnemigosMelee();
-            HayJugadorCerca = ComprobarJugador();
-        }
+            /*HayEnemigoMeleeCerca = ComprobarEnemigosMelee();
+            HayJugadorCerca = ComprobarJugador();*/
 
-        if (HayEnemigoMeleeCerca)
-        {
-            HayEnemigoMeleeEnArea = ComprobarAreaInfluencia();
-            if (!HayEnemigoMeleeEnArea){
-                LlamarEnemigoMelee();
-            } else{
+            if (enemigoDetectado)
+            {
+                //HayEnemigoMeleeEnArea = ComprobarAreaInfluencia();
+                if (!enemigoEstaEnAreaInfluencia){
+                    LlamarEnemigoMelee();
+                } else{
 
-                if(!EnemigoTieneTipoElemental()){
-                    AsignarTipo();
-                } else if(HayJugadorCerca){
-                    if (JugadorEnRangoDeAtaque()){
-                        AtacarDistancia();
+                    if(!EnemigoTieneTipoElemental()){
+                        AsignarTipo();
+                    } else if(jugadorDetectado){
+                        DetenerPatrullaje();
+                        if (JugadorEnRangoDeAtaque()){
+                            AtacarDistancia();
+                        }else{
+                            AcercarseAlJugador();
+                        }
                     }else{
-                        AcercarseAlJugador();
+                        Patrullar();
                     }
                 }
-            }
-        }
-        else if (HayJugadorCerca)
-        {
-            if (JugadorEnRangoDeAtaque()){
+            } else if (jugadorDetectado){
+                DetenerPatrullaje();
+                if (JugadorEnRangoDeAtaque()){
                 AtacarDistancia();
+                }else{
+                    AcercarseAlJugador();
+                }
             }else{
-                AcercarseAlJugador();
+                Patrullar();
             }
         }
-        else
-        {
-            Patrullar();
-        }
     }
 
-    bool ComprobarEnemigosMelee(){
-        if (meleeDetection.enemigoDetectado){
-            return true;
-        }else{
-            return false;
-        }
+    //Comprobar si el enemigo melee esta en el area de deteccion
+    public void EnemigoDetectado(bool estado)
+    {
+        enemigoDetectado = estado;
     }
 
-    bool ComprobarJugador(){
-        if (meleeDetection.jugadorDetectado){
-            return true;
-        }else{
-            return false;
-        }
+    //Comprobar si el jugador esta en el area de deteccion
+    public void JugadorDetectado(bool estado)
+    {
+        jugadorDetectado = estado;
     }
 
     //Comprobar si el enemigo esta en el area de influencia
-    bool ComprobarAreaInfluencia(){
-        if (meleeDetection.enemigoEstaEnAreaInfluencia){
-            return true;
-        }else{
-            return false;
-        }
+    public void EnemigoEnArea(bool estado)
+    {
+        enemigoEstaEnAreaInfluencia = estado;
     }
 
     //Comprobar si el enemigo tiene un tipo elemental asignado
@@ -102,7 +106,8 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     bool JugadorEnRangoDeAtaque(){
-        return true;
+        float distancia = Vector3.Distance(transform.position, jugador.transform.position);
+        return distancia <= rangoDeAtaque;
     }
 
     void Muerte(){
@@ -121,7 +126,19 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     void AtacarDistancia(){
+        if (Time.time >= cooldownUltimoDisparo + cooldownDisparo){
+            if (proyectil != null && puntoDisparo != null){
+                GameObject nuevoProyectil = Instantiate(proyectil, puntoDisparo.position, puntoDisparo.rotation); 
 
+                Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
+                if(rb != null){
+                    Vector3 direccion = jugador.transform.position - puntoDisparo.position;
+                    rb.velocity = direccion * velocidadProyectil;
+                }
+            }
+
+            cooldownUltimoDisparo = Time.time;
+        }
     }
 
     //Patrullar
@@ -129,8 +146,15 @@ public class ElementalBehaviour : MonoBehaviour
         ElementalPatrolScript.ActivarPatrullaje();
     }
 
+    void DetenerPatrullaje(){
+        ElementalPatrolScript.DesactivarPatrullaje();
+
+        ElementalPatrolScript.ghost.GetComponent<GhostRunner>().Detener();
+    }
+
     //Llamar al enemigo melee para que se acerque al elemental para poder obtener tipo 
     void LlamarEnemigoMelee(){
-        enemigo.MoverHaciaElemental(transform.position);
+        enemigo.Llamada(transform);
+        Debug.Log("Llamando al enemigo melee para que se acerque.");
     }
 }
