@@ -5,45 +5,53 @@ using UnityEngine;
 public class MeleeDetection : MonoBehaviour
 {
 
-    public bool enemigoDetectado = false;
-    public bool enemigoEstaEnAreaInfluencia = false;
-    public bool jugadorDetectado = false;
-    // Start is called before the first frame update
-    
-    private void OnTriggerEnter(Collider other){
-        if (other.CompareTag("Melee")){
-            if(gameObject.name == "DetectarMelee"){
-                enemigoDetectado = true;
-                Debug.Log("Melee detectado");
-            }else if(gameObject.name == "AreaInfluencia"){
-                enemigoEstaEnAreaInfluencia = true;
-                other.GetComponent<EnemigoMelee>().NotificarEstadoArea(true);
-                Debug.Log("El melee esta en la area de influencia");
-            }
-        }else if (other.CompareTag("Player")){
-            if(gameObject.name == "DetectarJugador"){
-                jugadorDetectado = true;
-                Debug.Log("Player detectado");
-            }
+    public enum TipoDetector { DetectarMelee, AreaInfluencia, DetectarJugador }
+    public TipoDetector tipoDetector;
+
+    private ElementalBehaviour elemental; 
+
+    void Start()
+    {
+        elemental = GetComponentInParent<ElementalBehaviour>(); 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Melee") && tipoDetector == TipoDetector.DetectarMelee)
+        {
+            elemental.EnemigoDetectado(true);
+            Debug.Log("Melee detectado");
+        }
+        else if (other.CompareTag("Player") && tipoDetector == TipoDetector.DetectarJugador)
+        {
+            elemental.JugadorDetectado(true);
+            Debug.Log("Jugador detectado");
+        }
+        else if (other.CompareTag("Melee") && tipoDetector == TipoDetector.AreaInfluencia)
+        {
+            elemental.EnemigoEnArea(true);
+            other.GetComponent<EnemigoMelee>().NotificarEstadoArea(true);
+            Debug.Log("El melee está en la área de influencia");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Melee")){
-            if(gameObject.name == "DetectarMelee"){
-                enemigoDetectado = false;
-                Debug.Log("No detecto ningun enemigo melee");
-            }else if(gameObject.name == "AreaInfluencia"){
-                enemigoEstaEnAreaInfluencia = false;
-                other.GetComponent<EnemigoMelee>().NotificarEstadoArea(false);
-                Debug.Log("El melee ya no esta en el area de influencia");
-            }
-        }else if (other.CompareTag("Player")){
-            if(gameObject.name == "DetectarJugador"){
-                jugadorDetectado = false;
-                Debug.Log("No detecto ningun jugador");
-            }
+        if (other.CompareTag("Melee") && tipoDetector == TipoDetector.DetectarMelee)
+        {
+            elemental.EnemigoDetectado(false);
+            Debug.Log("No detecto ningún enemigo melee");
+        }
+        else if (other.CompareTag("Player") && tipoDetector == TipoDetector.DetectarJugador)
+        {
+            elemental.JugadorDetectado(false);
+            Debug.Log("No detecto ningún jugador");
+        }
+        else if (other.CompareTag("Melee") && tipoDetector == TipoDetector.AreaInfluencia)
+        {
+            elemental.EnemigoEnArea(false);
+            other.GetComponent<EnemigoMelee>().NotificarEstadoArea(false);
+            Debug.Log("El melee ya no está en la área de influencia");
         }
     }
 }

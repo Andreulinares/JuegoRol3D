@@ -12,18 +12,23 @@ public class ElementalBehaviour : MonoBehaviour
     public GameObject proyectil;
     public Transform puntoDisparo;
     public float velocidadProyectil = 20f;
+    public float cooldownDisparo = 1.5f;
+    private float cooldownUltimoDisparo = 0f;
 
 
     private bool isAlive = true;
-    private bool HayEnemigoMeleeCerca = false;
+    /*private bool HayEnemigoMeleeCerca = false;
     private bool HayJugadorCerca = false;
-    private bool HayEnemigoMeleeEnArea = false; 
+    private bool HayEnemigoMeleeEnArea = false; */
+
+    public bool enemigoDetectado = false;
+    public bool enemigoEstaEnAreaInfluencia = false;
+    public bool jugadorDetectado = false;
 
     public float rangoDeAtaque = 10f;
 
     private ElementalPatrol ElementalPatrolScript;
     private AsignarTipo AsignadorDeTipos;
-    private MeleeDetection meleeDetection;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +36,6 @@ public class ElementalBehaviour : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         ElementalPatrolScript = GetComponent<ElementalPatrol>();
         AsignadorDeTipos = GetComponent<AsignarTipo>();
-        meleeDetection = GetComponent<MeleeDetection>();
         jugador = GameObject.FindWithTag("Player");
     }
 
@@ -42,19 +46,19 @@ public class ElementalBehaviour : MonoBehaviour
         {
             Muerte();
         }else{
-            HayEnemigoMeleeCerca = ComprobarEnemigosMelee();
-            HayJugadorCerca = ComprobarJugador();
+            /*HayEnemigoMeleeCerca = ComprobarEnemigosMelee();
+            HayJugadorCerca = ComprobarJugador();*/
 
-            if (HayEnemigoMeleeCerca)
+            if (enemigoDetectado)
             {
-                HayEnemigoMeleeEnArea = ComprobarAreaInfluencia();
-                if (!HayEnemigoMeleeEnArea){
+                //HayEnemigoMeleeEnArea = ComprobarAreaInfluencia();
+                if (!enemigoEstaEnAreaInfluencia){
                     LlamarEnemigoMelee();
                 } else{
 
                     if(!EnemigoTieneTipoElemental()){
                         AsignarTipo();
-                    } else if(HayJugadorCerca){
+                    } else if(jugadorDetectado){
                         DetenerPatrullaje();
                         if (JugadorEnRangoDeAtaque()){
                             AtacarDistancia();
@@ -65,7 +69,7 @@ public class ElementalBehaviour : MonoBehaviour
                         Patrullar();
                     }
                 }
-            } else if (HayJugadorCerca){
+            } else if (jugadorDetectado){
                 DetenerPatrullaje();
                 if (JugadorEnRangoDeAtaque()){
                 AtacarDistancia();
@@ -79,30 +83,21 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     //Comprobar si el enemigo melee esta en el area de deteccion
-    bool ComprobarEnemigosMelee(){
-        if (meleeDetection.enemigoDetectado){
-            return true;
-        }else{
-            return false;
-        }
+    public void EnemigoDetectado(bool estado)
+    {
+        enemigoDetectado = estado;
     }
 
     //Comprobar si el jugador esta en el area de deteccion
-    bool ComprobarJugador(){
-        if (meleeDetection.jugadorDetectado){
-            return true;
-        }else{
-            return false;
-        }
+    public void JugadorDetectado(bool estado)
+    {
+        jugadorDetectado = estado;
     }
 
     //Comprobar si el enemigo esta en el area de influencia
-    bool ComprobarAreaInfluencia(){
-        if (meleeDetection.enemigoEstaEnAreaInfluencia){
-            return true;
-        }else{
-            return false;
-        }
+    public void EnemigoEnArea(bool estado)
+    {
+        enemigoEstaEnAreaInfluencia = estado;
     }
 
     //Comprobar si el enemigo tiene un tipo elemental asignado
@@ -131,14 +126,18 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     void AtacarDistancia(){
-        if (proyectil != null && puntoDisparo != null){
-            GameObject nuevoProyectil = Instantiate(proyectil, puntoDisparo.position, puntoDisparo.rotation); 
+        if (Time.time >= cooldownUltimoDisparo + cooldownDisparo){
+            if (proyectil != null && puntoDisparo != null){
+                GameObject nuevoProyectil = Instantiate(proyectil, puntoDisparo.position, puntoDisparo.rotation); 
 
-            Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
-            if(rb != null){
-                Vector3 direccion = jugador.transform.position - puntoDisparo.position;
-                rb.velocity = direccion * velocidadProyectil;
+                Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
+                if(rb != null){
+                    Vector3 direccion = jugador.transform.position - puntoDisparo.position;
+                    rb.velocity = direccion * velocidadProyectil;
+                }
             }
+
+            cooldownUltimoDisparo = Time.time;
         }
     }
 
