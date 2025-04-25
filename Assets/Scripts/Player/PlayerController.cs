@@ -24,7 +24,7 @@ namespace StarterAssets
     // Daño que la esfera causará a los enemigos
     public float sphereDamage = 10f;
 
-    public int vidaMaxPlayer = 5;
+    public int vidaMaxPlayer = 100;
     public int vidaActualPlayer;
     private bool _isDead = false;
     public GameObject deathScreenUI; // <- Asigna este desde el Inspector

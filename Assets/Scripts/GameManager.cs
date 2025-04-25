@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     // Estados del juego
     public enum EstadoJuego { Jugando, Pausado, Ganado, Perdido }
     public EstadoJuego estadoActual = EstadoJuego.Jugando;
+    public enum PisoActivado { Superior, Inferior, Afueras }
+    public PisoActivado PisoActual = PisoActivado.Inferior;
 
     // Música
     public AudioSource musicaFondo;
