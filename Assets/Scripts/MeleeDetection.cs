@@ -10,6 +10,8 @@ public class MeleeDetection : MonoBehaviour
 
     private ElementalBehaviour elemental; 
 
+    public GameObject efectoArea;
+
     void Start()
     {
         elemental = GetComponentInParent<ElementalBehaviour>(); 
@@ -30,7 +32,15 @@ public class MeleeDetection : MonoBehaviour
         else if (other.CompareTag("Melee") && tipoDetector == TipoDetector.AreaInfluencia)
         {
             elemental.EnemigoEnArea(true);
-            other.GetComponent<EnemigoMelee>().NotificarEstadoArea(true);
+            EnemigoMelee melee = other.GetComponent<EnemigoMelee>();
+            melee.NotificarEstadoArea(true);
+
+            if (!melee.tieneTipo){
+                efectoArea.SetActive(true);
+            }else{
+                efectoArea.SetActive(false);
+            }
+
             Debug.Log("El melee está en la área de influencia");
         }
     }
@@ -50,7 +60,11 @@ public class MeleeDetection : MonoBehaviour
         else if (other.CompareTag("Melee") && tipoDetector == TipoDetector.AreaInfluencia)
         {
             elemental.EnemigoEnArea(false);
-            other.GetComponent<EnemigoMelee>().NotificarEstadoArea(false);
+            EnemigoMelee melee = other.GetComponent<EnemigoMelee>();
+            melee.NotificarEstadoArea(false);
+
+            efectoArea.SetActive(false);
+            
             Debug.Log("El melee ya no está en la área de influencia");
         }
     }

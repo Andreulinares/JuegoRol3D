@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
+using UnityEditor.Profiling.Memory.Experimental;
 
 public class ElementalBehaviour : MonoBehaviour
 {
+
+    public int vidaMaxima = 30;
+    private int vidaActual;
     private NavMeshAgent agent;
     private GameObject jugador;
     public EnemigoMelee enemigo;
@@ -37,6 +41,8 @@ public class ElementalBehaviour : MonoBehaviour
         ElementalPatrolScript = GetComponent<ElementalPatrol>();
         AsignadorDeTipos = GetComponent<AsignarTipo>();
         jugador = GameObject.FindWithTag("Player");
+
+        vidaActual = vidaMaxima;
     }
 
     // Update is called once per frame
@@ -110,8 +116,20 @@ public class ElementalBehaviour : MonoBehaviour
         return distancia <= rangoDeAtaque;
     }
 
-    void Muerte(){
+    public void RecibirDaño(int cantidad){
+        vidaActual -= cantidad;
+        vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
 
+        if (vidaActual <= 0){
+            isAlive = false;
+        }else{
+            isAlive = true;
+        }
+    }
+
+    void Muerte(){
+        //Animacion muerte
+        Destroy(gameObject);
     }
 
     //Asignar tipo al enemigo
