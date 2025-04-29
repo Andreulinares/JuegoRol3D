@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     public EstadoJuego estadoActual = EstadoJuego.Jugando;
     public enum PisoActivado { Superior, Inferior, Afueras }
     public PisoActivado PisoActual = PisoActivado.Inferior;
+    public GameObject[] objetosSuperior; // Objetos a desactivar en el piso superior
+    public GameObject[] objetosInferior; // Objetos a desactivar en el piso inferior
+    public GameObject[] objetosAfueras; // Objetos a desactivar en las afueras
 
     // Música
     public AudioSource musicaFondo;
@@ -64,10 +67,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        ComienzoPiso();
         if (musicaFondo != null && musicaNormal != null)
         {
             CambiarMusica(musicaNormal);
         }
+        
     }
 
     // Control de fragmentos
@@ -160,6 +165,59 @@ public class GameManager : MonoBehaviour
                 break;
             default:
                 Debug.LogError("Fragmento no reconocido");
+                break;
+        }
+    }
+    public void DesactivarObjetos(GameObject[] objetos)
+    {
+        foreach (GameObject obj in objetos)
+        {
+            if (obj != null)
+                obj.SetActive(false);
+        }
+    }
+    public void DesactivarObjetosAnterior(PisoActivado piso)
+    {
+        // Desactiva los objetos correspondientes al piso actual
+        switch (piso)
+        {
+            case PisoActivado.Superior:
+                DesactivarObjetos(objetosSuperior);
+                break;
+            case PisoActivado.Inferior:
+                DesactivarObjetos(objetosInferior);
+                break;
+            case PisoActivado.Afueras:
+                DesactivarObjetos(objetosAfueras);
+                break;
+        }
+    }
+    public void ComienzoPiso()
+    {
+        DesactivarObjetos(objetosSuperior);
+        DesactivarObjetos(objetosAfueras);
+    }
+    public void ActivarObjetos(GameObject[] objetos)
+    {
+        foreach (GameObject obj in objetos)
+        {
+            if (obj != null)
+                obj.SetActive(true);
+        }
+    }
+    public void ActivarObjetosActual(PisoActivado piso)
+    {
+        // Desactiva los objetos correspondientes al piso actual
+        switch (piso)
+        {
+            case PisoActivado.Superior:
+                ActivarObjetos(objetosSuperior);
+                break;
+            case PisoActivado.Inferior:
+                ActivarObjetos(objetosInferior);
+                break;
+            case PisoActivado.Afueras:
+                ActivarObjetos(objetosAfueras);
                 break;
         }
     }

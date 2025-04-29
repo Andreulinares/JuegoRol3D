@@ -1,11 +1,8 @@
 using UnityEngine;
 
-public class TriggerCambioPiso : MonoBehaviour
+public class PisoInferior : MonoBehaviour
 {
-
-    public GameManager.PisoActivado Superior; // Piso a activar
-    
-
+    public GameManager.PisoActivado Inferior;
     private GameManager gameManager;
 
     private void Start()
@@ -16,15 +13,15 @@ public class TriggerCambioPiso : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && (gameManager.PisoActual.ToString()!="Superior"))
+        if (other.CompareTag("Player") && (gameManager.PisoActual.ToString()!="Inferior"))
         {
             gameManager.DesactivarObjetosAnterior(gameManager.PisoActual);
             // Cambia el piso actual del GameManager
             if (gameManager != null)
             {
                 
-                gameManager.PisoActual = Superior;
-                Debug.Log("Activado: " + Superior.ToString());
+                gameManager.PisoActual = Inferior;
+                Debug.Log("Activado: " + Inferior.ToString());
             }
             gameManager.ActivarObjetosActual(gameManager.PisoActual);
         }
