@@ -23,6 +23,13 @@ public class GameManager : MonoBehaviour
     public bool FireEffect = true;
     public bool EarthEffect = true;
     public bool ElectricityEffect = true;
+    public bool Pagina1 = false;
+    public bool Pagina2 = false;
+    public bool Pagina3 = false;
+    public bool Pagina4 = false;
+    public bool Pagina5 = false;
+    public bool Pagina6 = false;
+    public bool Pagina7 = false;
 
     // Boss y elementos
     public enum ElementoActivo { Ninguno, Fuego, Agua, Electricidad, Tierra }
@@ -36,6 +43,13 @@ public class GameManager : MonoBehaviour
     public GameObject[] objetosSuperior; // Objetos a desactivar en el piso superior
     public GameObject[] objetosInferior; // Objetos a desactivar en el piso inferior
     public GameObject[] objetosAfueras; // Objetos a desactivar en las afueras
+    public GameObject[] objetosPagina1;
+    public GameObject[] objetosPagina2;
+    public GameObject[] objetosPagina3;
+    public GameObject[] objetosPagina4;
+    public GameObject[] objetosPagina5;
+    public GameObject[] objetosPagina6;
+    public GameObject[] objetosPagina7;
 
     // Música
     public AudioSource musicaFondo;
@@ -176,6 +190,15 @@ public class GameManager : MonoBehaviour
                 obj.SetActive(false);
         }
     }
+    public void BorrarObjetos(GameObject[] objetos)
+    {
+        foreach (GameObject obj in objetos)
+        {
+            if (obj != null)
+                Destroy(obj);
+        }
+    }
+
     public void DesactivarObjetosAnterior(PisoActivado piso)
     {
         // Desactiva los objetos correspondientes al piso actual
@@ -221,5 +244,41 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    
+    public void RecogerPagina(int numeroPagina)
+    {
+            switch (numeroPagina)
+            {
+                case 1:
+                    Pagina1 = true;
+                    BorrarObjetos(objetosPagina1);
+                    break;
+                case 2:
+                    Pagina2 = true;
+                    BorrarObjetos(objetosPagina2);
+                    break;
+                case 3:
+                    Pagina3 = true;
+                    BorrarObjetos(objetosPagina3);
+                    break;
+                case 4:
+                    Pagina4 = true;
+                    BorrarObjetos(objetosPagina4);
+                    break;
+                case 5:
+                    Pagina5 = true;
+                    BorrarObjetos(objetosPagina5);
+                    break;
+                case 6:
+                    Pagina6 = true;
+                    BorrarObjetos(objetosPagina6);
+                    break;
+                case 7:
+                    Pagina7 = true;
+                    BorrarObjetos(objetosPagina7);
+                    break;
+                default:
+                    Debug.LogWarning("Número de página no válido: " + numeroPagina);
+                    break;
+            }
+    }
 }
