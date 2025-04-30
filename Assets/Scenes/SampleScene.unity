@@ -179,7 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mi Diario
+  m_text: El Meu Diari
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0865aa89fa151684e9a45105abf157cf, type: 2}
   m_sharedMaterial: {fileID: 4339099267010363325, guid: 0865aa89fa151684e9a45105abf157cf,
@@ -971,7 +971,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fragmentos encontrados:'
+  m_text: 'Fragments trobats:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0865aa89fa151684e9a45105abf157cf, type: 2}
   m_sharedMaterial: {fileID: 4339099267010363325, guid: 0865aa89fa151684e9a45105abf157cf,
