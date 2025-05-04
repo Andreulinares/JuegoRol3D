@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class EnemigoMelee : MonoBehaviour
 {
+    public GameObject[] auraPrefabs; //Array con las auras
+    //public Transform puntoAura;
+    private GameObject aura;
     public bool tieneTipo = false; 
     private bool transformado = true;
     private bool EstoySiendoLlamado = false;
@@ -94,16 +97,25 @@ public class EnemigoMelee : MonoBehaviour
         {
             case AsignarTipo.TipoElemental.Fuego:
                 GetComponent<Renderer>().material.color = Color.red;
+                aura = auraPrefabs[0];
                 break;
             case AsignarTipo.TipoElemental.Agua:
                 GetComponent<Renderer>().material.color = Color.blue;
+                aura = auraPrefabs[1];
                 break;
             case AsignarTipo.TipoElemental.Tierra:
                 GetComponent<Renderer>().material.color = Color.green;
+                aura = auraPrefabs[2];
                 break;
             case AsignarTipo.TipoElemental.Electricidad:
                 GetComponent<Renderer>().material.color = Color.yellow;
+                aura = auraPrefabs[3];
                 break;
+        }
+        if (aura != null)
+        {
+            GameObject auraInstanciada = Instantiate(aura, transform.position, Quaternion.identity);
+            auraInstanciada.transform.parent = transform; 
         }
         Debug.Log("Transformación aplicada correctamente");
     }

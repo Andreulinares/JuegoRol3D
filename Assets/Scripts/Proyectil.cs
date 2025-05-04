@@ -16,9 +16,10 @@ public class Proyectil : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Player")){
+        if (other.CompareTag("Player"))
+        {
             Destroy(gameObject);
         }
     }
