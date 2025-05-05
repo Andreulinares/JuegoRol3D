@@ -20,6 +20,9 @@ public class Proyectil : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Impactó al jugador");
+            Destroy(gameObject);
+        }else{
             Destroy(gameObject);
         }
     }

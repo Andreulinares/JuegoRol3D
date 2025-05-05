@@ -8,6 +8,7 @@ TagManager:
   - AreaDeteccionMelee
   - AreaInfluencia
   - Melee
+  - EfectoArea
   layers:
   - Default
   - TransparentFX
