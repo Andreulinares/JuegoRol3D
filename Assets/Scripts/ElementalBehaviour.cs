@@ -15,7 +15,7 @@ public class ElementalBehaviour : MonoBehaviour
 
     public GameObject proyectil;
     public Transform puntoDisparo;
-    public float velocidadProyectil = 20f;
+    public float velocidadProyectil = 10f;
     public float cooldownDisparo = 1.5f;
     private float cooldownUltimoDisparo = 0f;
 

@@ -10,11 +10,12 @@ public class MeleeDetection : MonoBehaviour
 
     private ElementalBehaviour elemental; 
 
-    public GameObject efectoArea;
+    private GameObject efectoArea;
 
     void Start()
     {
         elemental = GetComponentInParent<ElementalBehaviour>(); 
+        efectoArea = GameObject.FindGameObjectWithTag("EfectoArea");
     }
 
     private void OnTriggerEnter(Collider other)
