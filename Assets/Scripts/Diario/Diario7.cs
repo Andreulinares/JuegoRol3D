@@ -11,6 +11,7 @@ public class Diario7 : MonoBehaviour
     {
         if (jugadorCerca && Input.GetKeyDown(KeyCode.E))
         {
+            gameManager.SumarPorcentaje(5);
             gameManager.RecogerPagina(Pagina);
         }
     }

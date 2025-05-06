@@ -12,8 +12,7 @@ public class FireElement : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Ejecutar lógica aquí (por ejemplo, aumentar el contador de fragmentos)
-            gameManager.fragmentosRecolectados++;
-            gameManager.CambiarEstadoFragmento("fire");
+            gameManager.RecolectarFragmento("fire");
 
             // Mostrar mensaje o cualquier otra acción que desees realizar
             Debug.Log("¡Has recogido un fragmento!");

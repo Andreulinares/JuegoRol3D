@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class BossAI : MonoBehaviour
 {
     public GameManager gameManager;
+    public ProgressManager progressManager;
     public Transform player;
     public NavMeshAgent agent;
     public int attackRangeClose = 2;
@@ -18,6 +19,8 @@ public class BossAI : MonoBehaviour
     public int AS = 5;
     public int fragmentosJugador = 0;
     public bool invencibility = false;
+    public Transform[] puntosPatrulla;
+    public int indiceActual = 0;
 
     public enum AttackType { Fire, Water, Electricity, Earth, None }
     private AttackType currentAttackType = AttackType.None;
@@ -52,7 +55,7 @@ public class BossAI : MonoBehaviour
             return;
         }
 
-        fragmentosJugador=gameManager.fragmentosRecolectados;
+        fragmentosJugador=progressManager.fragmentosColocados;
 
         // Manejo del cooldown
         if (isInCooldown)
@@ -114,7 +117,14 @@ public class BossAI : MonoBehaviour
 
     private void Patrol()
     {
-        agent.SetDestination(transform.position + transform.forward);
+        if (puntosPatrulla.Length == 0) return;
+
+        agent.SetDestination(puntosPatrulla[indiceActual].position);
+
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        {
+            indiceActual = (indiceActual + 1) % puntosPatrulla.Length;
+        }
     }
 
     private void ChasePlayer()

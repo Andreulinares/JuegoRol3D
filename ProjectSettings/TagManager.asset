@@ -3,30 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-<<<<<<< Updated upstream
-  tags:
-  - CinemachineTarget
-  - Enemy
-  - Melee
-  - AreaDeteccionJugador
-  - AreaDeteccionMelee
-  - AreaInfluencia
-  - ActivarPisoSuperior
-  - ActivarPisoInferior
-  - ActivarLasAfueras
-=======
   tags: []
->>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Ground
-  - Enemy
-  - decoration
+  - 
+  - 
+  - 
   - 
   - 
   - 

@@ -12,8 +12,7 @@ public class ElectricityElement : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Ejecutar lógica aquí (por ejemplo, aumentar el contador de fragmentos)
-            gameManager.fragmentosRecolectados++;
-            gameManager.CambiarEstadoFragmento("electricity");
+            gameManager.RecolectarFragmento("electricity");
 
             // Mostrar mensaje o cualquier otra acción que desees realizar
             Debug.Log("¡Has recogido un fragmento!");

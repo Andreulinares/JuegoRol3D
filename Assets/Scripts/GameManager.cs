@@ -6,43 +6,27 @@ using StarterAssets;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public ProgressManager progressManager;
 
-    // Fragmentos del jefe
     [Header("Fragmentos")]
-    public int fragmentosRecolectados = 0;
     public int fragmentosTotales = 4;
-    public bool coleccionadoAgua = false;
-    public bool columnaAgua = false;
-    public bool coleccionadoFuego = false;
-    public bool columnaFuego = false;
-    public bool coleccionadoTierra = false;
-    public bool columnaTierra = false;
-    public bool coleccionadoElectricidad = false;
-    public bool columnaElectricidad = false;
     public bool WaterEffect = true;
     public bool FireEffect = true;
     public bool EarthEffect = true;
     public bool ElectricityEffect = true;
-    public bool Pagina1 = false;
-    public bool Pagina2 = false;
-    public bool Pagina3 = false;
-    public bool Pagina4 = false;
-    public bool Pagina5 = false;
-    public bool Pagina6 = false;
-    public bool Pagina7 = false;
 
-    // Boss y elementos
     public enum ElementoActivo { Ninguno, Fuego, Agua, Electricidad, Tierra }
     public ElementoActivo elementoBoss = ElementoActivo.Ninguno;
 
-    // Estados del juego
     public enum EstadoJuego { Jugando, Pausado, Ganado, Perdido }
     public EstadoJuego estadoActual = EstadoJuego.Jugando;
+
     public enum PisoActivado { Superior, Inferior, Afueras }
     public PisoActivado PisoActual = PisoActivado.Inferior;
-    public GameObject[] objetosSuperior; // Objetos a desactivar en el piso superior
-    public GameObject[] objetosInferior; // Objetos a desactivar en el piso inferior
-    public GameObject[] objetosAfueras; // Objetos a desactivar en las afueras
+
+    public GameObject[] objetosSuperior;
+    public GameObject[] objetosInferior;
+    public GameObject[] objetosAfueras;
     public GameObject[] objetosPagina1;
     public GameObject[] objetosPagina2;
     public GameObject[] objetosPagina3;
@@ -51,23 +35,19 @@ public class GameManager : MonoBehaviour
     public GameObject[] objetosPagina6;
     public GameObject[] objetosPagina7;
 
-    // Música
     public AudioSource musicaFondo;
     public AudioClip musicaNormal;
     public AudioClip musicaBoss;
 
-    // Jugador
     public PlayerController jugador;
-    public bool jugadorMelee=true;
+    public bool jugadorMelee = true;
 
-    // Eventos globales
     public UnityEvent onFragmentoRecolectado;
     public UnityEvent onTodosFragmentosRecolectados;
     public UnityEvent onBossDerrotado;
 
     private void Awake()
     {
-        // Singleton pattern
         if (Instance == null)
         {
             Instance = this;
@@ -86,18 +66,70 @@ public class GameManager : MonoBehaviour
         {
             CambiarMusica(musicaNormal);
         }
-        
+    }
+    public void ColocarFragmento(string tipo)
+    {
+        switch (tipo.ToLower())
+        {
+            case "water":
+                WaterEffect = false;
+                progressManager.ColocarElemento("agua");
+                progressManager.fragmentosColocados++;
+                SumarPorcentaje(6);
+
+                break;
+            case "fire":
+                FireEffect = false;
+                progressManager.ColocarElemento("fuego");
+                progressManager.fragmentosColocados++;
+                SumarPorcentaje(6);
+                break;
+            case "earth":
+                EarthEffect = false;
+                progressManager.ColocarElemento("tierra");
+                progressManager.fragmentosColocados++;
+                SumarPorcentaje(6);
+                break;
+            case "electricity":
+                ElectricityEffect = false;
+                progressManager.ColocarElemento("electricidad");
+                progressManager.fragmentosColocados++;
+                SumarPorcentaje(6);
+                break;
+            default:
+                Debug.LogError("Fragmento no reconocido: " + tipo);
+                return;
+        }
     }
 
-    // Control de fragmentos
-    public void RecolectarFragmento()
+    public void RecolectarFragmento(string tipo)
     {
-        fragmentosRecolectados++;
-        onFragmentoRecolectado?.Invoke();
-
-        if (fragmentosRecolectados >= fragmentosTotales)
+        switch (tipo.ToLower())
         {
-            onTodosFragmentosRecolectados?.Invoke();
+            case "water":
+                ProgressManager.Instance.DesbloquearElemento("Agua");
+                progressManager.fragmentosRecolectados++;
+                SumarPorcentaje(10);
+
+                break;
+            case "fire":
+                ProgressManager.Instance.DesbloquearElemento("Fuego");
+                progressManager.fragmentosRecolectados++;
+                SumarPorcentaje(10);
+                break;
+            case "earth":
+                ProgressManager.Instance.DesbloquearElemento("Tierra");
+                progressManager.fragmentosRecolectados++;
+                SumarPorcentaje(10);
+                break;
+            case "electricity":
+                ProgressManager.Instance.DesbloquearElemento("Electricidad");
+                progressManager.fragmentosRecolectados++;
+                SumarPorcentaje(10);
+                break;
+            default:
+                Debug.LogError("Fragmento no reconocido: " + tipo);
+                return;
         }
     }
 
@@ -105,33 +137,25 @@ public class GameManager : MonoBehaviour
     {
         CambiarMusica(musicaBoss);
         Debug.Log("¡Boss activado!");
-        // Aquí puedes activar el boss físicamente o cargar su escena
     }
 
-    // Cambio de escena
     public void CambiarEscena(string nombreEscena)
     {
         SceneManager.LoadScene(nombreEscena);
     }
 
-    // Control de estado del juego
     public void CambiarEstado(EstadoJuego nuevoEstado)
     {
         estadoActual = nuevoEstado;
         Time.timeScale = (estadoActual == EstadoJuego.Pausado) ? 0 : 1;
-
-        // Aquí podrías invocar un evento o notificar a la UI
     }
 
-    // Control de elementos del boss
     public void CambiarElementoBoss(ElementoActivo nuevoElemento)
     {
         elementoBoss = nuevoElemento;
         Debug.Log("Elemento del Boss cambiado a: " + elementoBoss);
-        // Puedes activar efectos visuales, resistencias, animaciones...
     }
 
-    // Vida del jugador
     public void RestarVidaJugador(int cantidad)
     {
         if (jugador != null)
@@ -140,7 +164,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Música
     public void CambiarMusica(AudioClip nuevaMusica)
     {
         if (musicaFondo == null || nuevaMusica == null) return;
@@ -149,39 +172,23 @@ public class GameManager : MonoBehaviour
         musicaFondo.Play();
     }
 
-    // Boss derrotado
     public void BossDerrotado()
     {
+        SumarPorcentaje(4);
         CambiarEstado(EstadoJuego.Ganado);
         onBossDerrotado?.Invoke();
         Debug.Log("¡Boss derrotado!");
-        // Aquí podrías mostrar créditos, una escena final, etc.
-    }
-    public void CambiarEstadoFragmento(string fragmento)
-    {
-        switch (fragmento)
+        if(progressManager.porcentajeDeJuego==100)
         {
-            case "water":
-                WaterEffect = false;
-                coleccionadoAgua=true;
-                break;
-            case "fire":
-                FireEffect = false;
-                coleccionadoFuego=true;
-                break;
-            case "earth":
-                EarthEffect = false;
-                coleccionadoTierra=true;
-                break;
-            case "electricity":
-                ElectricityEffect = false;
-                coleccionadoElectricidad=true;
-                break;
-            default:
-                Debug.LogError("Fragmento no reconocido");
-                break;
+            //Escena con el 100% del juego
         }
+        else
+        {
+            //Escena donde informas del % y le dices que aun no tiene el 100%
+        }
+
     }
+
     public void DesactivarObjetos(GameObject[] objetos)
     {
         foreach (GameObject obj in objetos)
@@ -190,6 +197,7 @@ public class GameManager : MonoBehaviour
                 obj.SetActive(false);
         }
     }
+
     public void BorrarObjetos(GameObject[] objetos)
     {
         foreach (GameObject obj in objetos)
@@ -201,7 +209,6 @@ public class GameManager : MonoBehaviour
 
     public void DesactivarObjetosAnterior(PisoActivado piso)
     {
-        // Desactiva los objetos correspondientes al piso actual
         switch (piso)
         {
             case PisoActivado.Superior:
@@ -215,11 +222,13 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
     public void ComienzoPiso()
     {
         DesactivarObjetos(objetosSuperior);
         DesactivarObjetos(objetosAfueras);
     }
+
     public void ActivarObjetos(GameObject[] objetos)
     {
         foreach (GameObject obj in objetos)
@@ -228,9 +237,9 @@ public class GameManager : MonoBehaviour
                 obj.SetActive(true);
         }
     }
+
     public void ActivarObjetosActual(PisoActivado piso)
     {
-        // Desactiva los objetos correspondientes al piso actual
         switch (piso)
         {
             case PisoActivado.Superior:
@@ -244,41 +253,27 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
     public void RecogerPagina(int numeroPagina)
     {
-            switch (numeroPagina)
-            {
-                case 1:
-                    Pagina1 = true;
-                    BorrarObjetos(objetosPagina1);
-                    break;
-                case 2:
-                    Pagina2 = true;
-                    BorrarObjetos(objetosPagina2);
-                    break;
-                case 3:
-                    Pagina3 = true;
-                    BorrarObjetos(objetosPagina3);
-                    break;
-                case 4:
-                    Pagina4 = true;
-                    BorrarObjetos(objetosPagina4);
-                    break;
-                case 5:
-                    Pagina5 = true;
-                    BorrarObjetos(objetosPagina5);
-                    break;
-                case 6:
-                    Pagina6 = true;
-                    BorrarObjetos(objetosPagina6);
-                    break;
-                case 7:
-                    Pagina7 = true;
-                    BorrarObjetos(objetosPagina7);
-                    break;
-                default:
-                    Debug.LogWarning("Número de página no válido: " + numeroPagina);
-                    break;
-            }
+        ProgressManager.Instance.RecogerPagina(numeroPagina);
+
+        switch (numeroPagina)
+        {
+            case 1: BorrarObjetos(objetosPagina1); break;
+            case 2: BorrarObjetos(objetosPagina2); break;
+            case 3: BorrarObjetos(objetosPagina3); break;
+            case 4: BorrarObjetos(objetosPagina4); break;
+            case 5: BorrarObjetos(objetosPagina5); break;
+            case 6: BorrarObjetos(objetosPagina6); break;
+            case 7: BorrarObjetos(objetosPagina7); break;
+            default:
+                Debug.LogWarning("Número de página no válido: " + numeroPagina);
+                break;
+        }
+    }
+    public void SumarPorcentaje(int valor)
+    {
+        progressManager.porcentajeDeJuego=progressManager.porcentajeDeJuego + valor;
     }
 }
