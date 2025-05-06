@@ -123,6 +123,7 @@ NavMeshSettings:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1001 &1736221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1005,6 +1006,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1 &27331750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,7 +1058,10 @@ MonoBehaviour:
   musicaBoss: {fileID: 0}
   jugador: {fileID: 1879762839}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   jugadorMelee: 1
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
   onFragmentoRecolectado:
@@ -1082,6 +1088,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &29100816
 PrefabInstance:
@@ -3644,6 +3651,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: eb836ade18bed7e41a06508b8184ab59, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1 &133908892 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8338988566280778634, guid: 64dce48905ffd9b4293e595fa6941544,
@@ -3656,6 +3665,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1499726766}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &143462656
 PrefabInstance:
@@ -9561,6 +9571,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1 &329030409
 GameObject:
   m_ObjectHideFlags: 0
@@ -9655,7 +9667,11 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - {fileID: 2100000, guid: d8271aad545404e409c7e8ac82f5111c, type: 2}
+=======
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+>>>>>>> Stashed changes
 =======
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
 >>>>>>> Stashed changes
@@ -9696,6 +9712,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329030409}
   serializedVersion: 2
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 7.2}
@@ -10603,6 +10620,8 @@ Transform:
   m_PrefabInstance: {fileID: 362099751}
   m_PrefabAsset: {fileID: 0}
 =======
+=======
+>>>>>>> Stashed changes
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -10610,6 +10629,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!1001 &363465739
 PrefabInstance:
@@ -10726,6 +10748,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d82f586234b55f344a9c3f143a37d3d8, type: 3}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &364336075
 PrefabInstance:
@@ -27087,6 +27110,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1 &927233270
 GameObject:
   m_ObjectHideFlags: 0
@@ -27253,8 +27278,13 @@ Transform:
   m_GameObject: {fileID: 927233270}
   serializedVersion: 2
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_LocalRotation: {x: 0.27781588, y: 0.36497167, z: -0.1150751, w: 0.8811196}
   m_LocalPosition: {x: 0, y: 0, z: -84.79}
+=======
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 1.375, z: -2}
+>>>>>>> Stashed changes
 =======
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 1.375, z: -2}
@@ -27264,6 +27294,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 35, y: 45, z: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &927876910
 PrefabInstance:
@@ -30089,6 +30120,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1010678939 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2070925442191277755, guid: a1a802ecaf6775746bb2a929fb554ad8,
@@ -30119,6 +30152,7 @@ MonoBehaviour:
   CameraRadius: 0.2
   DampingIntoCollision: 0
   DampingFromCollision: 2
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &1010997326
 PrefabInstance:
@@ -30826,6 +30860,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1001 &1043035469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30858,7 +30894,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       value: -76.79
+=======
+      value: -2
+>>>>>>> Stashed changes
 =======
       value: -2
 >>>>>>> Stashed changes
@@ -30918,6 +30958,7 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1010678944}
   m_SourcePrefab: {fileID: 100100000, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &1046058966
 PrefabInstance:
@@ -33133,12 +33174,15 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!4 &1139751022 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8002264680419333305, guid: 64dce48905ffd9b4293e595fa6941544,
     type: 3}
   m_PrefabInstance: {fileID: 1499726766}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &1141059428
 PrefabInstance:
@@ -44460,6 +44504,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1001 &1499726766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44492,7 +44538,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       value: -74.79
+=======
+      value: 0
+>>>>>>> Stashed changes
 =======
       value: 0
 >>>>>>> Stashed changes
@@ -44594,6 +44644,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1499726766}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &1499941794
 PrefabInstance:
@@ -44773,6 +44824,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1503518507
 GameObject:
   m_ObjectHideFlags: 0
@@ -44891,6 +44944,7 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &1509132665
 PrefabInstance:
@@ -47237,12 +47291,15 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!4 &1616621473 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d82f586234b55f344a9c3f143a37d3d8,
     type: 3}
   m_PrefabInstance: {fileID: 363465739}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &1621698596
 PrefabInstance:
@@ -53930,6 +53987,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1879762838 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
@@ -53978,6 +54037,7 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 --- !u!1001 &1882296866
 PrefabInstance:
@@ -62304,11 +62364,14 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1bd7eff1613b8294bb523d7d378649d8, type: 3}
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 927233275}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   - {fileID: 1791617475}
   - {fileID: 1503518509}
@@ -62988,9 +63051,14 @@ SceneRoots:
   - {fileID: 440139403}
   - {fileID: 1643779371}
 =======
+=======
+>>>>>>> Stashed changes
   - {fileID: 1503518509}
   - {fileID: 329030414}
   - {fileID: 1043035469}
   - {fileID: 1499726766}
   - {fileID: 27331752}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
