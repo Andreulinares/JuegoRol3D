@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 using UnityEditor.Profiling.Memory.Experimental;
+using StarterAssets;
 
 public class ElementalBehaviour : MonoBehaviour
 {
@@ -12,12 +13,14 @@ public class ElementalBehaviour : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject jugador;
     public EnemigoMelee enemigo;
-
+    public PlayerController playerController;
     public GameObject proyectil;
     public Transform puntoDisparo;
     public float velocidadProyectil = 10f;
     public float cooldownDisparo = 1.5f;
     private float cooldownUltimoDisparo = 0f;
+    public bool isStunned = false;
+    private float stunTimer = 0f;
 
 
     private bool isAlive = true;
@@ -52,6 +55,11 @@ public class ElementalBehaviour : MonoBehaviour
         {
             Muerte();
         }else{
+            if (isStunned)
+            {
+                inStun();
+                return;
+            }
             /*HayEnemigoMeleeCerca = ComprobarEnemigosMelee();
             HayJugadorCerca = ComprobarJugador();*/
 
@@ -122,7 +130,14 @@ public class ElementalBehaviour : MonoBehaviour
 
         if (vidaActual <= 0){
             isAlive = false;
+            playerController.manaActualPlayer=playerController.manaActualPlayer+25;
+            if(playerController.manaActualPlayer>=100)
+            {
+                playerController.manaActualPlayer=100;
+            }
         }else{
+            //Animacion stun
+            Stun(2);
             isAlive = true;
         }
     }
@@ -174,5 +189,19 @@ public class ElementalBehaviour : MonoBehaviour
     void LlamarEnemigoMelee(){
         enemigo.Llamada(transform);
         Debug.Log("Llamando al enemigo melee para que se acerque.");
+    }
+    public void Stun(float stunDuration)
+    {
+        //AnimacionStun
+        isStunned = true;
+        stunTimer = stunDuration;
+    }
+    public void inStun()
+    {
+        stunTimer -= Time.deltaTime;
+                if (stunTimer <= 0f)
+                {
+                    isStunned = false;
+                }
     }
 }

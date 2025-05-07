@@ -138,12 +138,20 @@ public class BossAI : MonoBehaviour
     {
         int vidaVulnerable = fragmentosJugador * 25;
         int vidaMinimaPermitida = PVMax - vidaVulnerable;
+        if(playerController.playerAtaqueElemento== PlayerController.Elemento.None)
+        {
+            playerController.manaActualPlayer=playerController.manaActualPlayer+25;
+            if(playerController.manaActualPlayer>=100)
+            {
+                playerController.manaActualPlayer=100;
+            }
+        }
 
         if(currentAttackType == AttackType.None)
         {
             Debug.Log("Ataque normal");
         }
-        else if (playerController.playerElemento == bossDebilElemento)
+        else if (playerController.playerAtaqueElemento == bossDebilElemento)
         {
             pega += 4;
             Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del boss.");

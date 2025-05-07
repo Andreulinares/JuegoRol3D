@@ -22,6 +22,8 @@ public class EnemigoMelee : MonoBehaviour
     private bool EstoyDentro = false; 
 
     public float rangoDeAtaque = 2.5f;
+    public bool isStunned = false;
+    private float stunTimer = 0f;
 
     public AsignarTipo.TipoElemental tipoActual;
     public PlayerController.Elemento meleeDebilElemento = PlayerController.Elemento.None;
@@ -46,7 +48,16 @@ public class EnemigoMelee : MonoBehaviour
     {
         if (!isAlive){
             Muerte();
-        }else{
+        }
+        else
+        {
+            if (isStunned)
+            {
+                inStun();
+                return;
+            }
+            
+
             EstoyConvertido = ComprobarConversion();
             EstoyViendoJugador = ComprobarDeteccionJugador();
 
@@ -198,10 +209,10 @@ public class EnemigoMelee : MonoBehaviour
         {
 
         }
-        else if (playerController.playerElemento == meleeDebilElemento)
+        else if (playerController.playerAtaqueElemento == meleeDebilElemento)
         {
             pega += 4;
-            Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del boss.");
+            Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del melee.");
         }
 
         int nuevaVida = Mathf.Max(vida - pega);
@@ -211,11 +222,31 @@ public class EnemigoMelee : MonoBehaviour
 
         if (vida <= 0){
             isAlive = false;
+            playerController.manaActualPlayer=playerController.manaActualPlayer+25;
+            if(playerController.manaActualPlayer>=100)
+            {
+                playerController.manaActualPlayer=100;
+            }
         }else{
             //Animacion stun
+            Stun(2);
             isAlive = true;
         }
 
         Debug.Log("Se hizo " + pegaReal + " de daño. Vida actual: " + vida);
+    }
+    public void Stun(float stunDuration)
+    {
+        //AnimacionStun
+        isStunned = true;
+        stunTimer = stunDuration;
+    }
+    public void inStun()
+    {
+        stunTimer -= Time.deltaTime;
+                if (stunTimer <= 0f)
+                {
+                    isStunned = false;
+                }
     }
 }

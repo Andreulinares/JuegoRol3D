@@ -26,6 +26,8 @@ namespace StarterAssets
 
     public int vidaMaxPlayer = 100;
     public int vidaActualPlayer;
+    public int manaMaxPlayer = 100;
+    public int manaActualPlayer = 100;
     public bool isStunned = false;
     private float stunTimer = 0f;
     private bool _isDead = false;
@@ -35,7 +37,8 @@ namespace StarterAssets
     public enum AttackType { Fire, Water, Electricity, Earth, None }
     public AttackType currentAttackType = AttackType.None;
     public enum Elemento { Fire, Water, Electricity, Earth, None }
-    public Elemento playerElemento = Elemento.None;
+    public Elemento playerActivoElemento = Elemento.None;
+    public Elemento playerAtaqueElemento = Elemento.None;
     
 
 
@@ -181,14 +184,14 @@ namespace StarterAssets
 
         private void Update()
         {
-             if (isStunned)
-        {
-            stunTimer -= Time.deltaTime;
-            if (stunTimer <= 0f)
+            if (isStunned)
             {
-                isStunned = false;
+                stunTimer -= Time.deltaTime;
+                if (stunTimer <= 0f)
+                {
+                    isStunned = false;
+                }
             }
-        }
 
         // Controlar la invencibilidad
         if (isInvincible)
@@ -204,6 +207,22 @@ namespace StarterAssets
         if (isStunned) return;
             _hasAnimator = TryGetComponent(out _animator);
 
+            if(LeftPadClick())
+            {
+                AtaqueActivo(AttackType.Water);
+            }
+            if(RightPadClick())
+            {
+                AtaqueActivo(AttackType.Electricity);
+            }
+            if(UpPadClick())
+            {
+                AtaqueActivo(AttackType.Fire);
+            }
+            if(DownPadClick())
+            {
+                AtaqueActivo(AttackType.Earth);
+            }
             if (MouseLeftClick())
             {
                 CreateStaticSphere();
@@ -228,10 +247,43 @@ namespace StarterAssets
         {
             return Input.GetMouseButtonDown(0); // Detecta el clic izquierdo
         }
+        private bool LeftPadClick()
+        {
+            return Input.GetKeyDown(KeyCode.LeftArrow);
+        }
+        private bool RightPadClick()
+        {
+            return Input.GetKeyDown(KeyCode.RightArrow);
+        }
+        private bool UpPadClick()
+        {
+            return Input.GetKeyDown(KeyCode.UpArrow);
+        }
+        private bool DownPadClick()
+        {
+            return Input.GetKeyDown(KeyCode.DownArrow);
+        }
         private void CreateStaticSphere()
         {
             if (currentSphere == null)
             {
+                if(currentAttackType==AttackType.None)
+                {
+                    PerformAttack(AttackType.None);
+                }
+                else if(currentAttackType!=AttackType.None && manaActualPlayer>0)
+                {
+                    PerformAttack(currentAttackType);
+                    manaActualPlayer=manaActualPlayer-25;
+                    if(manaActualPlayer<=0)
+                    {
+                        manaActualPlayer=0;
+                    }
+                }
+                else
+                {   
+                    PerformAttack(AttackType.None);
+                }
                 // Calculamos la posición delante del personaje
                 Vector3 spawnPosition = transform.position + transform.forward * sphereDistance + transform.up * 1;
 
@@ -489,23 +541,51 @@ namespace StarterAssets
         switch (currentAttackType)
         {
             case AttackType.Fire:
-                playerElemento=Elemento.Fire;
+                playerAtaqueElemento=Elemento.Fire;
                 Debug.Log("Jugador realiza un ataque de Fuego!");
                 break;
             case AttackType.Water:
-                playerElemento=Elemento.Water;
+                playerAtaqueElemento=Elemento.Water;
                 Debug.Log("Jugador realiza un ataque de Agua!");
                 break;
             case AttackType.Electricity:
-                playerElemento=Elemento.Electricity;
+                playerAtaqueElemento=Elemento.Electricity;
                 Debug.Log("Jugador realiza un ataque de Electricidad!");
                 break;
             case AttackType.Earth:
-                playerElemento=Elemento.Earth;
+                playerAtaqueElemento=Elemento.Earth;
                 Debug.Log("Jugador realiza un ataque de Tierra!");
                 break;
             case AttackType.None:
-                playerElemento=Elemento.None;
+                playerAtaqueElemento=Elemento.None;
+                Debug.Log("Jugador realiza un ataque normal!");
+                break;
+        }
+    }
+    private void AtaqueActivo(AttackType attack)
+    {
+        currentAttackType = attack;
+
+        switch (currentAttackType)
+        {
+            case AttackType.Fire:
+                playerActivoElemento=Elemento.Fire;
+                Debug.Log("Jugador realiza un ataque de Fuego!");
+                break;
+            case AttackType.Water:
+                playerActivoElemento=Elemento.Water;
+                Debug.Log("Jugador realiza un ataque de Agua!");
+                break;
+            case AttackType.Electricity:
+                playerActivoElemento=Elemento.Electricity;
+                Debug.Log("Jugador realiza un ataque de Electricidad!");
+                break;
+            case AttackType.Earth:
+                playerActivoElemento=Elemento.Earth;
+                Debug.Log("Jugador realiza un ataque de Tierra!");
+                break;
+            case AttackType.None:
+                playerActivoElemento=Elemento.None;
                 Debug.Log("Jugador realiza un ataque normal!");
                 break;
         }
