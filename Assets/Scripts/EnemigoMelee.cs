@@ -10,7 +10,11 @@ public class EnemigoMelee : MonoBehaviour
     public PlayerController playerController;
     //public Transform puntoAura;
     private GameObject aura;
-    public int vida = 50;
+    public int vidaMaxima = 50;
+    public int vidaActual;
+    public bool damageBufo = false;
+    public bool resistenciaBufo = false;
+    public bool curarBufo = false;
     public bool tieneTipo = false; 
     private bool transformado = true;
     private bool EstoySiendoLlamado = false;
@@ -37,6 +41,7 @@ public class EnemigoMelee : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        vidaActual=vidaMaxima;
         agent = GetComponent<NavMeshAgent>();
         PatrolMelee = GetComponent<MeleePatrol>();
         jugador = GameObject.FindWithTag("Player");
@@ -113,21 +118,25 @@ public class EnemigoMelee : MonoBehaviour
             case AsignarTipo.TipoElemental.Fuego:
                 GetComponent<Renderer>().material.color = Color.red;
                 aura = auraPrefabs[0];
+                damageBufo=true;
                 meleeDebilElemento=PlayerController.Elemento.Water;
                 break;
             case AsignarTipo.TipoElemental.Agua:
                 GetComponent<Renderer>().material.color = Color.blue;
                 aura = auraPrefabs[1];
+                curarBufo=true;
                 meleeDebilElemento=PlayerController.Elemento.Electricity;
                 break;
             case AsignarTipo.TipoElemental.Tierra:
                 GetComponent<Renderer>().material.color = Color.green;
                 aura = auraPrefabs[2];
+                resistenciaBufo=true;
                 meleeDebilElemento=PlayerController.Elemento.Fire;
                 break;
             case AsignarTipo.TipoElemental.Electricidad:
                 GetComponent<Renderer>().material.color = Color.yellow;
                 aura = auraPrefabs[3];
+                agent.speed = 6f;
                 meleeDebilElemento=PlayerController.Elemento.Earth;
                 break;
         }
@@ -188,8 +197,17 @@ public class EnemigoMelee : MonoBehaviour
         Debug.Log("Moviendose hacia el jugador");
     }
 
-    void Atacar(){
+    void Atacar()
+    {
         //Atacando al jugador
+        if(curarBufo==true)
+        {
+            vidaActual=vidaActual+15;
+            if(vidaActual>=100)
+            {
+                vidaActual=100;
+            }
+        }
         Debug.Log("Golpeando al jugador");
     }
 
@@ -204,6 +222,7 @@ public class EnemigoMelee : MonoBehaviour
     }
     public void TakeDamage(int pega)
     {
+        int nuevaVida;
         
         if (transformado == false)
         {
@@ -214,13 +233,19 @@ public class EnemigoMelee : MonoBehaviour
             pega += 4;
             Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del melee.");
         }
+        if(resistenciaBufo==true)
+        {
+            nuevaVida = Mathf.Max(vidaActual - Mathf.RoundToInt(pega * 0.8f));
+        }
+        else
+        {
+            nuevaVida = Mathf.Max(vidaActual - pega);
+        }
 
-        int nuevaVida = Mathf.Max(vida - pega);
+        int pegaReal = vidaActual - nuevaVida;
+        vidaActual = nuevaVida;
 
-        int pegaReal = vida - nuevaVida;
-        vida = nuevaVida;
-
-        if (vida <= 0){
+        if (vidaActual <= 0){
             isAlive = false;
             playerController.manaActualPlayer=playerController.manaActualPlayer+25;
             if(playerController.manaActualPlayer>=100)
@@ -233,7 +258,7 @@ public class EnemigoMelee : MonoBehaviour
             isAlive = true;
         }
 
-        Debug.Log("Se hizo " + pegaReal + " de daño. Vida actual: " + vida);
+        Debug.Log("Se hizo " + pegaReal + " de daño. Vida actual: " + vidaActual);
     }
     public void Stun(float stunDuration)
     {

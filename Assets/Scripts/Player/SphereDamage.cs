@@ -24,20 +24,20 @@ public class SphereDamage : MonoBehaviour
         // Verificamos si el objeto que entra en contacto tiene el tag "Enemy"
         if (other.CompareTag("Boss"))
         {
-                bossAI.TakeDamage(damage);
+            bossAI.TakeDamage(damage);
 
             // Después de hacer el daño, destruimos la esfera
             Destroy(gameObject);
         }
         else if (other.CompareTag("Melee"))
         {
-                enemigoMelee.TakeDamage(damage);
+            enemigoMelee.TakeDamage(damage);
             // Después de hacer el daño, destruimos la esfera
             Destroy(gameObject);
         }
         else if (other.CompareTag("Elemental"))
         {
-                elementalBehaviour.TakeDamage(damage);
+            elementalBehaviour.TakeDamage(damage);
             // Después de hacer el daño, destruimos la esfera
             Destroy(gameObject);
         }

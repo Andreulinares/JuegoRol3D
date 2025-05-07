@@ -18,6 +18,8 @@ namespace StarterAssets
         [Header("Player")]
         // Referencia al prefab de la esfera
     public GameObject spherePrefab;
+    public EnemigoMelee enemigoMelee;
+    public BossAI bossAI;
     public float sphereDistance = 2f;
     private GameObject currentSphere;
     
@@ -243,25 +245,25 @@ namespace StarterAssets
         {
             CameraRotation();
         }
-         private bool MouseLeftClick()
+        private bool MouseLeftClick()
         {
-            return Input.GetMouseButtonDown(0); // Detecta el clic izquierdo
+            return Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.JoystickButton1);
         }
         private bool LeftPadClick()
         {
-            return Input.GetKeyDown(KeyCode.LeftArrow);
+            return Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.JoystickButton6);
         }
         private bool RightPadClick()
         {
-            return Input.GetKeyDown(KeyCode.RightArrow);
+            return Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.JoystickButton7);
         }
         private bool UpPadClick()
         {
-            return Input.GetKeyDown(KeyCode.UpArrow);
+            return Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.JoystickButton4);
         }
         private bool DownPadClick()
         {
-            return Input.GetKeyDown(KeyCode.DownArrow);
+            return Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.JoystickButton5);
         }
         private void CreateStaticSphere()
         {
@@ -596,6 +598,14 @@ namespace StarterAssets
     {
         Debug.Log("Jugador invencible. No recibe daño.");
         return;
+    }
+    if(enemigoMelee.damageBufo==true)
+    {
+        damage=damage+10;
+    }
+    if(bossAI.attackBuff==true)
+    {
+        damage=damage+10;
     }
     vidaActualPlayer -= damage;
 

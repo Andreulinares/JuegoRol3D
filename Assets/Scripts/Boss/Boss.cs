@@ -17,8 +17,7 @@ public class BossAI : MonoBehaviour
     public int detectionRange = 10;
     public int PVMax = 100;
     public int PVActual;
-    public int AD = 5;
-    public int AS = 5;
+    public bool attackBuff = false;
     public int fragmentosJugador = 0;
     public bool invencibility = false;
     public Transform[] puntosPatrulla;
@@ -69,8 +68,9 @@ public class BossAI : MonoBehaviour
                 currentAttackType= AttackType.None;
                 bossDebilElemento = PlayerController.Elemento.None;
                 invencibility=false;
-                AD=5;
-                AS=5;
+                attackBuff=false;
+                //animator.speed =1f;
+                //cooldownActual = baseCooldown * 1f;
             }
         }
 
@@ -178,7 +178,8 @@ public class BossAI : MonoBehaviour
                 if (gameManager.ElectricityEffect==true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Earth;
-                    AS += 3;
+                    //animator.speed =1.5f;
+                    //cooldownActual = baseCooldown * 0.5f;
                     PerformAttack(AttackType.Electricity);
                     StartCooldown();
                 }
@@ -220,7 +221,7 @@ public class BossAI : MonoBehaviour
                 if (gameManager.FireEffect==true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Water;
-                    AD += 3;
+                    attackBuff=true;
                     PerformAttack(AttackType.Fire);
                     StartCooldown();
                 }

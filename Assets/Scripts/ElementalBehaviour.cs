@@ -23,6 +23,7 @@ public class ElementalBehaviour : MonoBehaviour
     private float stunTimer = 0f;
 
 
+
     private bool isAlive = true;
     /*private bool HayEnemigoMeleeCerca = false;
     private bool HayJugadorCerca = false;
