@@ -7,11 +7,10 @@ using UnityEngine;
 public class MenuControl : MonoBehaviour
 {
     public Button[] buttons; // Lista de botones del menú
-    private int selectedIndex = 0; // Índice del botón seleccionado
+    private int selectedIndex = 0; // botón seleccionado
 
     void Start()
     {
-        // Establecer el primer botón seleccionado
         EventSystem.current.SetSelectedGameObject(buttons[selectedIndex].gameObject);
     }
 
@@ -31,7 +30,6 @@ public class MenuControl : MonoBehaviour
     {
         selectedIndex += direction;
 
-        // Asegurar que el índice esté dentro de los límites de la lista
         if (selectedIndex >= buttons.Length)
             selectedIndex = 0; // Si llega al final, volver al inicio
         else if (selectedIndex < 0)
