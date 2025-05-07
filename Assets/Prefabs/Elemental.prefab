@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 3501035922041678460}
   m_Layer: 0
   m_Name: Elemental
-  m_TagString: Untagged
+  m_TagString: Elemental
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,11 +269,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a8219c06127e48a6cd02624406d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vidaMaxima: 30
   enemigo: {fileID: 0}
   proyectil: {fileID: 1942242572013842148, guid: 391d8f07ac3643348800f1a56c3e6075,
     type: 3}
   puntoDisparo: {fileID: 7080271975567527151}
   velocidadProyectil: 20
+  cooldownDisparo: 1.5
+  enemigoDetectado: 0
+  enemigoEstaEnAreaInfluencia: 0
+  jugadorDetectado: 0
   rangoDeAtaque: 10
 --- !u!114 &1755353482378300199
 MonoBehaviour:
@@ -299,9 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c00113ea14646e4da4fc4ad9d0491bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemigoDetectado: 0
-  enemigoEstaEnAreaInfluencia: 0
-  jugadorDetectado: 0
+  tipoDetector: 0
 --- !u!1 &7952140094364745280
 GameObject:
   m_ObjectHideFlags: 0

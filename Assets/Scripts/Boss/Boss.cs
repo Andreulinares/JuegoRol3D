@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +11,7 @@ public class BossAI : MonoBehaviour
     public ProgressManager progressManager;
     public Transform player;
     public NavMeshAgent agent;
+    public PlayerController playerController;
     public int attackRangeClose = 2;
     public int attackRangeMedium = 5;
     public int detectionRange = 10;
@@ -23,9 +25,8 @@ public class BossAI : MonoBehaviour
     public int indiceActual = 0;
 
     public enum AttackType { Fire, Water, Electricity, Earth, None }
-    private AttackType currentAttackType = AttackType.None;
-    private AttackType debilidadActual = AttackType.None;
-
+    public AttackType currentAttackType = AttackType.None;
+    public PlayerController.Elemento bossDebilElemento = PlayerController.Elemento.None;
     private float distanceToPlayer;
     private bool isChasing = false;
     private bool isInCooldown = false;
@@ -65,7 +66,8 @@ public class BossAI : MonoBehaviour
             {
                 isInCooldown = false;
                 agent.isStopped = false;
-                debilidadActual = AttackType.None;
+                currentAttackType= AttackType.None;
+                bossDebilElemento = PlayerController.Elemento.None;
                 invencibility=false;
                 AD=5;
                 AS=5;
@@ -132,15 +134,23 @@ public class BossAI : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
-    public void TakeDamage(int pega, AttackType tipoAtaque)
+    public void TakeDamage(int pega)
     {
         int vidaVulnerable = fragmentosJugador * 25;
         int vidaMinimaPermitida = PVMax - vidaVulnerable;
 
-        if (tipoAtaque == debilidadActual)
+        if(currentAttackType == AttackType.None)
+        {
+            Debug.Log("Ataque normal");
+        }
+        else if (playerController.playerElemento == bossDebilElemento)
         {
             pega += 4;
             Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del boss.");
+        }
+        else
+        {
+            Debug.Log("Ataque elemental NO crítico");
         }
 
         int nuevaVida = Mathf.Max(PVActual - pega, vidaMinimaPermitida);
@@ -159,14 +169,14 @@ public class BossAI : MonoBehaviour
             case 0:
                 if (gameManager.ElectricityEffect==true)
                 {
-                    debilidadActual = AttackType.Earth;
+                    bossDebilElemento = PlayerController.Elemento.Earth;
                     AS += 3;
                     PerformAttack(AttackType.Electricity);
                     StartCooldown();
                 }
                 else
                 {
-                    debilidadActual = AttackType.Earth;
+                    bossDebilElemento = PlayerController.Elemento.Earth;
                     PerformAttack(AttackType.Electricity);
                     StartCooldown();
                 }
@@ -174,14 +184,14 @@ public class BossAI : MonoBehaviour
             case 1:
                 if (gameManager.EarthEffect==true)
                 {
-                    debilidadActual = AttackType.Fire;
+                    bossDebilElemento = PlayerController.Elemento.Fire;
                     invencibility = true;
                     PerformAttack(AttackType.Earth);
                     StartCooldown();
                 }
                 else
                 {
-                    debilidadActual = AttackType.Fire;
+                    bossDebilElemento = PlayerController.Elemento.Fire;
                     PerformAttack(AttackType.Earth);
                     StartCooldown();
                 }
@@ -201,14 +211,14 @@ public class BossAI : MonoBehaviour
             case 0:
                 if (gameManager.FireEffect==true)
                 {
-                    debilidadActual = AttackType.Water;
+                    bossDebilElemento = PlayerController.Elemento.Water;
                     AD += 3;
                     PerformAttack(AttackType.Fire);
                     StartCooldown();
                 }
                 else
                 {
-                    debilidadActual = AttackType.Water;
+                    bossDebilElemento = PlayerController.Elemento.Water;
                     PerformAttack(AttackType.Fire);
                     StartCooldown();
                 }
@@ -216,14 +226,14 @@ public class BossAI : MonoBehaviour
             case 1:
                 if (gameManager.WaterEffect==true)
                 {
-                    debilidadActual = AttackType.Electricity;
+                    bossDebilElemento = PlayerController.Elemento.Electricity;
                     PerformAttack(AttackType.Water);
                     PVActual = Mathf.Min(PVActual + 15, PVMax);
                     StartCooldown();
                 }
                 else
                 {
-                    debilidadActual = AttackType.Electricity;
+                    bossDebilElemento = PlayerController.Elemento.Electricity;
                     PerformAttack(AttackType.Water);
                     StartCooldown();
                 }

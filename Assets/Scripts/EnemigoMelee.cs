@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
+using StarterAssets;
 
 public class EnemigoMelee : MonoBehaviour
 {
     public GameObject[] auraPrefabs; //Array con las auras
+    public PlayerController playerController;
     //public Transform puntoAura;
     private GameObject aura;
+    public int vida = 50;
     public bool tieneTipo = false; 
     private bool transformado = true;
     private bool EstoySiendoLlamado = false;
@@ -21,6 +24,7 @@ public class EnemigoMelee : MonoBehaviour
     public float rangoDeAtaque = 2.5f;
 
     public AsignarTipo.TipoElemental tipoActual;
+    public PlayerController.Elemento meleeDebilElemento = PlayerController.Elemento.None;
     public Transform enemigoElemental;
 
     private NavMeshAgent agent;
@@ -98,18 +102,22 @@ public class EnemigoMelee : MonoBehaviour
             case AsignarTipo.TipoElemental.Fuego:
                 GetComponent<Renderer>().material.color = Color.red;
                 aura = auraPrefabs[0];
+                meleeDebilElemento=PlayerController.Elemento.Water;
                 break;
             case AsignarTipo.TipoElemental.Agua:
                 GetComponent<Renderer>().material.color = Color.blue;
                 aura = auraPrefabs[1];
+                meleeDebilElemento=PlayerController.Elemento.Electricity;
                 break;
             case AsignarTipo.TipoElemental.Tierra:
                 GetComponent<Renderer>().material.color = Color.green;
                 aura = auraPrefabs[2];
+                meleeDebilElemento=PlayerController.Elemento.Fire;
                 break;
             case AsignarTipo.TipoElemental.Electricidad:
                 GetComponent<Renderer>().material.color = Color.yellow;
                 aura = auraPrefabs[3];
+                meleeDebilElemento=PlayerController.Elemento.Earth;
                 break;
         }
         if (aura != null)
@@ -182,5 +190,32 @@ public class EnemigoMelee : MonoBehaviour
         PatrolMelee.DesactivarPatrullaje();
 
         PatrolMelee.ghost.GetComponent<GhostMeleeRunner>().Detener();
+    }
+    public void TakeDamage(int pega)
+    {
+        
+        if (transformado == false)
+        {
+
+        }
+        else if (playerController.playerElemento == meleeDebilElemento)
+        {
+            pega += 4;
+            Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del boss.");
+        }
+
+        int nuevaVida = Mathf.Max(vida - pega);
+
+        int pegaReal = vida - nuevaVida;
+        vida = nuevaVida;
+
+        if (vida <= 0){
+            isAlive = false;
+        }else{
+            //Animacion stun
+            isAlive = true;
+        }
+
+        Debug.Log("Se hizo " + pegaReal + " de daño. Vida actual: " + vida);
     }
 }

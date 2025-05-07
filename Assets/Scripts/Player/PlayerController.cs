@@ -26,10 +26,16 @@ namespace StarterAssets
 
     public int vidaMaxPlayer = 100;
     public int vidaActualPlayer;
+    public bool isStunned = false;
+    private float stunTimer = 0f;
     private bool _isDead = false;
+    public bool isInvincible = false;
+    public float invincibleTimer = 0f;
     public GameObject deathScreenUI; // <- Asigna este desde el Inspector
     public enum AttackType { Fire, Water, Electricity, Earth, None }
-    private AttackType currentAttackType = AttackType.None;
+    public AttackType currentAttackType = AttackType.None;
+    public enum Elemento { Fire, Water, Electricity, Earth, None }
+    public Elemento playerElemento = Elemento.None;
     
 
 
@@ -175,6 +181,27 @@ namespace StarterAssets
 
         private void Update()
         {
+             if (isStunned)
+        {
+            stunTimer -= Time.deltaTime;
+            if (stunTimer <= 0f)
+            {
+                isStunned = false;
+            }
+        }
+
+        // Controlar la invencibilidad
+        if (isInvincible)
+        {
+            invincibleTimer -= Time.deltaTime;
+            if (invincibleTimer <= 0f)
+            {
+                isInvincible = false;
+            }
+        }
+
+        // Si está aturdido, cancelar controles
+        if (isStunned) return;
             _hasAnimator = TryGetComponent(out _animator);
 
             if (MouseLeftClick())
@@ -190,6 +217,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            
         }
 
         private void LateUpdate()
@@ -461,28 +489,46 @@ namespace StarterAssets
         switch (currentAttackType)
         {
             case AttackType.Fire:
+                playerElemento=Elemento.Fire;
                 Debug.Log("Jugador realiza un ataque de Fuego!");
                 break;
             case AttackType.Water:
+                playerElemento=Elemento.Water;
                 Debug.Log("Jugador realiza un ataque de Agua!");
                 break;
             case AttackType.Electricity:
+                playerElemento=Elemento.Electricity;
                 Debug.Log("Jugador realiza un ataque de Electricidad!");
                 break;
             case AttackType.Earth:
+                playerElemento=Elemento.Earth;
                 Debug.Log("Jugador realiza un ataque de Tierra!");
                 break;
             case AttackType.None:
+                playerElemento=Elemento.None;
+                Debug.Log("Jugador realiza un ataque normal!");
                 break;
         }
     }
     public void TakeDamage(int damage)
 {
+    if(isInvincible)
+    {
+        Debug.Log("Jugador invencible. No recibe daño.");
+        return;
+    }
     vidaActualPlayer -= damage;
+
 
     if (vidaActualPlayer <= 0 && !_isDead)
     {
         Muerto();
+    }
+    else
+    {
+        //Animacion stun
+        Stun(2);
+
     }
 }
     public void Muerto()
@@ -511,5 +557,14 @@ public void RestartGame()
 {
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 }
+public void Stun(float stunDuration, float extraInvincibility = 2f)
+{
+    isStunned = true;
+    isInvincible = true;
+
+    stunTimer = stunDuration;
+    invincibleTimer = stunDuration + extraInvincibility;
 }
+}
+
 }

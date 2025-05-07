@@ -3,25 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-<<<<<<< HEAD
-  tags: []
-=======
   tags:
+  - Melee
+  - Undefined
+  - Boss
+  - Elemental
   - AreaDeteccionJugador
   - AreaDeteccionMelee
   - AreaInfluencia
-  - Melee
-  - EfectoArea
->>>>>>> 68cb20cc768b4e412383fb376ced8669c63055be
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-<<<<<<< HEAD
   - 
-=======
-  - decoration
->>>>>>> 68cb20cc768b4e412383fb376ced8669c63055be
   - Water
   - UI
   - 

@@ -116,7 +116,7 @@ public class ElementalBehaviour : MonoBehaviour
         return distancia <= rangoDeAtaque;
     }
 
-    public void RecibirDaño(int cantidad){
+    public void TakeDamage(int cantidad){
         vidaActual -= cantidad;
         vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
 
