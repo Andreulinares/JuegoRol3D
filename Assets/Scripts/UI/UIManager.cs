@@ -12,6 +12,11 @@ public class UIManager : MonoBehaviour
     public Image BarraVida;
     public List <Image> barrasMana;
 
+    public Image ruedaElementos;
+    public List<Sprite> ElementosSeleccionados;
+
+    private int ElementoSeleccionado = 0;
+
     private void Awake(){
         if (Interface == null){
             Interface = this;
@@ -32,6 +37,18 @@ public class UIManager : MonoBehaviour
                 barrasMana[i].enabled = false;
             }
         }
+    }
+
+    public void CambiarElemento(int direccion){
+        ElementoSeleccionado += direccion;
+
+        if (ElementoSeleccionado < 0){
+            ElementoSeleccionado = ElementosSeleccionados.Count - 1;
+        }else if (ElementoSeleccionado >= ElementosSeleccionados.Count){
+            ElementoSeleccionado = 0;
+        }
+
+        ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
     }
     // Start is called before the first frame update
     void Start()
