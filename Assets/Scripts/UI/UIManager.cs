@@ -29,24 +29,33 @@ public class UIManager : MonoBehaviour
         BarraVida.fillAmount = porcentaje;
     }
 
-    public void ActualizarMana(float manaActual){
-        /*for (int i = 0; i < barrasMana.Count; i++){
-            if (i < manaActual){
-                barrasMana[i].enabled = true;
-            }else{
-                barrasMana[i].enabled = false;
+    public void ActualizarMana(float manaActual)
+    {
+    
+        manaActual = Mathf.Clamp01(manaActual); // Asegurarse de que esté entre 0 y 1
+        float porcentajePorBarra = 1f / barrasMana.Count; // Por ejemplo, 0.25 si hay 4 barras
+
+        for (int i = 0; i < barrasMana.Count; i++)
+        {
+            float inicioBarra = i * porcentajePorBarra;
+            float finBarra = inicioBarra + porcentajePorBarra;
+
+            if (manaActual >= finBarra)
+            {
+                // Barra completamente llena
+                barrasMana[i].fillAmount = 1f;
             }
-        }*/
-
-        float manaBarra = 1f /
-        barrasMana.Count;
-
-        for (int i = 0; i < barrasMana.Count; i++){
-            float cantidadEnBarra = Mathf.Clamp01(manaActual / manaBarra);
-
-            barrasMana[i].fillAmount = cantidadEnBarra;
-
-            manaActual -= manaBarra;
+            else if (manaActual <= inicioBarra)
+            {
+                // Barra completamente vacía
+                barrasMana[i].fillAmount = 0f;
+            }
+            else
+            {
+                // Barra parcialmente llena
+                float cantidad = (manaActual - inicioBarra) / porcentajePorBarra;
+                barrasMana[i].fillAmount = cantidad;
+            }
         }
     }
 
@@ -62,6 +71,26 @@ public class UIManager : MonoBehaviour
         ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
     }
     // Start is called before the first frame update
+    public void mostrarFuego()
+    {
+        ElementoSeleccionado = 0; // Asumimos que el fuego está en la posición 0 de la lista
+        ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
+    }
+    public void mostrarTierra()
+    {
+        ElementoSeleccionado = 1; // Asumimos que el fuego está en la posición 0 de la lista
+        ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
+    }
+    public void mostrarAgua()
+    {
+        ElementoSeleccionado = 2; // Asumimos que el fuego está en la posición 0 de la lista
+        ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
+    }
+    public void mostrarElectricidad()
+    {
+        ElementoSeleccionado = 3; // Asumimos que el fuego está en la posición 0 de la lista
+        ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
+    }
     void Start()
     {
         

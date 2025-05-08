@@ -22,12 +22,13 @@ namespace StarterAssets
     public BossAI bossAI;
     public float sphereDistance = 2f;
     private GameObject currentSphere;
+    public UIManager uiManager;
     
     // Daño que la esfera causará a los enemigos
     public float sphereDamage = 10f;
 
     public int vidaMaxPlayer = 100;
-    public int vidaActualPlayer;
+    public int vidaActualPlayer = 100;
     public int manaMaxPlayer = 100;
     public int manaActualPlayer = 100;
     public bool isStunned = false;
@@ -165,6 +166,7 @@ namespace StarterAssets
 
         private void Start()
         {
+            vidaMaxPlayer = 100;
             vidaActualPlayer=vidaMaxPlayer;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
@@ -189,6 +191,7 @@ namespace StarterAssets
 
         private void Update()
         {
+            ActualizarBarraDeVida();
             if (isStunned)
             {
                 stunTimer -= Time.deltaTime;
@@ -254,19 +257,19 @@ namespace StarterAssets
         }
         private bool LeftPadClick()
         {
-            return Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.JoystickButton6);
+            return Input.GetKeyDown(KeyCode.LeftArrow)/* || Input.GetAxis("DPad_Horizontal") < 0*/;
         }
         private bool RightPadClick()
         {
-            return Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.JoystickButton7);
+            return Input.GetKeyDown(KeyCode.RightArrow)/* || Input.GetAxis("DPad_Horizontal") > 0*/;
         }
         private bool UpPadClick()
         {
-            return Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.JoystickButton4);
+            return Input.GetKeyDown(KeyCode.UpArrow)/* || Input.GetAxis("DPad_Vertical") > 0*/;
         }
         private bool DownPadClick()
         {
-            return Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.JoystickButton5);
+            return Input.GetKeyDown(KeyCode.DownArrow)/* || Input.GetAxis("DPad_Vertical") < 0*/;
         }
         private void CreateStaticSphere()
         {
@@ -284,8 +287,8 @@ namespace StarterAssets
                     {
                         manaActualPlayer=0;
                     }
-
                     ActualizarBarraMana();
+                    
                 }
                 else
                 {   
@@ -308,8 +311,8 @@ namespace StarterAssets
 
         private void ActualizarBarraMana()
         {
-                // Calcular el porcentaje de vida
-            float porcentaje = manaActualPlayer / manaMaxPlayer;
+                // Calcular el porcentaje de mana
+            float porcentaje = (float)manaActualPlayer / manaMaxPlayer;
                 
                 // Llamar a la función del UIManager para actualizar la barra
             UIManager.Interface.ActualizarMana(porcentaje);
@@ -586,18 +589,22 @@ namespace StarterAssets
         {
             case AttackType.Fire:
                 playerActivoElemento=Elemento.Fire;
+                uiManager.mostrarFuego();
                 Debug.Log("Jugador realiza un ataque de Fuego!");
                 break;
             case AttackType.Water:
                 playerActivoElemento=Elemento.Water;
                 Debug.Log("Jugador realiza un ataque de Agua!");
+                uiManager.mostrarAgua();
                 break;
             case AttackType.Electricity:
                 playerActivoElemento=Elemento.Electricity;
                 Debug.Log("Jugador realiza un ataque de Electricidad!");
+                uiManager.mostrarElectricidad();
                 break;
             case AttackType.Earth:
                 playerActivoElemento=Elemento.Earth;
+                uiManager.mostrarTierra();
                 Debug.Log("Jugador realiza un ataque de Tierra!");
                 break;
             case AttackType.None:
@@ -640,7 +647,7 @@ namespace StarterAssets
 private void ActualizarBarraDeVida()
 {
         // Calcular el porcentaje de vida
-    float porcentaje = vidaActualPlayer / vidaMaxPlayer;
+    float porcentaje = (float)vidaActualPlayer / vidaMaxPlayer;
         
         // Llamar a la función del UIManager para actualizar la barra
     UIManager.Interface.ActualizarVida(porcentaje);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SelectionMenu : MonoBehaviour
 {
@@ -30,5 +31,15 @@ public class SelectionMenu : MonoBehaviour
 
         currentAngle = new Vector3(0, Mathf.LerpAngle(currentAngle.y, targetRot.y, 2.0f * Time.deltaTime), 0);
         transform.eulerAngles = currentAngle;
+        if (currentSelection == 1 && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0)))
+        {
+            PlayerPrefs.SetInt("PersonajeSeleccionado", 1);
+            SceneManager.LoadScene("Escena");
+        }
+        if (currentSelection == 2 && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0)))
+        {
+            PlayerPrefs.SetInt("PersonajeSeleccionado", 2);
+            SceneManager.LoadScene("Escena");
+        }
     }
 }

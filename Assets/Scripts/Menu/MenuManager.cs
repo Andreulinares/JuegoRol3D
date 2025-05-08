@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
 
     public void Jugar()
     {
-        SceneManager.LoadScene("escena"); 
+        SceneManager.LoadScene("SeleccionPersonaje"); 
     }
 
     public void AbrirOpciones()
