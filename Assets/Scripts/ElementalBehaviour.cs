@@ -4,6 +4,7 @@ using UnityEngine.AI;
 using UnityEngine;
 using UnityEditor.Profiling.Memory.Experimental;
 using StarterAssets;
+using UnityEngine.UI;
 
 public class ElementalBehaviour : MonoBehaviour
 {
@@ -38,6 +39,8 @@ public class ElementalBehaviour : MonoBehaviour
     private ElementalPatrol ElementalPatrolScript;
     private AsignarTipo AsignadorDeTipos;
 
+    public Image barraVidaElemental;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +50,8 @@ public class ElementalBehaviour : MonoBehaviour
         jugador = GameObject.FindWithTag("Player");
 
         vidaActual = vidaMaxima;
+
+        ActualizarBarraVida();
     }
 
     // Update is called once per frame
@@ -129,6 +134,8 @@ public class ElementalBehaviour : MonoBehaviour
         vidaActual -= cantidad;
         vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
 
+        ActualizarBarraVida();
+
         if (vidaActual <= 0){
             isAlive = false;
             playerController.manaActualPlayer=playerController.manaActualPlayer+25;
@@ -204,5 +211,9 @@ public class ElementalBehaviour : MonoBehaviour
                 {
                     isStunned = false;
                 }
+    }
+
+    void ActualizarBarraVida(){
+        EnemyBarra.InterfaceEnemy.ActualizarVidaEnemy(barraVidaElemental, vidaActual / vidaMaxima);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 using StarterAssets;
+using UnityEngine.UI;
 
 public class EnemigoMelee : MonoBehaviour
 {
@@ -38,6 +39,8 @@ public class EnemigoMelee : MonoBehaviour
 
     private MeleePatrol PatrolMelee;
     private PlayerDetection playerDetection;
+
+    public Image barraVidaMelee;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +49,8 @@ public class EnemigoMelee : MonoBehaviour
         PatrolMelee = GetComponent<MeleePatrol>();
         jugador = GameObject.FindWithTag("Player");
         playerDetection = GetComponentInChildren<PlayerDetection>();
+
+        ActualizarBarraVida();
     }
 
     // Update is called once per frame
@@ -244,6 +249,7 @@ public class EnemigoMelee : MonoBehaviour
 
         int pegaReal = vidaActual - nuevaVida;
         vidaActual = nuevaVida;
+        ActualizarBarraVida();
 
         if (vidaActual <= 0){
             isAlive = false;
@@ -273,5 +279,9 @@ public class EnemigoMelee : MonoBehaviour
                 {
                     isStunned = false;
                 }
+    }
+
+    void ActualizarBarraVida(){
+        EnemyBarra.InterfaceEnemy.ActualizarVidaEnemy(barraVidaMelee, vidaActual / vidaMaxima);
     }
 }

@@ -182,6 +182,9 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            ActualizarBarraDeVida();
+            ActualizarBarraMana();
         }
 
         private void Update()
@@ -281,6 +284,8 @@ namespace StarterAssets
                     {
                         manaActualPlayer=0;
                     }
+
+                    ActualizarBarraMana();
                 }
                 else
                 {   
@@ -299,6 +304,15 @@ namespace StarterAssets
                     collider.isTrigger = true; // Activar el modo trigger
                 }
             }
+        }
+
+        private void ActualizarBarraMana()
+        {
+                // Calcular el porcentaje de vida
+            float porcentaje = manaActualPlayer / manaMaxPlayer;
+                
+                // Llamar a la función del UIManager para actualizar la barra
+            UIManager.Interface.ActualizarMana(porcentaje);
         }
         private void FollowPlayer()
         {
@@ -608,7 +622,8 @@ namespace StarterAssets
         damage=damage+10;
     }
     vidaActualPlayer -= damage;
-
+    
+    ActualizarBarraDeVida();
 
     if (vidaActualPlayer <= 0 && !_isDead)
     {
@@ -620,6 +635,15 @@ namespace StarterAssets
         Stun(2);
 
     }
+}
+
+private void ActualizarBarraDeVida()
+{
+        // Calcular el porcentaje de vida
+    float porcentaje = vidaActualPlayer / vidaMaxPlayer;
+        
+        // Llamar a la función del UIManager para actualizar la barra
+    UIManager.Interface.ActualizarVida(porcentaje);
 }
     public void Muerto()
 {

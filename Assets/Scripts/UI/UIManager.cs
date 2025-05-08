@@ -29,13 +29,24 @@ public class UIManager : MonoBehaviour
         BarraVida.fillAmount = porcentaje;
     }
 
-    public void ActualizarMana(int manaActual){
-        for (int i = 0; i < barrasMana.Count; i++){
+    public void ActualizarMana(float manaActual){
+        /*for (int i = 0; i < barrasMana.Count; i++){
             if (i < manaActual){
                 barrasMana[i].enabled = true;
             }else{
                 barrasMana[i].enabled = false;
             }
+        }*/
+
+        float manaBarra = 1f /
+        barrasMana.Count;
+
+        for (int i = 0; i < barrasMana.Count; i++){
+            float cantidadEnBarra = Mathf.Clamp01(manaActual / manaBarra);
+
+            barrasMana[i].fillAmount = cantidadEnBarra;
+
+            manaActual -= manaBarra;
         }
     }
 
