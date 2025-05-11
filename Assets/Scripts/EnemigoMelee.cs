@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class EnemigoMelee : MonoBehaviour
 {
+    private Animator animator;
+
     public GameObject[] auraPrefabs; //Array con las auras
     public PlayerController playerController;
     //public Transform puntoAura;
@@ -49,6 +51,7 @@ public class EnemigoMelee : MonoBehaviour
         PatrolMelee = GetComponent<MeleePatrol>();
         jugador = GameObject.FindWithTag("Player");
         playerDetection = GetComponentInChildren<PlayerDetection>();
+        animator = GetComponent<Animator>();
 
         ActualizarBarraVida();
     }
@@ -199,6 +202,9 @@ public class EnemigoMelee : MonoBehaviour
 
     void AcercarseAlJugador(){
         agent.SetDestination(jugador.transform.position);
+        animator.SetBool("isRun", true);
+        animator.SetBool("isAttack", false);
+        animator.SetBool("isWalking", false);
         Debug.Log("Moviendose hacia el jugador");
     }
 
@@ -213,16 +219,22 @@ public class EnemigoMelee : MonoBehaviour
                 vidaActual=100;
             }
         }
+        animator.SetBool("isAttack", true);
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isRun", false);
         Debug.Log("Golpeando al jugador");
     }
 
     void Patrullar(){
         PatrolMelee.ActivarPatrullaje();
+        animator.SetBool("isWalking", true);
+        animator.SetBool("isRun", false);
+        animator.SetBool("isAttack", false);
     }
 
     void DetenerPatrullaje(){
         PatrolMelee.DesactivarPatrullaje();
-
+        animator.SetBool("isWalking", false);
         PatrolMelee.ghost.GetComponent<GhostMeleeRunner>().Detener();
     }
     public void TakeDamage(int pega)
