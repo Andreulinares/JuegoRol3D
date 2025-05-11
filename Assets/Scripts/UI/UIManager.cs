@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public List <Image> barrasMana;
 
     public Image ruedaElementos;
+    private Sprite spritePorDefecto;
     public List<Sprite> ElementosSeleccionados;
 
     private int ElementoSeleccionado = 0;
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
     private void Awake(){
         if (Interface == null){
             Interface = this;
+            DontDestroyOnLoad(gameObject);
         }else{
             Destroy(gameObject);
         }
@@ -91,9 +93,13 @@ public class UIManager : MonoBehaviour
         ElementoSeleccionado = 3; // Asumimos que el fuego está en la posición 0 de la lista
         ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
     }
+    public void mostrarNinguno()
+    {
+        ruedaElementos.sprite = spritePorDefecto;
+    }
     void Start()
     {
-        
+        spritePorDefecto = ruedaElementos.sprite;
     }
 
     // Update is called once per frame

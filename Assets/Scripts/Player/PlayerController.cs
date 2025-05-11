@@ -217,19 +217,47 @@ namespace StarterAssets
 
             if(LeftPadClick())
             {
-                AtaqueActivo(AttackType.Water);
+                if(currentAttackType==AttackType.Water)
+                {
+                    AtaqueActivo(AttackType.None);
+                }
+                else
+                {
+                    AtaqueActivo(AttackType.Water);
+                } 
             }
             if(RightPadClick())
             {
+                if(currentAttackType==AttackType.Electricity)
+                {
+                    AtaqueActivo(AttackType.None);
+                }
+                else
+                {
                 AtaqueActivo(AttackType.Electricity);
+                }
             }
             if(UpPadClick())
             {
+                if(currentAttackType==AttackType.Fire)
+                {
+                    AtaqueActivo(AttackType.None);
+                }
+                else
+                {
                 AtaqueActivo(AttackType.Fire);
+                }
             }
             if(DownPadClick())
             {
+                if(currentAttackType==AttackType.Earth)
+                {
+                    AtaqueActivo(AttackType.None);
+                }
+                else
+                {
                 AtaqueActivo(AttackType.Earth);
+                }
             }
             if (MouseLeftClick())
             {
@@ -589,27 +617,29 @@ namespace StarterAssets
         {
             case AttackType.Fire:
                 playerActivoElemento=Elemento.Fire;
+                Debug.Log("Jugador obtiene el poder de Fuego!");
+                Debug.Log("UIManager.Interface es: " + UIManager.Interface);
                 uiManager.mostrarFuego();
-                Debug.Log("Jugador realiza un ataque de Fuego!");
                 break;
             case AttackType.Water:
                 playerActivoElemento=Elemento.Water;
-                Debug.Log("Jugador realiza un ataque de Agua!");
+                Debug.Log("Jugador obtiene el poder de Agua!");
                 uiManager.mostrarAgua();
                 break;
             case AttackType.Electricity:
                 playerActivoElemento=Elemento.Electricity;
-                Debug.Log("Jugador realiza un ataque de Electricidad!");
+                Debug.Log("Jugador obtiene el poder de Electricidad!");
                 uiManager.mostrarElectricidad();
                 break;
             case AttackType.Earth:
                 playerActivoElemento=Elemento.Earth;
+                Debug.Log("Jugador obtiene el poder de Tierra!");
                 uiManager.mostrarTierra();
-                Debug.Log("Jugador realiza un ataque de Tierra!");
                 break;
             case AttackType.None:
                 playerActivoElemento=Elemento.None;
-                Debug.Log("Jugador realiza un ataque normal!");
+                Debug.Log("Jugador obtiene el ataque normal!");
+                uiManager.mostrarNinguno();
                 break;
         }
     }
