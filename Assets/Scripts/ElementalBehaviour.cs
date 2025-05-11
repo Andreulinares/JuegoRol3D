@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class ElementalBehaviour : MonoBehaviour
 {
+    private Animator animator;
 
     public int vidaMaxima = 30;
     private int vidaActual;
@@ -50,6 +51,8 @@ public class ElementalBehaviour : MonoBehaviour
         jugador = GameObject.FindWithTag("Player");
 
         vidaActual = vidaMaxima;
+
+        animator = GetComponent<Animator>();
 
         ActualizarBarraVida();
     }
@@ -163,6 +166,8 @@ public class ElementalBehaviour : MonoBehaviour
     //Acercarse al jugador para que este en el rango de ataque para atacar a distancia
     void AcercarseAlJugador(){
         agent.SetDestination(jugador.transform.position);
+        animator.SetBool("isWalking", true);
+        animator.SetBool("isAttack", false);
         Debug.Log("Moviendose hacia el jugador");
     }
 
@@ -179,16 +184,23 @@ public class ElementalBehaviour : MonoBehaviour
             }
 
             cooldownUltimoDisparo = Time.time;
+
+            animator.SetBool("isAttack", true);
+            animator.SetBool("isWalking", false);
+
         }
     }
 
     //Patrullar
     void Patrullar(){
         ElementalPatrolScript.ActivarPatrullaje();
+        animator.SetBool("isWalking", true);
+        animator.SetBool("isAttack", false);
     }
 
     void DetenerPatrullaje(){
         ElementalPatrolScript.DesactivarPatrullaje();
+        animator.SetBool("isWalking", false);
 
         ElementalPatrolScript.ghost.GetComponent<GhostRunner>().Detener();
     }

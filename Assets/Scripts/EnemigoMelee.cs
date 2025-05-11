@@ -166,6 +166,9 @@ public class EnemigoMelee : MonoBehaviour
         if (agent != null)
         {
             agent.SetDestination(enemigoElemental);
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isRun", true);
+            animator.SetBool("isAttack", false);
             Debug.Log("Enemigo melee se está moviendo hacia el elemental");
         }
     }
