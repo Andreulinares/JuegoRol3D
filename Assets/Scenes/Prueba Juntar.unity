@@ -5357,8 +5357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd8ce770b57e4f47aa94a6659e1a336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagenElemento: {fileID: 0}
-  spriteTierraNuevo: {fileID: 0}
+  imagenElemento: {fileID: 86410168}
+  spriteTierraNuevo: {fileID: 21300000, guid: fb66992367a38914480d531dccf66a8e, type: 3}
 --- !u!1001 &86591207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5743,8 +5743,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54289f1fcbbcbbc46a1f117c3399f32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagenElemento: {fileID: 0}
-  spriteFuegoNuevo: {fileID: 0}
+  imagenElemento: {fileID: 97272277}
+  spriteFuegoNuevo: {fileID: 21300000, guid: 3cabcff434655f141ab11d2c41299c0d, type: 3}
 --- !u!1001 &97567098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10725,8 +10725,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8532838b7cebd8a42b000fb8e8156b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagenElemento: {fileID: 0}
-  spriteElectricidadNuevo: {fileID: 0}
+  imagenElemento: {fileID: 171176608}
+  spriteElectricidadNuevo: {fileID: 21300000, guid: 374aa87b4c6ad5b4294bcf8a0ab01a2e,
+    type: 3}
 --- !u!1001 &171974895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51626,8 +51627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30a3575a5621a44da0aa7376415dde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagenElemento: {fileID: 0}
-  spriteAguaNuevo: {fileID: 0}
+  imagenElemento: {fileID: 863305055}
+  spriteAguaNuevo: {fileID: 21300000, guid: 3ed56278506a23543b629ebeb3e91368, type: 3}
 --- !u!1001 &863920950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52036,6 +52037,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 150410326}
     m_Modifications:
+    - target: {fileID: 2284937349786365814, guid: 80ffacc306cccfa498c6b5fa00d85073,
+        type: 3}
+      propertyPath: fuegoDiario
+      value: 
+      objectReference: {fileID: 97272279}
     - target: {fileID: 2284937349786365814, guid: 80ffacc306cccfa498c6b5fa00d85073,
         type: 3}
       propertyPath: gameManager
