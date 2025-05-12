@@ -5,6 +5,7 @@ using UnityEngine;
 public class EarthElement : MonoBehaviour
 {
     public GameManager gameManager; // Referencia al GameManager
+    public TierraDiario tierraDiario;
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,6 +17,7 @@ public class EarthElement : MonoBehaviour
 
             // Mostrar mensaje o cualquier otra acción que desees realizar
             Debug.Log("¡Has recogido un fragmento!");
+            tierraDiario.ColeccionadoTierra();
             Destroy(gameObject);
         }
     }

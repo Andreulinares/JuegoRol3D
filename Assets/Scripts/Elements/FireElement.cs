@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireElement : MonoBehaviour
 {
     public GameManager gameManager; // Referencia al GameManager
+    public FuegoDiario fuegoDiario;
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,6 +17,7 @@ public class FireElement : MonoBehaviour
 
             // Mostrar mensaje o cualquier otra acción que desees realizar
             Debug.Log("¡Has recogido un fragmento!");
+            fuegoDiario.ColeccionadoFuego();
             Destroy(gameObject);
         }
     }

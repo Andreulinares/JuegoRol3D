@@ -217,24 +217,24 @@ namespace StarterAssets
 
             if(LeftPadClick())
             {
-                if(currentAttackType==AttackType.Water)
-                {
-                    AtaqueActivo(AttackType.None);
-                }
-                else
-                {
-                    AtaqueActivo(AttackType.Water);
-                } 
-            }
-            if(RightPadClick())
-            {
                 if(currentAttackType==AttackType.Electricity)
                 {
                     AtaqueActivo(AttackType.None);
                 }
                 else
                 {
-                AtaqueActivo(AttackType.Electricity);
+                    AtaqueActivo(AttackType.Electricity);
+                } 
+            }
+            if(RightPadClick())
+            {
+                if(currentAttackType==AttackType.Earth)
+                {
+                    AtaqueActivo(AttackType.None);
+                }
+                else
+                {
+                AtaqueActivo(AttackType.Earth);
                 }
             }
             if(UpPadClick())
@@ -250,13 +250,13 @@ namespace StarterAssets
             }
             if(DownPadClick())
             {
-                if(currentAttackType==AttackType.Earth)
+                if(currentAttackType==AttackType.Water)
                 {
                     AtaqueActivo(AttackType.None);
                 }
                 else
                 {
-                AtaqueActivo(AttackType.Earth);
+                AtaqueActivo(AttackType.Water);
                 }
             }
             if (MouseLeftClick())
@@ -285,19 +285,19 @@ namespace StarterAssets
         }
         private bool LeftPadClick()
         {
-            return Input.GetKeyDown(KeyCode.LeftArrow)/* || Input.GetAxis("DPad_Horizontal") < 0*/;
+            return Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetAxis("Horizontal2") < 0;
         }
         private bool RightPadClick()
         {
-            return Input.GetKeyDown(KeyCode.RightArrow)/* || Input.GetAxis("DPad_Horizontal") > 0*/;
+            return Input.GetKeyDown(KeyCode.RightArrow) || Input.GetAxis("Horizontal2") > 0;
         }
         private bool UpPadClick()
         {
-            return Input.GetKeyDown(KeyCode.UpArrow)/* || Input.GetAxis("DPad_Vertical") > 0*/;
+            return Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxis("Vertical2") > 0;
         }
         private bool DownPadClick()
         {
-            return Input.GetKeyDown(KeyCode.DownArrow)/* || Input.GetAxis("DPad_Vertical") < 0*/;
+            return Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxis("Vertical2") < 0;
         }
         private void CreateStaticSphere()
         {
@@ -618,7 +618,6 @@ namespace StarterAssets
             case AttackType.Fire:
                 playerActivoElemento=Elemento.Fire;
                 Debug.Log("Jugador obtiene el poder de Fuego!");
-                Debug.Log("UIManager.Interface es: " + UIManager.Interface);
                 uiManager.mostrarFuego();
                 break;
             case AttackType.Water:

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ElectricityElement : MonoBehaviour
 {
     public GameManager gameManager; // Referencia al GameManager
+    public ElectricidadDiario electricidadDiario;
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,6 +17,7 @@ public class ElectricityElement : MonoBehaviour
 
             // Mostrar mensaje o cualquier otra acción que desees realizar
             Debug.Log("¡Has recogido un fragmento!");
+            electricidadDiario.ColeccionadoElectricidad();
             Destroy(gameObject);
         }
     }

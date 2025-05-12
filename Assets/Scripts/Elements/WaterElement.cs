@@ -6,6 +6,7 @@ using UnityEngine;
 public class WaterElement : MonoBehaviour
 {
     public GameManager gameManager; // Referencia al GameManager
+    public AguaDiario aguaDiario;
 
     void OnTriggerEnter(Collider other)
     {
@@ -17,6 +18,7 @@ public class WaterElement : MonoBehaviour
             //Animacion de desaparecer
             // Mostrar mensaje o cualquier otra acción que desees realizar
             Debug.Log("¡Has recogido un fragmento!");
+            aguaDiario.ColeccionadoAgua();
             Destroy(gameObject);
         }
     }

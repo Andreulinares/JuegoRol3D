@@ -15,6 +15,13 @@ public class UIManager : MonoBehaviour
     public Image ruedaElementos;
     private Sprite spritePorDefecto;
     public List<Sprite> ElementosSeleccionados;
+    public Image elementoDeFuego;
+    public Image elementoDeFuegoDes;
+
+    public Image elementoDeTierra;
+    public Image elementoDeTierraDes;
+    public Image elementoDeElectricidad;
+    public Image elementoDeElectricidadDes;
 
     private int ElementoSeleccionado = 0;
 
@@ -96,6 +103,19 @@ public class UIManager : MonoBehaviour
     public void mostrarNinguno()
     {
         ruedaElementos.sprite = spritePorDefecto;
+    }
+    public void coleccionadoFuego()
+    {
+        elementoDeFuego.gameObject.SetActive(false);
+    }
+    
+    public void coleccionadoTierra()
+    {
+        elementoDeTierra.gameObject.SetActive(true);
+    }
+    public void coleccionadoElectricidad()
+    {
+        elementoDeElectricidad.gameObject.SetActive(true);
     }
     void Start()
     {
