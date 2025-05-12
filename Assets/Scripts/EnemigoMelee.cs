@@ -240,17 +240,6 @@ public class EnemigoMelee : MonoBehaviour
         animator.SetBool("isWalking", false);
         PatrolMelee.ghost.GetComponent<GhostMeleeRunner>().Detener();
     }
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Puño"))
-        {
-            // Llamar a la función de daño y mostrar el golpe en la consola
-            TakeDamage(10);
-            Debug.Log("¡Golpe al enemigo!");
-        }
-    }*/
-
     public void TakeDamage(int pega)
     {
         int nuevaVida;

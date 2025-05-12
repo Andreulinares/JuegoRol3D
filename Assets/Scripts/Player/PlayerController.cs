@@ -129,7 +129,6 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
-        private int  _animIDAttack;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -273,21 +272,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
-
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                Attack();
-            }
             
-            /*if (_animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
-            {
-                    // Si la animación está cerca del final (por ejemplo, más del 90%)
-                    if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
-                    {
-                        _animator.SetBool("isAttack", false);  // Cambiar a Idle
-                    }
-            }*/
-
         }
 
         private void LateUpdate()
@@ -380,7 +365,6 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-            _animIDAttack = Animator.StringToHash("isAttack");
         }
 
         private void GroundedCheck()
@@ -625,38 +609,6 @@ namespace StarterAssets
                 break;
         }
     }
-
-    private void Attack()
-{
-    // Inicia la animación de ataque
-    if (_hasAnimator)
-    {
-        _animator.SetBool(_animIDAttack, true);  // Activa la animación de ataque
-    }
-
-    // Realiza el ataque con raycast
-    RaycastHit hit;
-    if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
-    {
-        if (hit.collider.CompareTag("Enemy"))
-        {
-            EnemigoMelee enemigo = hit.collider.GetComponent<EnemigoMelee>();
-            if (enemigo != null)
-            {
-                enemigo.TakeDamage(10);  // Daño al enemigo
-                Debug.Log("Golpe al enemigo!");
-            }
-        }
-    }
-
-    Invoke("ResetAttack", 0.1f); 
-}
-
-private void ResetAttack(){
-    if(_hasAnimator){
-        _animator.SetBool(_animIDAttack, false);
-    }
-}
     private void AtaqueActivo(AttackType attack)
     {
         currentAttackType = attack;

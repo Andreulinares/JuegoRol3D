@@ -11,12 +11,10 @@ TagManager:
   - AreaDeteccionJugador
   - AreaDeteccionMelee
   - AreaInfluencia
-  - CinemachineTarget
   - ActivarPisoInferior
-  - EfectoArea
   - ActivarPisoSuperior
-  - Enemy
-  - "Pu\xF1o"
+  - EfectoArea
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -24,7 +22,7 @@ TagManager:
   - decoracion
   - Water
   - UI
-  - 
+  - sueloExterior
   - 
   - 
   - 

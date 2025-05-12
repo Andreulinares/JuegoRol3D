@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MenuManager : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class MenuManager : MonoBehaviour
 
     public void Jugar()
     {
-        SceneManager.LoadScene("SeleccionPersonaje"); 
+        //GraphicsSettings.renderPipelineAsset = Resources.Load<RenderPipelineAsset>("UniversalRenderPipelineAsset");
+        SceneManager.LoadScene("Prueba Juntar"); 
     }
 
     public void AbrirOpciones()
