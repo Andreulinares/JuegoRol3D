@@ -244,13 +244,13 @@ public class EnemigoMelee : MonoBehaviour
         PatrolMelee.ghost.GetComponent<GhostMeleeRunner>().Detener();
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ataque"){
             int daño = controllerPlayer.sphereDamage;
             TakeDamage(daño);
         }
-    }
+    }*/
     public void TakeDamage(int pega)
     {
         float nuevaVida;
