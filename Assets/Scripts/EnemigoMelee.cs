@@ -13,8 +13,8 @@ public class EnemigoMelee : MonoBehaviour
     public PlayerController playerController;
     //public Transform puntoAura;
     private GameObject aura;
-    public int vidaMaxima = 50;
-    public int vidaActual;
+    public float vidaMaxima = 50;
+    public float vidaActual;
     public bool damageBufo = false;
     public bool resistenciaBufo = false;
     public bool curarBufo = false;
@@ -34,6 +34,8 @@ public class EnemigoMelee : MonoBehaviour
 
     public AsignarTipo.TipoElemental tipoActual;
     public PlayerController.Elemento meleeDebilElemento = PlayerController.Elemento.None;
+
+    private PlayerController controllerPlayer;
     public Transform enemigoElemental;
 
     private NavMeshAgent agent;
@@ -52,6 +54,7 @@ public class EnemigoMelee : MonoBehaviour
         jugador = GameObject.FindWithTag("Player");
         playerDetection = GetComponentInChildren<PlayerDetection>();
         animator = GetComponent<Animator>();
+        controllerPlayer = jugador.GetComponent<PlayerController>();
 
         ActualizarBarraVida();
     }
@@ -200,7 +203,7 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     void Muerte(){
-
+        Destroy(gameObject);
     }
 
     void AcercarseAlJugador(){
@@ -240,9 +243,17 @@ public class EnemigoMelee : MonoBehaviour
         animator.SetBool("isWalking", false);
         PatrolMelee.ghost.GetComponent<GhostMeleeRunner>().Detener();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "ataque"){
+            int daño = controllerPlayer.sphereDamage;
+            TakeDamage(daño);
+        }
+    }
     public void TakeDamage(int pega)
     {
-        int nuevaVida;
+        float nuevaVida;
         
         if (transformado == false)
         {
@@ -262,7 +273,7 @@ public class EnemigoMelee : MonoBehaviour
             nuevaVida = Mathf.Max(vidaActual - pega);
         }
 
-        int pegaReal = vidaActual - nuevaVida;
+        float pegaReal = vidaActual - nuevaVida;
         vidaActual = nuevaVida;
         ActualizarBarraVida();
 
@@ -297,6 +308,7 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     void ActualizarBarraVida(){
-        EnemyBarra.InterfaceEnemy.ActualizarVidaEnemy(barraVidaMelee, vidaActual / vidaMaxima);
+        float porcentajeVida = vidaActual / vidaMaxima;
+        EnemyBarra.InterfaceEnemy.ActualizarVidaEnemy(barraVidaMelee, porcentajeVida);
     }
 }

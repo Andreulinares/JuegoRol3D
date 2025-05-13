@@ -15,6 +15,7 @@ TagManager:
   - ActivarPisoSuperior
   - EfectoArea
   - CinemachineTarget
+  - ataque
   layers:
   - Default
   - TransparentFX

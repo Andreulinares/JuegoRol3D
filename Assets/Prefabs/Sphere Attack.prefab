@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2108850969414254921}
   m_Layer: 0
   m_Name: Sphere Attack
-  m_TagString: Untagged
+  m_TagString: ataque
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   lifetime: 2
+  enemigoMelee: {fileID: 0}
+  elementalBehaviour: {fileID: 0}
+  bossAI: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!54 &-2108850969414254921
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -30,6 +30,7 @@ public class EnemyBarra : MonoBehaviour
     }
 
     public void ActualizarVidaEnemy(Image barraVidaEnemy, float porcentaje){
+        //porcentaje = Mathf.Clamp(porcentaje, 0f, 1f);
         barraVidaEnemy.fillAmount = porcentaje;
     }
 }

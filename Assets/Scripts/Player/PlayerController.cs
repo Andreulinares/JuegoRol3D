@@ -25,7 +25,7 @@ namespace StarterAssets
     public UIManager uiManager;
     
     // Daño que la esfera causará a los enemigos
-    public float sphereDamage = 10f;
+    public int sphereDamage = 10;
 
     public int vidaMaxPlayer = 100;
     public int vidaActualPlayer = 100;
