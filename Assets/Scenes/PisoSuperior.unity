@@ -39718,6 +39718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1309462601}
   - component: {fileID: 1309462600}
+  - component: {fileID: 1309462602}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -39747,11 +39748,11 @@ MonoBehaviour:
   m_Follow: {fileID: 164962661}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 6
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
+    OrthographicSize: 5
+    NearClipPlane: 0
+    FarClipPlane: 700
     Dutch: 0
-    ModeOverride: 0
+    ModeOverride: 1
     LensShift: {x: 0, y: 0}
     GateFit: 2
     FocusDistance: 10
@@ -39772,14 +39773,44 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309462599}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.27793688, y: 0.36487973, z: -0.114782944, w: -0.88115764}
-  m_LocalPosition: {x: 41.192284, y: -23.204239, z: 68.20772}
+  m_LocalRotation: {x: 0.3536706, y: -0.35343614, z: 0.14616354, w: 0.85360193}
+  m_LocalPosition: {x: 40.400005, y: -21.868937, z: 69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1082960388}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 35, y: 315, z: -0.038}
+  m_LocalEulerAnglesHint: {x: 45, y: -45, z: -0.038}
+--- !u!114 &1309462602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309462599}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 1
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 1
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1001 &1311791869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60900,11 +60931,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0
+  far clip plane: 700
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -60928,8 +60959,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041084190}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.27793688, y: 0.36487973, z: -0.114782944, w: -0.88115764}
-  m_LocalPosition: {x: 41.192284, y: -23.204239, z: 68.20772}
+  m_LocalRotation: {x: 0.3536706, y: -0.35343614, z: 0.14616354, w: 0.85360193}
+  m_LocalPosition: {x: 40.4, y: -21.86893, z: 69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
