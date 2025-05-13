@@ -130,6 +130,8 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
+        private int _animIDAttack;
+
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -261,7 +263,10 @@ namespace StarterAssets
             }
             if (MouseLeftClick())
             {
-                CreateStaticSphere();
+                //CreateStaticSphere();
+                _animator.SetTrigger(_animIDAttack);
+                ActivarGolpe();
+                
             }
             // Actualizar la posición de la esfera para que siga al personaje
             if (currentSphere != null)
@@ -272,7 +277,25 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
-            
+        }
+
+        public void ActivarGolpe()
+        {
+            Collider[] enemigos = Physics.OverlapSphere(transform.position + transform.forward * 1f, 1f);
+
+                if (enemigos.Length == 0)
+                {
+                    Debug.Log("El golpe no impactó a ningún enemigo!");
+                    return;
+                }
+                foreach (Collider enemigo in enemigos)
+                {
+                    if (enemigo.CompareTag("enemy")) 
+                    {
+                        enemigo.GetComponent<EnemigoMelee>().TakeDamage(sphereDamage);
+                        Debug.Log("Golpe impactó al enemigo!");
+                    }
+                }
         }
 
         private void LateUpdate()
@@ -365,6 +388,7 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDAttack = Animator.StringToHash("isAttack");
         }
 
         private void GroundedCheck()

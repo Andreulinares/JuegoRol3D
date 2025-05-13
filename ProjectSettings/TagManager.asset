@@ -16,6 +16,7 @@ TagManager:
   - EfectoArea
   - CinemachineTarget
   - ataque
+  - enemy
   layers:
   - Default
   - TransparentFX

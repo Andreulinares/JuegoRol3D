@@ -52858,6 +52858,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: T-Pose Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5727084179278702319, guid: 61dd6dec1682ba04a902583bd381ca12,
+        type: 3}
+      propertyPath: m_TagString
+      value: enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 7734648370840352005, guid: 61dd6dec1682ba04a902583bd381ca12,
         type: 3}
       propertyPath: m_Type
