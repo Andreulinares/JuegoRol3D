@@ -9,7 +9,7 @@ public class Diario1 : MonoBehaviour
 
     private void Update()
     {
-        if (jugadorCerca && Input.GetKeyDown(KeyCode.E))
+        if (jugadorCerca && Input.GetButtonDown("Interact"))
         {
             gameManager.SumarPorcentaje(2);
             gameManager.RecogerPagina(Pagina);

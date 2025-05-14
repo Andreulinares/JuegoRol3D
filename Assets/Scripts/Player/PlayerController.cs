@@ -18,11 +18,16 @@ namespace StarterAssets
         [Header("Player")]
         // Referencia al prefab de la esfera
     public GameObject spherePrefab;
+    public SpawnerPersonaje spawner;
     private EnemigoMelee enemigoMelee;
     public BossAI bossAI;
     public float sphereDistance = 2f;
     private GameObject currentSphere;
     public UIManager uiManager;
+    private bool leftPressed = false;
+    private bool rightPressed = false;
+    private bool upPressed = false;
+    private bool downPressed = false;
     
     // Daño que la esfera causará a los enemigos
     public int sphereDamage = 10;
@@ -218,7 +223,7 @@ namespace StarterAssets
         // Si está aturdido, cancelar controles
         if (isStunned) return;
             _hasAnimator = TryGetComponent(out _animator);
-
+            
             if(LeftPadClick())
             {
                 if(currentAttackType==AttackType.Electricity)
@@ -318,21 +323,76 @@ namespace StarterAssets
             return Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.JoystickButton1);
         }
         private bool LeftPadClick()
+{
+    float axis = Input.GetAxis("Horizontal2");
+    if (axis < -0.5f)
+    {
+        if (!leftPressed)
         {
-            return Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetAxis("Horizontal2") < 0;
+            leftPressed = true;
+            return true;
         }
-        private bool RightPadClick()
+    }
+    else
+    {
+        leftPressed = false;
+    }
+    return false;
+}
+
+private bool RightPadClick()
+{
+    float axis = Input.GetAxis("Horizontal2");
+    if (axis > 0.5f)
+    {
+        if (!rightPressed)
         {
-            return Input.GetKeyDown(KeyCode.RightArrow) || Input.GetAxis("Horizontal2") > 0;
+            rightPressed = true;
+            return true;
         }
-        private bool UpPadClick()
+    }
+    else
+    {
+        rightPressed = false;
+    }
+    return false;
+}
+
+private bool UpPadClick()
+{
+    float axis = Input.GetAxis("Vertical2");
+    if (axis < -0.5f) // hacia arriba suele ser negativo
+    {
+        if (!upPressed)
         {
-            return Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxis("Vertical2") > 0;
+            upPressed = true;
+            return true;
         }
-        private bool DownPadClick()
+    }
+    else
+    {
+        upPressed = false;
+    }
+    return false;
+}
+
+private bool DownPadClick()
+{
+    float axis = Input.GetAxis("Vertical2");
+    if (axis > 0.5f)
+    {
+        if (!downPressed)
         {
-            return Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxis("Vertical2") < 0;
+            downPressed = true;
+            return true;
         }
+    }
+    else
+    {
+        downPressed = false;
+    }
+    return false;
+}
         private void CreateStaticSphere()
         {
             if (currentSphere == null)
@@ -737,6 +797,7 @@ private void ActualizarBarraDeVida()
     {
         deathScreenUI.SetActive(true);
     }
+    transform.position = spawner.puntoSpawn.position;
 }
 public void RestartGame()
 {
