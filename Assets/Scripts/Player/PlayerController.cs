@@ -265,7 +265,6 @@ namespace StarterAssets
             {
                 //CreateStaticSphere();
                 _animator.SetTrigger(_animIDAttack);
-                ActivarGolpe();
                 
             }
             // Actualizar la posición de la esfera para que siga al personaje
@@ -279,7 +278,7 @@ namespace StarterAssets
             Move();
         }
 
-        public void ActivarGolpe()
+        /*public void ActivarGolpe()
         {
             Collider[] enemigos = Physics.OverlapSphere(transform.position + transform.forward * 1f, 1f);
 
@@ -296,7 +295,16 @@ namespace StarterAssets
                         Debug.Log("Golpe impactó al enemigo!");
                     }
                 }
-        }
+        }*/
+
+/*        private void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag("enemy")) // Verifica que el objeto golpeado es un enemigo
+    {
+        other.GetComponent<EnemigoMelee>().TakeDamage(sphereDamage);
+        Debug.Log("Golpe impactó al enemigo!");
+    }
+}*/
 
         private void LateUpdate()
         {

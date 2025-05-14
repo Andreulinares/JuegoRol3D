@@ -45,6 +45,12 @@ public class EnemigoMelee : MonoBehaviour
     private PlayerDetection playerDetection;
 
     public Image barraVidaMelee;
+
+    private Renderer render;
+    private Color colorOriginal;
+
+    private float tiempoRojo = 0f;
+    private bool enModoDaño = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +61,9 @@ public class EnemigoMelee : MonoBehaviour
         playerDetection = GetComponentInChildren<PlayerDetection>();
         animator = GetComponent<Animator>();
         controllerPlayer = jugador.GetComponent<PlayerController>();
+
+        render = GetComponent<Renderer>();
+        colorOriginal = render.material.color;
 
         ActualizarBarraVida();
     }
@@ -110,7 +119,24 @@ public class EnemigoMelee : MonoBehaviour
                 }
             }
         }
+
+        /*if (enModoDaño)
+        {
+            tiempoRojo -= Time.deltaTime; 
+            if (tiempoRojo <= 0f)
+            {
+                render.material.color = colorOriginal; 
+                enModoDaño = false; 
+            }
+        }*/
     }
+
+    public void ActivarEfectoDaño()
+{
+    render.material.color = Color.red; // Cambia el color a rojo
+    tiempoRojo = 0.2f; // Define cuánto tiempo durará el efecto (0.2 segundos)
+    enModoDaño = true; // Activa la lógica en `Update()`
+}
     
     public void ObtenerTipoElemental(AsignarTipo.TipoElemental tipo)
     {
@@ -275,6 +301,7 @@ public class EnemigoMelee : MonoBehaviour
 
         float pegaReal = vidaActual - nuevaVida;
         vidaActual = nuevaVida;
+        //ActivarEfectoDaño();
         ActualizarBarraVida();
 
         if (vidaActual <= 0){
