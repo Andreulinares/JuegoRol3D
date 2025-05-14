@@ -229,7 +229,12 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     void Muerte(){
-        //animator.SetBool("isDead", true);
+        animator.SetTrigger("isDead");
+        animator.SetBool("isAttack", false);
+        Destroy(gameObject, 3f);
+    }
+
+    public void DestroyObject(){
         Destroy(gameObject);
     }
 
