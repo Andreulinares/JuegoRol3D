@@ -61,9 +61,9 @@ public class EnemigoMelee : MonoBehaviour
         playerDetection = GetComponentInChildren<PlayerDetection>();
         animator = GetComponent<Animator>();
         controllerPlayer = jugador.GetComponent<PlayerController>();
-
-        render = GetComponent<Renderer>();
-        colorOriginal = render.material.color;
+        agent.updateRotation = false;
+        //render = GetComponent<Renderer>();
+        //colorOriginal = render.material.color;
 
         ActualizarBarraVida();
     }
@@ -229,6 +229,7 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     void Muerte(){
+        //animator.SetBool("isDead", true);
         Destroy(gameObject);
     }
 
@@ -242,6 +243,10 @@ public class EnemigoMelee : MonoBehaviour
 
     void Atacar()
     {
+
+        Vector3 direccionJugador = (jugador.transform.position - transform.position).normalized;
+        Quaternion rotacionObjetivo = Quaternion.LookRotation(direccionJugador);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, Time.deltaTime * 10f);
         //Atacando al jugador
         if(curarBufo==true)
         {
@@ -254,6 +259,7 @@ public class EnemigoMelee : MonoBehaviour
         animator.SetBool("isAttack", true);
         animator.SetBool("isWalking", false);
         animator.SetBool("isRun", false);
+        GetComponentInChildren<EnemyAttack>().ActivarColliderGolpe();
         Debug.Log("Golpeando al jugador");
     }
 
@@ -262,6 +268,13 @@ public class EnemigoMelee : MonoBehaviour
         animator.SetBool("isWalking", true);
         animator.SetBool("isRun", false);
         animator.SetBool("isAttack", false);
+
+        if (agent.velocity.magnitude > 0.1f) 
+        {
+            Vector3 direccionMovimiento = agent.velocity.normalized;
+            Quaternion rotacionObjetivo = Quaternion.LookRotation(direccionMovimiento);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, Time.deltaTime * 5f);
+        }
     }
 
     void DetenerPatrullaje(){

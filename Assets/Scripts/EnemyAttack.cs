@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class EnemyAttack : MonoBehaviour
 {
 
-    public int daño = 10;
+    public int daño = 20;
     private Collider golpe;
     // Start is called before the first frame update
-
     void Start()
     {
         golpe = GetComponent<Collider>();
@@ -26,12 +26,18 @@ public class PlayerAttack : MonoBehaviour
         golpe.enabled = false; 
     }
 
-    private void OnTriggerEnter(Collider other)
-{
-    if (other.CompareTag("enemy")) // Verifica que el objeto golpeado es un enemigo
+    // Update is called once per frame
+    void Update()
     {
-        other.GetComponent<EnemigoMelee>().TakeDamage(daño);
-        Debug.Log("Golpe impactó al enemigo!");
+        
     }
-}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) 
+        {
+            other.GetComponent<PlayerController>().TakeDamage(daño);
+            Debug.Log("Golpe impactó a player!");
+        }
+    }
 }

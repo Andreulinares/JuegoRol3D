@@ -18,7 +18,7 @@ namespace StarterAssets
         [Header("Player")]
         // Referencia al prefab de la esfera
     public GameObject spherePrefab;
-    public EnemigoMelee enemigoMelee;
+    private EnemigoMelee enemigoMelee;
     public BossAI bossAI;
     public float sphereDistance = 2f;
     private GameObject currentSphere;
@@ -189,6 +189,8 @@ namespace StarterAssets
 
             ActualizarBarraDeVida();
             ActualizarBarraMana();
+
+            enemigoMelee = GetComponent<EnemigoMelee>();
         }
 
         private void Update()
@@ -265,6 +267,7 @@ namespace StarterAssets
             {
                 //CreateStaticSphere();
                 _animator.SetTrigger(_animIDAttack);
+                GetComponentInChildren<PlayerAttack>().ActivarColliderGolpe();
                 
             }
             // Actualizar la posición de la esfera para que siga al personaje
@@ -681,14 +684,14 @@ namespace StarterAssets
         Debug.Log("Jugador invencible. No recibe daño.");
         return;
     }
-    if(enemigoMelee.damageBufo==true)
+    /*if(enemigoMelee.damageBufo==true)
     {
         damage=damage+10;
     }
     if(bossAI.attackBuff==true)
     {
         damage=damage+10;
-    }
+    }*/
     vidaActualPlayer -= damage;
     
     ActualizarBarraDeVida();
@@ -726,7 +729,7 @@ private void ActualizarBarraDeVida()
     // Activar animación de muerte
     if (_hasAnimator)
     {
-        _animator.SetTrigger("Death"); // Asegúrate de tener este trigger en el Animator
+        _animator.SetTrigger("Death"); 
     }
 
     // Mostrar UI de muerte
