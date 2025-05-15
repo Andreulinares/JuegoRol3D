@@ -21,15 +21,15 @@ public class BossAI : MonoBehaviour
     public int fragmentosJugador = 0;
     public bool invencibility = false;
     public Transform[] puntosPatrulla;
+    public Transform puntoSpawnBoss;
     public int indiceActual = 0;
-
     public enum AttackType { Fire, Water, Electricity, Earth, None }
     public AttackType currentAttackType = AttackType.None;
     public PlayerController.Elemento bossDebilElemento = PlayerController.Elemento.None;
     private float distanceToPlayer;
-    private bool isChasing = false;
+    public bool isChasing = false;
     private bool isInCooldown = false;
-    private bool isApproaching = false;
+    public bool isApproaching = false;
     public float cooldownTiempo = 2f;
     private float cooldownTimer = 0f;
     public bool muerto = false;
@@ -41,6 +41,7 @@ public class BossAI : MonoBehaviour
         {
             agent = GetComponent<NavMeshAgent>();
         }
+        transform.position=puntoSpawnBoss.position;
     }
 
     private void Update()
@@ -117,7 +118,7 @@ public class BossAI : MonoBehaviour
         fragmentosJugador = Mathf.Clamp(cantidad, 0, 4); // máximo 4 fragmentos
     }
 
-    private void Patrol()
+    public void Patrol()
     {
         if (puntosPatrulla.Length == 0) return;
 
@@ -132,6 +133,8 @@ public class BossAI : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        gameManager.paredBoss1.SetActive(true);
+        gameManager.paredBoss2.SetActive(true);
     }
 
     public void TakeDamage(int pega)
@@ -289,6 +292,8 @@ public class BossAI : MonoBehaviour
         //animator.speed = 0f;
         GameManager.Instance.CambiarEscena("FinalScene");
         GameManager.Instance.BossDerrotado();
+        gameManager.paredBoss1.SetActive(false);
+        gameManager.paredBoss2.SetActive(false);
     }
 }
 

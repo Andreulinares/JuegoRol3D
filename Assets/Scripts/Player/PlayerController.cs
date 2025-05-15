@@ -747,11 +747,11 @@ private bool DownPadClick()
     /*if(enemigoMelee.damageBufo==true)
     {
         damage=damage+10;
-    }
+    }*/
     if(bossAI.attackBuff==true)
     {
         damage=damage+10;
-    }*/
+    }
     vidaActualPlayer -= damage;
     
     ActualizarBarraDeVida();
@@ -797,7 +797,7 @@ private void ActualizarBarraDeVida()
     {
         deathScreenUI.SetActive(true);
     }
-    transform.position = spawner.puntoSpawn.position;
+    
 }
 public void RestartGame()
 {
@@ -811,6 +811,19 @@ public void Stun(float stunDuration, float extraInvincibility = 2f)
     stunTimer = stunDuration;
     invincibleTimer = stunDuration + extraInvincibility;
 }
+public void ReiniciarPersonaje()
+{
+    transform.position = spawner.puntoSpawn.position;
+    vidaActualPlayer=vidaMaxPlayer;
+    manaActualPlayer=manaMaxPlayer;
+    bossAI.PVActual=bossAI.PVMax;
+    bossAI.isApproaching = false;
+    bossAI.isChasing = false;
+    bossAI.Patrol();
+    bossAI.transform.position=bossAI.puntoSpawnBoss.position;
 }
+
+}
+
 
 }

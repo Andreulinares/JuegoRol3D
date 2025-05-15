@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] objetosPagina5;
     public GameObject[] objetosPagina6;
     public GameObject[] objetosPagina7;
+    public GameObject paredBoss1;
+    public GameObject paredBoss2;
 
     public AudioSource musicaFondo;
     public AudioClip musicaNormal;
@@ -227,6 +229,8 @@ public class GameManager : MonoBehaviour
     {
         DesactivarObjetos(objetosSuperior);
         DesactivarObjetos(objetosAfueras);
+        paredBoss1.SetActive(false);
+        paredBoss2.SetActive(false);
     }
 
     public void ActivarObjetos(GameObject[] objetos)
