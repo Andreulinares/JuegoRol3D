@@ -41,8 +41,8 @@ public class UIManager : MonoBehaviour
     public void ActualizarMana(float manaActual)
     {
     
-        manaActual = Mathf.Clamp01(manaActual); // Asegurarse de que esté entre 0 y 1
-        float porcentajePorBarra = 1f / barrasMana.Count; // Por ejemplo, 0.25 si hay 4 barras
+        manaActual = Mathf.Clamp01(manaActual); 
+        float porcentajePorBarra = 1f / barrasMana.Count; 
 
         for (int i = 0; i < barrasMana.Count; i++)
         {

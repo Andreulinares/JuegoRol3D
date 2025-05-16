@@ -239,6 +239,9 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     void AcercarseAlJugador(){
+        Vector3 direccionJugador = (jugador.transform.position - transform.position).normalized;
+        Quaternion rotacionObjetivo = Quaternion.LookRotation(direccionJugador);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, Time.deltaTime * 5f);
         agent.SetDestination(jugador.transform.position);
         animator.SetBool("isRun", true);
         animator.SetBool("isAttack", false);
