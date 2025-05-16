@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
     public UnityEvent onTodosFragmentosRecolectados;
     public UnityEvent onBossDerrotado;
 
+    public GameObject meleePrefab;
+    public GameObject ArqueroPrefab;
+
+    public Transform puntoSpawn;
     private void Awake()
     {
         if (Instance == null)
@@ -67,6 +71,18 @@ public class GameManager : MonoBehaviour
         if (musicaFondo != null && musicaNormal != null)
         {
             CambiarMusica(musicaNormal);
+        }
+
+        int personajeSeleccionado = PlayerPrefs.GetInt("PersonajeSeleccionado");
+
+        GameObject jugador;
+        if (personajeSeleccionado == 1)
+        {
+            jugador = Instantiate(meleePrefab, puntoSpawn.position, Quaternion.identity);
+        }
+        else
+        {
+            jugador = Instantiate(ArqueroPrefab, puntoSpawn.position, Quaternion.identity);
         }
     }
     public void ColocarFragmento(string tipo)

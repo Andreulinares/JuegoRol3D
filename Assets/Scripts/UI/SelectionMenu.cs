@@ -34,12 +34,12 @@ public class SelectionMenu : MonoBehaviour
         if (currentSelection == 1 && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0)))
         {
             PlayerPrefs.SetInt("PersonajeSeleccionado", 1);
-            SceneManager.LoadScene("Escena");
+            SceneManager.LoadScene("PisoSuperior");
         }
         if (currentSelection == 2 && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0)))
         {
             PlayerPrefs.SetInt("PersonajeSeleccionado", 2);
-            SceneManager.LoadScene("Escena");
+            SceneManager.LoadScene("PisoSuperior");
         }
     }
 }

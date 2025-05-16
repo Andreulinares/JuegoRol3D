@@ -165,6 +165,9 @@ public class ElementalBehaviour : MonoBehaviour
 
     //Acercarse al jugador para que este en el rango de ataque para atacar a distancia
     void AcercarseAlJugador(){
+        Vector3 direccionJugador = (jugador.transform.position - transform.position).normalized;
+        Quaternion rotacionObjetivo = Quaternion.LookRotation(direccionJugador);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, Time.deltaTime * 5f);
         agent.SetDestination(jugador.transform.position);
         animator.SetBool("isWalking", true);
         animator.SetBool("isAttack", false);
@@ -172,14 +175,24 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     void AtacarDistancia(){
-        if (Time.time >= cooldownUltimoDisparo + cooldownDisparo){
-            if (proyectil != null && puntoDisparo != null){
-                GameObject nuevoProyectil = Instantiate(proyectil, puntoDisparo.position, puntoDisparo.rotation); 
+        Vector3 direccionJugador = (jugador.transform.position - transform.position).normalized;
+        Quaternion rotacionObjetivo = Quaternion.LookRotation(direccionJugador);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, Time.deltaTime * 10f);
+        if (Time.time >= cooldownUltimoDisparo + cooldownDisparo)
+        {
+            if (proyectil != null && puntoDisparo != null)
+            {
+                GameObject nuevoProyectil = Instantiate(proyectil, puntoDisparo.position, puntoDisparo.rotation);
 
-                Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
+                /*Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
                 if(rb != null){
                     Vector3 direccion = jugador.transform.position - puntoDisparo.position;
                     rb.velocity = direccion * velocidadProyectil;
+                }*/
+                Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.velocity = puntoDisparo.forward * velocidadProyectil;
                 }
             }
 
@@ -192,10 +205,18 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     //Patrullar
-    void Patrullar(){
+    void Patrullar()
+    {
         ElementalPatrolScript.ActivarPatrullaje();
         animator.SetBool("isWalking", true);
         animator.SetBool("isAttack", false);
+        
+        if (agent.velocity.magnitude > 0.1f) 
+        {
+            Vector3 direccionMovimiento = agent.velocity.normalized;
+            Quaternion rotacionObjetivo = Quaternion.LookRotation(direccionMovimiento);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, Time.deltaTime * 5f);
+        }
     }
 
     void DetenerPatrullaje(){
