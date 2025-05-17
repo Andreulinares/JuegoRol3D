@@ -71,6 +71,12 @@ public class EnemigoMelee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+            if (jugador == null)
+        {
+            jugador = GameObject.FindWithTag("Player");
+        }
+
         if (!isAlive){
             Muerte();
         }

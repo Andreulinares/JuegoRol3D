@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using Cinemachine;
 using StarterAssets;
 
 public class GameManager : MonoBehaviour
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject meleePrefab;
     public GameObject ArqueroPrefab;
+    public CinemachineVirtualCamera virtualCam;
 
     public Transform puntoSpawn;
     private void Awake()
@@ -67,13 +69,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        ComienzoPiso();
-        if (musicaFondo != null && musicaNormal != null)
-        {
-            CambiarMusica(musicaNormal);
-        }
-
+        Debug.Log("GameManager ha iniciado.");
         int personajeSeleccionado = PlayerPrefs.GetInt("PersonajeSeleccionado");
+        Debug.Log("Instanciando personaje: " + personajeSeleccionado);
 
         GameObject jugador;
         if (personajeSeleccionado == 1)
@@ -83,6 +81,15 @@ public class GameManager : MonoBehaviour
         else
         {
             jugador = Instantiate(ArqueroPrefab, puntoSpawn.position, Quaternion.identity);
+        }
+
+        virtualCam.Follow = jugador.transform;
+        virtualCam.LookAt = jugador.transform;
+        
+        ComienzoPiso();
+        if (musicaFondo != null && musicaNormal != null)
+        {
+            CambiarMusica(musicaNormal);
         }
     }
     public void ColocarFragmento(string tipo)

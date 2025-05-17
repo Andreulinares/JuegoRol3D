@@ -33,12 +33,16 @@ public class SelectionMenu : MonoBehaviour
         transform.eulerAngles = currentAngle;
         if (currentSelection == 1 && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0)))
         {
-            PlayerPrefs.SetInt("PersonajeSeleccionado", 1);
+            Debug.Log("Seleccionado personaje 1, cargando escena...");
+            PlayerPrefs.SetInt("PersonajeSeleccionado", currentSelection);
+            Debug.Log("Personaje guardado en PlayerPrefs: " + PlayerPrefs.GetInt("PersonajeSeleccionado"));
             SceneManager.LoadScene("PisoSuperior");
         }
         if (currentSelection == 2 && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0)))
         {
-            PlayerPrefs.SetInt("PersonajeSeleccionado", 2);
+            Debug.Log("Seleccionado personaje 2, cargando escena...");
+            PlayerPrefs.SetInt("PersonajeSeleccionado", currentSelection);
+            Debug.Log("Personaje guardado en PlayerPrefs: " + PlayerPrefs.GetInt("PersonajeSeleccionado"));
             SceneManager.LoadScene("PisoSuperior");
         }
     }
