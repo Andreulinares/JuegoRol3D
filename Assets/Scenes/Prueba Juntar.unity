@@ -20810,6 +20810,10 @@ MonoBehaviour:
   onBossDerrotado:
     m_PersistentCalls:
       m_Calls: []
+  meleePrefab: {fileID: 0}
+  ArqueroPrefab: {fileID: 0}
+  virtualCam: {fileID: 0}
+  puntoSpawn: {fileID: 0}
 --- !u!1001 &254433437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37329,6 +37333,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelDiario: {fileID: 1378988207}
+  paginas:
+  - {fileID: 1378988207}
+  - {fileID: 1617389067}
+  - {fileID: 1744012223}
+  - {fileID: 201908244}
+  - {fileID: 860742106}
+  - {fileID: 1300108194}
+  - {fileID: 253403755}
+  teclaAvanzar: 275
+  teclaRetroceder: 276
 --- !u!4 &484009615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2970444323590948301, guid: 44cbbb7282b677d4e9e7d677b5307117,
