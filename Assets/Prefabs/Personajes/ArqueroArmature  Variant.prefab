@@ -24,8 +24,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3134526796334304810}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4507717, y: -0.55346715, z: 0.53853416, w: -0.44772756}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.042, y: 0.001, z: -0.008}
   m_LocalScale: {x: 13, y: 13, z: 13}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -143,6 +143,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6808175109404245500}
     m_Modifications:
+    - target: {fileID: 453217939841996575, guid: a289b446aad1c354c849ab51a03a78ab,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 453217939841996575, guid: a289b446aad1c354c849ab51a03a78ab,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3595557804323297469, guid: a289b446aad1c354c849ab51a03a78ab,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -213,6 +223,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PP_Theme_02_Bow_001
       objectReference: {fileID: 0}
+    - target: {fileID: 4228365931688133127, guid: a289b446aad1c354c849ab51a03a78ab,
+        type: 3}
+      propertyPath: m_TagString
+      value: arco
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -249,7 +264,7 @@ PrefabInstance:
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.83
+      value: 35.4
       objectReference: {fileID: 0}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -306,12 +321,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: spherePrefab
       value: 
       objectReference: {fileID: 6351171574319857101, guid: d17a50b1cec09db43921ceff6e8e7867,
         type: 3}
+    - target: {fileID: 4416926081852918491, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918493, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_Camera
@@ -455,7 +480,7 @@ MonoBehaviour:
   flechaPrefab: {fileID: 2019614150663937309, guid: eac6a19c176c7474eb7d9d83ebff4fd5,
     type: 3}
   puntoDisparo: {fileID: 3573182834388919227}
-  velocidadFlecha: 20
+  potenciaFlecha: 50
   spawner: {fileID: 0}
   bossAI: {fileID: 0}
   sphereDistance: 2

@@ -34,10 +34,27 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) 
+        /*if (other.CompareTag("Player")) 
         {
             other.GetComponent<PlayerController>().TakeDamage(daño);
             Debug.Log("Golpe impactó a player!");
+        }else if(other.CompareTag("Player2")){
+            other.GetComponent<ArqueroController>().TakeDamage(daño);
+            Debug.Log("Golpe impactó a player2!");
+        }*/
+
+        if (other.CompareTag("Player")){
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player != null){
+                player.TakeDamage(daño);
+                Debug.Log("Golpe impactó a player1!");
+            }
+
+            ArqueroController arquero = other.GetComponent<ArqueroController>();
+            if (arquero != null){
+                arquero.TakeDamage(daño);
+                Debug.Log("Golpe impactó a arquero!");
+            }
         }
     }
 }

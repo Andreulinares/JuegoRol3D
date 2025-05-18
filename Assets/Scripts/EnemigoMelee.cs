@@ -11,6 +11,7 @@ public class EnemigoMelee : MonoBehaviour
 
     public GameObject[] auraPrefabs; //Array con las auras
     public PlayerController playerController;
+    public ArqueroController arqueroController;
     //public Transform puntoAura;
     private GameObject aura;
     public float vidaMaxima = 50;
@@ -312,11 +313,11 @@ public class EnemigoMelee : MonoBehaviour
         {
 
         }
-        else if (playerController.playerAtaqueElemento == meleeDebilElemento)
+        /*else if (playerController.playerAtaqueElemento || arqueroController.playerAtaqueElemento == meleeDebilElemento)
         {
             pega += 4;
             Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del melee.");
-        }
+        }*/
         if(resistenciaBufo==true)
         {
             nuevaVida = Mathf.Max(vidaActual - Mathf.RoundToInt(pega * 0.8f));
@@ -333,11 +334,11 @@ public class EnemigoMelee : MonoBehaviour
 
         if (vidaActual <= 0){
             isAlive = false;
-            playerController.manaActualPlayer=playerController.manaActualPlayer+25;
+            /*playerController.manaActualPlayer=playerController.manaActualPlayer+25;
             if(playerController.manaActualPlayer>=100)
             {
                 playerController.manaActualPlayer=100;
-            }
+            }*/
         }else{
             //Animacion stun
             Stun(2);

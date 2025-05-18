@@ -17,6 +17,9 @@ TagManager:
   - CinemachineTarget
   - ataque
   - enemy
+  - Player2
+  - Suelo
+  - arco
   layers:
   - Default
   - TransparentFX
@@ -25,9 +28,9 @@ TagManager:
   - Water
   - UI
   - sueloExterior
-  - 
-  - 
-  - 
+  - Arco
+  - Player
+  - Arrow
   - 
   - 
   - 

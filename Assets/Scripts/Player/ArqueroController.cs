@@ -20,7 +20,7 @@ namespace StarterAssets
     public GameObject spherePrefab;
     public GameObject flechaPrefab;
     public Transform puntoDisparo;
-    public float velocidadFlecha = 20f;
+    public float potenciaFlecha = 50f;
 
     public SpawnerPersonaje spawner;
     private EnemigoMelee enemigoMelee;
@@ -277,7 +277,7 @@ namespace StarterAssets
                 //CreateStaticSphere();
                 _animator.SetTrigger(_animIDAttack);
                 //GetComponentInChildren<PlayerAttack>().ActivarColliderGolpe();
-                DispararFlecha();
+                //Invoke("DispararFlecha", 0.8f);
                 
             }
             // Actualizar la posición de la esfera para que siga al personaje
@@ -291,12 +291,12 @@ namespace StarterAssets
             Move();
         }
 
-        void DispararFlecha(){
+        public void DispararFlecha(){
             GameObject nuevaFlecha = Instantiate(flechaPrefab, puntoDisparo.position, puntoDisparo.rotation);
 
             Rigidbody rb = nuevaFlecha.GetComponent<Rigidbody>();
             if (rb != null){
-                rb.velocity = puntoDisparo.forward * velocidadFlecha;
+                rb.AddForce(puntoDisparo.forward * potenciaFlecha, ForceMode.Impulse);
             }
         }
         /*public void ActivarGolpe()
