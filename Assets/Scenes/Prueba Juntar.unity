@@ -105078,7 +105078,7 @@ MonoBehaviour:
   spherePrefab: {fileID: 6351171574319857101, guid: d17a50b1cec09db43921ceff6e8e7867,
     type: 3}
   spawner: {fileID: 0}
-  bossAI: {fileID: 0}
+  bossAI: {fileID: 1235883398}
   sphereDistance: 2
   uiManager: {fileID: 1515823107}
   sphereDamage: 10
