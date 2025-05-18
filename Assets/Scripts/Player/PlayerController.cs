@@ -31,7 +31,6 @@ namespace StarterAssets
     
     // Daño que la esfera causará a los enemigos
     public int sphereDamage = 10;
-
     public int vidaMaxPlayer = 100;
     public int vidaActualPlayer = 100;
     public int manaMaxPlayer = 100;

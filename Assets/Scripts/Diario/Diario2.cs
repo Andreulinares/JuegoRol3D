@@ -5,6 +5,7 @@ public class Diario2 : MonoBehaviour
     private bool jugadorCerca = false;
     public int Pagina=2;
     public GameManager gameManager;
+    public Diario diario;
     
 
     private void Update()
@@ -13,6 +14,7 @@ public class Diario2 : MonoBehaviour
         {
             gameManager.SumarPorcentaje(5);
             gameManager.RecogerPagina(Pagina);
+            activarPagina();
         }
     }
 
@@ -34,5 +36,10 @@ public class Diario2 : MonoBehaviour
             jugadorCerca = false;
             // Ocultar UI
         }
+    }
+    public void activarPagina()
+    {
+        diario.pagina2= true;
+        diario.activarPagina();
     }
 }

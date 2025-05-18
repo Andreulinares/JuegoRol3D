@@ -10,10 +10,20 @@ public class Diario : MonoBehaviour
     public KeyCode teclaRetroceder  = KeyCode.LeftArrow;
     private bool diarioAbierto = false;
     private int paginaActual   = 0;
+    public GameObject[] textosPaginas = new GameObject[7];
+    public bool pagina1 = false;
+    public bool pagina2 = false;
+    public bool pagina3 = false;
+    public bool pagina4 = false;
+    public bool pagina5 = false;
+    public bool pagina6 = false;
+    public bool pagina7 = false;
     // Start is called before the first frame update
     void Start()
     {
         panelDiario.SetActive(false);
+        DesactivarTodasLasPaginas();
+        DesactivarTextosPaginas();
     }
 
     // Update is called once per frame
@@ -25,11 +35,11 @@ public class Diario : MonoBehaviour
         }
         if (diarioAbierto)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.JoystickButton5))
             {
                 CambiarPagina(1);
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.JoystickButton4))
             {
                 CambiarPagina(-1);
             }
@@ -70,6 +80,44 @@ public class Diario : MonoBehaviour
     private void DesactivarTodasLasPaginas()
     {
         foreach (GameObject pagina in paginas)
+        {
+            pagina.SetActive(false);
+        }
+    }
+    public void activarPagina()
+    {
+        if(pagina1==true)
+        {
+            textosPaginas[0].SetActive(true);
+        }
+        if(pagina2==true)
+        {
+            textosPaginas[1].SetActive(true);
+        }
+        if(pagina3==true)
+        {
+            textosPaginas[2].SetActive(true);
+        }
+        if(pagina4==true)
+        {
+            textosPaginas[3].SetActive(true);
+        }
+        if(pagina5==true)
+        {
+            textosPaginas[4].SetActive(true);
+        }
+        if(pagina6==true)
+        {
+            textosPaginas[5].SetActive(true);
+        }
+        if(pagina7==true)
+        {
+            textosPaginas[6].SetActive(true);
+        }
+    }
+    public void DesactivarTextosPaginas()
+    {
+        foreach (GameObject pagina in textosPaginas)
         {
             pagina.SetActive(false);
         }
