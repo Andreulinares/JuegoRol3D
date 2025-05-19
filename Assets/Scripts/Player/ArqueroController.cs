@@ -27,6 +27,7 @@ namespace StarterAssets
     public BossAI bossAI;
     public float sphereDistance = 2f;
     private GameObject currentSphere;
+    public GameObject pantallaMuerte;
     public UIManager uiManager;
     private bool leftPressed = false;
     private bool rightPressed = false;
@@ -177,6 +178,7 @@ namespace StarterAssets
 
         private void Start()
         {
+            pantallaMuerte.SetActive(false);
             vidaMaxPlayer = 100;
             vidaActualPlayer=vidaMaxPlayer;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -779,10 +781,7 @@ private void ActualizarBarraDeVida()
     }
 
     // Mostrar UI de muerte
-    if (deathScreenUI != null)
-    {
-        deathScreenUI.SetActive(true);
-    }
+    
     
 }
 public void RestartGame()
@@ -802,6 +801,7 @@ public void ReiniciarPersonaje()
     transform.position = spawner.puntoSpawn.position;
     vidaActualPlayer=vidaMaxPlayer;
     manaActualPlayer=manaMaxPlayer;
+    uiManager.mostrarNinguno();
     bossAI.PVActual=bossAI.PVMax;
     bossAI.isApproaching = false;
     bossAI.isChasing = false;

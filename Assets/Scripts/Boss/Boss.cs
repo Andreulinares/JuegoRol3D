@@ -281,19 +281,12 @@ public class BossAI : MonoBehaviour
         agent.isStopped = true;
         agent.enabled = false;
         muerto=true;
-
-        Collider collider = GetComponent<Collider>();
-        if (collider != null)
-        {
-            collider.enabled = false;
-        }
-
         //animator.SetTrigger("Muerte");
         //animator.speed = 0f;
-        GameManager.Instance.CambiarEscena("FinalScene");
         GameManager.Instance.BossDerrotado();
         gameManager.paredBoss1.SetActive(false);
         gameManager.paredBoss2.SetActive(false);
+        
     }
 }
 

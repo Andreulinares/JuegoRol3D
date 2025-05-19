@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public ProgressManager progressManager;
+    public GameObject pantallaVictoria;
 
     [Header("Fragmentos")]
     public int fragmentosTotales = 4;
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        pantallaVictoria.SetActive(false);
         Debug.Log("GameManager ha iniciado.");
         int personajeSeleccionado = PlayerPrefs.GetInt("PersonajeSeleccionado");
         Debug.Log("Instanciando personaje: " + personajeSeleccionado);
@@ -85,7 +87,7 @@ public class GameManager : MonoBehaviour
 
         virtualCam.Follow = jugador.transform;
         virtualCam.LookAt = jugador.transform;
-        
+
         ComienzoPiso();
         if (musicaFondo != null && musicaNormal != null)
         {
@@ -158,17 +160,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ActivarBossFinal()
-    {
-        CambiarMusica(musicaBoss);
-        Debug.Log("¡Boss activado!");
-    }
-
-    public void CambiarEscena(string nombreEscena)
-    {
-        SceneManager.LoadScene(nombreEscena);
-    }
-
     public void CambiarEstado(EstadoJuego nuevoEstado)
     {
         estadoActual = nuevoEstado;
@@ -203,15 +194,7 @@ public class GameManager : MonoBehaviour
         CambiarEstado(EstadoJuego.Ganado);
         onBossDerrotado?.Invoke();
         Debug.Log("¡Boss derrotado!");
-        if(progressManager.porcentajeDeJuego==100)
-        {
-            //Escena con el 100% del juego
-        }
-        else
-        {
-            //Escena donde informas del % y le dices que aun no tiene el 100%
-        }
-
+        pantallaVictoria.SetActive(true);
     }
 
     public void DesactivarObjetos(GameObject[] objetos)
@@ -301,6 +284,6 @@ public class GameManager : MonoBehaviour
     }
     public void SumarPorcentaje(int valor)
     {
-        progressManager.porcentajeDeJuego=progressManager.porcentajeDeJuego + valor;
+        progressManager.porcentajeDeJuego = progressManager.porcentajeDeJuego + valor;
     }
 }
