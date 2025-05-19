@@ -168,6 +168,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6351171574319857101, guid: d17a50b1cec09db43921ceff6e8e7867,
         type: 3}
+    - target: {fileID: 4416926081852918491, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918493, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_Camera
@@ -277,11 +282,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25410d88c15766428725e66a4c98dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementoIcono: {fileID: 0}
+  iconosElementos: []
   spherePrefab: {fileID: 6351171574319857101, guid: d17a50b1cec09db43921ceff6e8e7867,
     type: 3}
-  spawner: {fileID: 0}
   bossAI: {fileID: 0}
+  gameManager: {fileID: 0}
   sphereDistance: 2
+  pantallaMuerte: {fileID: 0}
   uiManager: {fileID: 0}
   sphereDamage: 10
   vidaMaxPlayer: 5
