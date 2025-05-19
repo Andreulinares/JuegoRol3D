@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
     public void Jugar()
     {
         //GraphicsSettings.renderPipelineAsset = Resources.Load<RenderPipelineAsset>("UniversalRenderPipelineAsset");
-        SceneManager.LoadScene("Prueba Juntar"); 
+        SceneManager.LoadScene("SeleccionPersonaje"); 
     }
 
     public void AbrirOpciones()

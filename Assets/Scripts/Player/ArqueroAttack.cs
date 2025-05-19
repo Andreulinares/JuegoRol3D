@@ -65,7 +65,7 @@ public class ArqueroAttack : MonoBehaviour
             Destroy(gameObject);
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-        { 
+        {
             Debug.Log("Flecha impactó en el jugador, no se clava.");
             return;
         }
@@ -80,6 +80,8 @@ public class ArqueroAttack : MonoBehaviour
             transform.SetParent(collision.transform);
 
             transform.position = collision.contacts[0].point;
+
+            //Destroy(gameObject, tiempoVida);
         }
 }
 }

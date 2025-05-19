@@ -177,7 +177,6 @@ namespace StarterAssets
 
         private void Start()
         {
-            pantallaMuerte.SetActive(false);
             vidaMaxPlayer = 100;
             vidaActualPlayer=vidaMaxPlayer;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -201,6 +200,7 @@ namespace StarterAssets
             ActualizarBarraMana();
 
             enemigoMelee = GetComponent<EnemigoMelee>();
+            pantallaMuerte.SetActive(false);
         }
 
         private void Update()

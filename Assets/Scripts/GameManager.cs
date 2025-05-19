@@ -68,9 +68,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        ComienzoPiso();
-        pantallaVictoria.SetActive(false);
-        Debug.Log("GameManager ha iniciado.");
         int personajeSeleccionado = PlayerPrefs.GetInt("PersonajeSeleccionado");
         Debug.Log("Instanciando personaje: " + personajeSeleccionado);
 
@@ -86,6 +83,9 @@ public class GameManager : MonoBehaviour
 
         virtualCam.Follow = jugador.transform;
         virtualCam.LookAt = jugador.transform;
+        ComienzoPiso();
+        pantallaVictoria.SetActive(false);
+        Debug.Log("GameManager ha iniciado.");
         if (musicaFondo != null && musicaNormal != null)
         {
             CambiarMusica(musicaNormal);
