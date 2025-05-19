@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public EstadoJuego estadoActual = EstadoJuego.Jugando;
 
     public enum PisoActivado { Superior, Inferior, Afueras }
-    public PisoActivado PisoActual = PisoActivado.Inferior;
+    public PisoActivado PisoActual = PisoActivado.Afueras;
 
     public GameObject[] objetosSuperior;
     public GameObject[] objetosInferior;
@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        ComienzoPiso();
         pantallaVictoria.SetActive(false);
         Debug.Log("GameManager ha iniciado.");
         int personajeSeleccionado = PlayerPrefs.GetInt("PersonajeSeleccionado");
@@ -87,8 +88,6 @@ public class GameManager : MonoBehaviour
 
         virtualCam.Follow = jugador.transform;
         virtualCam.LookAt = jugador.transform;
-
-        ComienzoPiso();
         if (musicaFondo != null && musicaNormal != null)
         {
             CambiarMusica(musicaNormal);
@@ -234,7 +233,7 @@ public class GameManager : MonoBehaviour
     public void ComienzoPiso()
     {
         DesactivarObjetos(objetosSuperior);
-        DesactivarObjetos(objetosAfueras);
+        DesactivarObjetos(objetosInferior);
         paredBoss1.SetActive(false);
         paredBoss2.SetActive(false);
     }

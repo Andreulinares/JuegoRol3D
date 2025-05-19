@@ -21,10 +21,9 @@ namespace StarterAssets
     public GameObject flechaPrefab;
     public Transform puntoDisparo;
     public float potenciaFlecha = 30f;
-
-    public SpawnerPersonaje spawner;
     private EnemigoMelee enemigoMelee;
     public BossAI bossAI;
+    public GameManager gameManager;
     public float sphereDistance = 2f;
     private GameObject currentSphere;
     public GameObject pantallaMuerte;
@@ -798,7 +797,7 @@ public void Stun(float stunDuration, float extraInvincibility = 2f)
 }
 public void ReiniciarPersonaje()
 {
-    transform.position = spawner.puntoSpawn.position;
+    transform.position = gameManager.puntoSpawn.position;
     vidaActualPlayer=vidaMaxPlayer;
     manaActualPlayer=manaMaxPlayer;
     uiManager.mostrarNinguno();

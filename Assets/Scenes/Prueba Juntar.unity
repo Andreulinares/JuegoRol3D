@@ -10713,7 +10713,7 @@ Transform:
   m_GameObject: {fileID: 143287393}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 6.899999, y: 6.8910685, z: 39.700005}
+  m_LocalPosition: {x: -0.009999837, y: 6.8910675, z: -42.050003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21181,7 +21181,7 @@ MonoBehaviour:
   ElectricityEffect: 1
   elementoBoss: 0
   estadoActual: 0
-  PisoActual: 1
+  PisoActual: 2
   objetosSuperior:
   - {fileID: 645296133}
   objetosInferior:
@@ -21221,7 +21221,7 @@ MonoBehaviour:
   meleePrefab: {fileID: 0}
   ArqueroPrefab: {fileID: 0}
   virtualCam: {fileID: 0}
-  puntoSpawn: {fileID: 0}
+  puntoSpawn: {fileID: 1618713769}
 --- !u!1001 &254433437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103010,7 +103010,7 @@ Transform:
   m_GameObject: {fileID: 1330340292}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 6.899999, y: 6.8910685, z: 39.700005}
+  m_LocalPosition: {x: -0.009999837, y: 6.8910675, z: -42.050003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -105913,7 +105913,7 @@ PrefabInstance:
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9
+      value: -5.01
       objectReference: {fileID: 0}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -105923,7 +105923,7 @@ PrefabInstance:
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 44.7
+      value: -37.05
       objectReference: {fileID: 0}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -105964,6 +105964,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerArmature
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -106082,8 +106087,8 @@ MonoBehaviour:
   iconosElementos: []
   spherePrefab: {fileID: 6351171574319857101, guid: d17a50b1cec09db43921ceff6e8e7867,
     type: 3}
-  spawner: {fileID: 0}
   bossAI: {fileID: 1235883398}
+  gameManager: {fileID: 254312728}
   sphereDistance: 2
   pantallaMuerte: {fileID: 1820917532}
   uiManager: {fileID: 1515823107}
@@ -109799,7 +109804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444301840d546644f8700c60c7388a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 254312728}
+  reiniciarJuego: {fileID: 0}
   pantallaVictoria: {fileID: 983905554}
 --- !u!1001 &1412922237
 PrefabInstance:
@@ -125633,7 +125638,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1618713769}
-  - component: {fileID: 1618713768}
   m_Layer: 0
   m_Name: SpawnPosition
   m_TagString: Untagged
@@ -125641,21 +125645,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1618713768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618713767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 037e63e18694b71419ff710de0ba604a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  personaje1Prefab: {fileID: 1362527559}
-  personaje2Prefab: {fileID: 0}
-  puntoSpawn: {fileID: 1618713769}
 --- !u!4 &1618713769
 Transform:
   m_ObjectHideFlags: 0

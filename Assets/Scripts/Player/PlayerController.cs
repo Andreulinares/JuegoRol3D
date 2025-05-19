@@ -21,9 +21,9 @@ namespace StarterAssets
     public SpriteRenderer elementoIcono;
     public Sprite[] iconosElementos;
     public GameObject spherePrefab;
-    public SpawnerPersonaje spawner;
     private EnemigoMelee enemigoMelee;
     public BossAI bossAI;
+    public GameManager gameManager;
     public float sphereDistance = 2f;
     private GameObject currentSphere;
     public GameObject pantallaMuerte;
@@ -820,7 +820,7 @@ public void Stun(float stunDuration, float extraInvincibility = 2f)
 }
 public void ReiniciarPersonaje()
 {
-    transform.position = spawner.puntoSpawn.position;
+    transform.position = gameManager.puntoSpawn.position;
     vidaActualPlayer=vidaMaxPlayer;
     manaActualPlayer=manaMaxPlayer;
     uiManager.mostrarNinguno();

@@ -12,17 +12,16 @@ public class ReiniciarJuego : MonoBehaviour
     public BossAI bossAI;
     public PlayerController playerController;
     public ArqueroController arqueroController;
-    public SpawnerPersonaje spawner;
     public UIManager uiManager;
     public void reiniciarJuego()
     {
         SceneManager.LoadScene("Menu");
         Destroy(gameManager.gameObject);
         Destroy(progressManager.gameObject);
-        playerController.transform.position = spawner.puntoSpawn.position;
+        playerController.transform.position = gameManager.puntoSpawn.position;
         playerController.vidaActualPlayer = playerController.vidaMaxPlayer;
         playerController.manaActualPlayer = playerController.manaMaxPlayer;
-        arqueroController.transform.position = spawner.puntoSpawn.position;
+        arqueroController.transform.position = gameManager.puntoSpawn.position;
         arqueroController.vidaActualPlayer = arqueroController.vidaMaxPlayer;
         arqueroController.manaActualPlayer = arqueroController.manaMaxPlayer;
         uiManager.mostrarNinguno();
