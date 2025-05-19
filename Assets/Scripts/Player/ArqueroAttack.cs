@@ -74,13 +74,11 @@ public class ArqueroAttack : MonoBehaviour
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.isKinematic = true; // Evitar que la física afecte a la flecha
+                rb.isKinematic = true; 
             }
 
-            // Hacer que la flecha se convierta en hija del objeto colisionado
             transform.SetParent(collision.transform);
 
-            // Opcional: Ajustar la rotación para que se quede clavada
             transform.position = collision.contacts[0].point;
         }
 }

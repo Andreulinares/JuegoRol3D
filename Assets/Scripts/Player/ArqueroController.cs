@@ -20,7 +20,7 @@ namespace StarterAssets
     public GameObject spherePrefab;
     public GameObject flechaPrefab;
     public Transform puntoDisparo;
-    public float potenciaFlecha = 50f;
+    public float potenciaFlecha = 30f;
 
     public SpawnerPersonaje spawner;
     private EnemigoMelee enemigoMelee;
@@ -299,33 +299,6 @@ namespace StarterAssets
                 rb.AddForce(puntoDisparo.forward * potenciaFlecha, ForceMode.Impulse);
             }
         }
-        /*public void ActivarGolpe()
-        {
-            Collider[] enemigos = Physics.OverlapSphere(transform.position + transform.forward * 1f, 1f);
-
-                if (enemigos.Length == 0)
-                {
-                    Debug.Log("El golpe no impactó a ningún enemigo!");
-                    return;
-                }
-                foreach (Collider enemigo in enemigos)
-                {
-                    if (enemigo.CompareTag("enemy")) 
-                    {
-                        enemigo.GetComponent<EnemigoMelee>().TakeDamage(sphereDamage);
-                        Debug.Log("Golpe impactó al enemigo!");
-                    }
-                }
-        }*/
-
-/*        private void OnTriggerEnter(Collider other)
-{
-    if (other.CompareTag("enemy")) // Verifica que el objeto golpeado es un enemigo
-    {
-        other.GetComponent<EnemigoMelee>().TakeDamage(sphereDamage);
-        Debug.Log("Golpe impactó al enemigo!");
-    }
-}*/
 
         private void LateUpdate()
         {

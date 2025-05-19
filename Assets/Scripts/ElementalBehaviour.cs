@@ -186,29 +186,27 @@ public class ElementalBehaviour : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, Time.deltaTime * 10f);
         if (Time.time >= cooldownUltimoDisparo + cooldownDisparo)
         {
-            if (proyectil != null && puntoDisparo != null)
-            {
-                GameObject nuevoProyectil = Instantiate(proyectil, puntoDisparo.position, puntoDisparo.rotation);
-
-                /*Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
-                if(rb != null){
-                    Vector3 direccion = jugador.transform.position - puntoDisparo.position;
-                    rb.velocity = direccion * velocidadProyectil;
-                }*/
-                Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.velocity = puntoDisparo.forward * velocidadProyectil;
-                }
-            }
-
-            cooldownUltimoDisparo = Time.time;
 
             animator.SetBool("isAttack", true);
             animator.SetBool("isWalking", false);
-
+            cooldownUltimoDisparo = Time.time;
         }
     }
+
+    public void DispararProyectil()
+{
+    if (proyectil != null && puntoDisparo != null)
+    {
+        Vector3 direccion = (jugador.transform.position - puntoDisparo.position).normalized;
+        GameObject nuevoProyectil = Instantiate(proyectil, puntoDisparo.position, Quaternion.LookRotation(direccion));
+
+        Rigidbody rb = nuevoProyectil.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = direccion * velocidadProyectil;
+        }
+    }
+}
 
     //Patrullar
     void Patrullar()

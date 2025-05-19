@@ -1,18 +1,72 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static AudioManager Instance;
+    public Sound[] musicSounds,sfxSounds;
+    public AudioSource musicSource,sfxSource;
+
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            PlayMusic("Menu");
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            PlayMusic("Pisos");
+        }
+    }
+    public void PlayMusic(string name)
+    {
+        Sound sound = Array.Find(musicSounds, s => s.soundName == name);
+
+        if (sound == null)
+        {
+            Debug.Log("No Sound");
+        }
+        else
+        {
+            musicSource.clip = sound.clip;
+            musicSource.Play();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlaySFX(string name)
     {
-        
+        Sound sfx = Array.Find(sfxSounds, s => s.soundName == name);
+
+        if (sfx == null)
+        {
+            Debug.Log("No SFX");
+        }
+        else
+        {
+            sfxSource.PlayOneShot(sfx.clip,0.5f);
+        }
+    }
+
+
+    
+    public void Stop()
+    {
+        musicSource.Stop();
+        sfxSource.Stop();
     }
 }
