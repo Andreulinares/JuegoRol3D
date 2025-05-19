@@ -9,9 +9,11 @@ public class BossAI : MonoBehaviour
 {
     public GameManager gameManager;
     public ProgressManager progressManager;
-    public Transform player;
+    private GameObject jugador;
+    public SelectionMenu selectionMenu;
     public NavMeshAgent agent;
     public PlayerController playerController;
+    public ArqueroController arqueroController;
     public int attackRangeClose = 2;
     public int attackRangeMedium = 5;
     public int detectionRange = 10;
@@ -26,6 +28,7 @@ public class BossAI : MonoBehaviour
     public enum AttackType { Fire, Water, Electricity, Earth, None }
     public AttackType currentAttackType = AttackType.None;
     public PlayerController.Elemento bossDebilElemento = PlayerController.Elemento.None;
+    public ArqueroController.Elemento bossDebilElementoA = ArqueroController.Elemento.None;
     private float distanceToPlayer;
     public bool isChasing = false;
     private bool isInCooldown = false;
@@ -68,14 +71,15 @@ public class BossAI : MonoBehaviour
                 agent.isStopped = false;
                 currentAttackType= AttackType.None;
                 bossDebilElemento = PlayerController.Elemento.None;
-                invencibility=false;
+                bossDebilElementoA = ArqueroController.Elemento.None;
+                invencibility =false;
                 attackBuff=false;
                 //animator.speed =1f;
                 //cooldownActual = baseCooldown * 1f;
             }
         }
 
-        distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        distanceToPlayer = Vector3.Distance(transform.position, jugador.transform.position);
 
         if (isApproaching && distanceToPlayer <= attackRangeClose)
         {
@@ -132,7 +136,12 @@ public class BossAI : MonoBehaviour
 
     private void ChasePlayer()
     {
-        agent.SetDestination(player.position);
+        if (jugador == null)
+        {
+            jugador = GameObject.FindWithTag("Player");
+        }
+        agent.SetDestination(jugador.transform.position);
+
         gameManager.paredBoss1.SetActive(true);
         gameManager.paredBoss2.SetActive(true);
     }
@@ -141,29 +150,56 @@ public class BossAI : MonoBehaviour
     {
         int vidaVulnerable = fragmentosJugador * 25;
         int vidaMinimaPermitida = PVMax - vidaVulnerable;
-        if(playerController.playerAtaqueElemento== PlayerController.Elemento.None)
+        if (selectionMenu.currentSelection == 1)
         {
-            playerController.manaActualPlayer=playerController.manaActualPlayer+25;
-            if(playerController.manaActualPlayer>=100)
+            if (playerController.playerAtaqueElemento == PlayerController.Elemento.None)
             {
-                playerController.manaActualPlayer=100;
+                playerController.manaActualPlayer = playerController.manaActualPlayer + 25;
+                if (playerController.manaActualPlayer >= 100)
+                {
+                    playerController.manaActualPlayer = 100;
+                }
+            }
+
+            if (currentAttackType == AttackType.None)
+            {
+                Debug.Log("Ataque normal");
+            }
+            else if (playerController.playerAtaqueElemento == bossDebilElemento)
+            {
+                pega += 4;
+                Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del boss.");
+            }
+            else
+            {
+                Debug.Log("Ataque elemental NO crítico");
             }
         }
+        else if (selectionMenu.currentSelection==2)
+        {
+            if (arqueroController.playerAtaqueElemento == ArqueroController.Elemento.None)
+            {
+                arqueroController.manaActualPlayer = arqueroController.manaActualPlayer + 25;
+                if (arqueroController.manaActualPlayer >= 100)
+                {
+                    arqueroController.manaActualPlayer = 100;
+                }
+            }
 
-        if(currentAttackType == AttackType.None)
-        {
-            Debug.Log("Ataque normal");
+            if (currentAttackType == AttackType.None)
+            {
+                Debug.Log("Ataque normal");
+            }
+            else if (arqueroController.playerAtaqueElemento == bossDebilElementoA)
+            {
+                pega += 4;
+                Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del boss.");
+            }
+            else
+            {
+                Debug.Log("Ataque elemental NO crítico");
+            }
         }
-        else if (playerController.playerAtaqueElemento == bossDebilElemento)
-        {
-            pega += 4;
-            Debug.Log("¡Daño crítico! El ataque fue efectivo contra la debilidad del boss.");
-        }
-        else
-        {
-            Debug.Log("Ataque elemental NO crítico");
-        }
-
         int nuevaVida = Mathf.Max(PVActual - pega, vidaMinimaPermitida);
 
         int pegaReal = PVActual - nuevaVida;
@@ -181,6 +217,7 @@ public class BossAI : MonoBehaviour
                 if (gameManager.ElectricityEffect==true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Earth;
+                    bossDebilElementoA = ArqueroController.Elemento.Earth;
                     //animator.speed =1.5f;
                     //cooldownActual = baseCooldown * 0.5f;
                     PerformAttack(AttackType.Electricity);
@@ -189,6 +226,7 @@ public class BossAI : MonoBehaviour
                 else
                 {
                     bossDebilElemento = PlayerController.Elemento.Earth;
+                    bossDebilElementoA = ArqueroController.Elemento.Earth;
                     PerformAttack(AttackType.Electricity);
                     StartCooldown();
                 }
@@ -197,6 +235,7 @@ public class BossAI : MonoBehaviour
                 if (gameManager.EarthEffect==true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Fire;
+                    bossDebilElementoA = ArqueroController.Elemento.Fire;
                     invencibility = true;
                     PerformAttack(AttackType.Earth);
                     StartCooldown();
@@ -204,13 +243,14 @@ public class BossAI : MonoBehaviour
                 else
                 {
                     bossDebilElemento = PlayerController.Elemento.Fire;
+                    bossDebilElementoA = ArqueroController.Elemento.Fire;
                     PerformAttack(AttackType.Earth);
                     StartCooldown();
                 }
                 break;
             case 2:
                 isApproaching = true;
-                agent.SetDestination(player.position);
+                agent.SetDestination(jugador.transform.position);
                 break;
         }
     }
@@ -224,13 +264,15 @@ public class BossAI : MonoBehaviour
                 if (gameManager.FireEffect==true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Water;
-                    attackBuff=true;
+                    bossDebilElementoA = ArqueroController.Elemento.Water;
+                    attackBuff =true;
                     PerformAttack(AttackType.Fire);
                     StartCooldown();
                 }
                 else
                 {
                     bossDebilElemento = PlayerController.Elemento.Water;
+                    bossDebilElementoA = ArqueroController.Elemento.Water;
                     PerformAttack(AttackType.Fire);
                     StartCooldown();
                 }
@@ -239,13 +281,14 @@ public class BossAI : MonoBehaviour
                 if (gameManager.WaterEffect==true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Electricity;
+                    bossDebilElementoA = ArqueroController.Elemento.Electricity;
                     PerformAttack(AttackType.Water);
                     PVActual = Mathf.Min(PVActual + 15, PVMax);
                     StartCooldown();
                 }
                 else
                 {
-                    bossDebilElemento = PlayerController.Elemento.Electricity;
+                    bossDebilElementoA = ArqueroController.Elemento.Electricity;
                     PerformAttack(AttackType.Water);
                     StartCooldown();
                 }

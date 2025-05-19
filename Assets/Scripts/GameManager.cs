@@ -42,8 +42,6 @@ public class GameManager : MonoBehaviour
     public AudioSource musicaFondo;
     public AudioClip musicaNormal;
     public AudioClip musicaBoss;
-
-    public PlayerController jugador;
     public bool jugadorMelee = true;
 
     public UnityEvent onFragmentoRecolectado;
@@ -173,9 +171,16 @@ public class GameManager : MonoBehaviour
 
     public void RestarVidaJugador(int cantidad)
     {
-        if (jugador != null)
+        GameObject[] jugadores = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject go in jugadores)
         {
-            jugador.TakeDamage(cantidad);
+        var pc = go.GetComponent<PlayerController>();
+        if (pc != null)
+            pc.TakeDamage(cantidad);
+
+        var ac = go.GetComponent<ArqueroController>();
+        if (ac != null)
+            ac.TakeDamage(cantidad);
         }
     }
 

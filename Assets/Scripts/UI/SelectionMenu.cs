@@ -7,7 +7,7 @@ public class SelectionMenu : MonoBehaviour
 {
     Vector3 targetRot;
     Vector3 currentAngle;
-    int currentSelection;
+    public int currentSelection;
     int totalPersonajes = 2;
     // Start is called before the first frame update
     void Start()
