@@ -21207,7 +21207,6 @@ MonoBehaviour:
   musicaFondo: {fileID: 0}
   musicaNormal: {fileID: 0}
   musicaBoss: {fileID: 0}
-  jugador: {fileID: 0}
   jugadorMelee: 1
   onFragmentoRecolectado:
     m_PersistentCalls:
@@ -96021,9 +96020,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 254312728}
   progressManager: {fileID: 545548575}
-  player: {fileID: 3653707020542459781, guid: c6b9649f34526764b8f20d8a3ac1b08b, type: 3}
+  selectionMenu: {fileID: 0}
   agent: {fileID: 1235883399}
-  playerController: {fileID: 0}
+  playerController: {fileID: 2014239691555928069, guid: c6b9649f34526764b8f20d8a3ac1b08b,
+    type: 3}
+  arqueroController: {fileID: 0}
   attackRangeClose: 2
   attackRangeMedium: 5
   detectionRange: 10
@@ -96037,6 +96038,7 @@ MonoBehaviour:
   indiceActual: 0
   currentAttackType: 4
   bossDebilElemento: 4
+  bossDebilElementoA: 4
   isChasing: 0
   isApproaching: 0
   cooldownTiempo: 2
@@ -150272,7 +150274,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 63a8f2497ee58d540b2b14a06ec9eb0a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1939851286
 Transform:
