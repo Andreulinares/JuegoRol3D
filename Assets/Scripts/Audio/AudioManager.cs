@@ -24,11 +24,34 @@ public class AudioManager : MonoBehaviour
     }
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        /*if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             PlayMusic("Menu");
         }
         else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            PlayMusic("Pisos");
+        }*/
+    }
+
+        private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Escena cargada: " + scene.name); 
+
+        if (scene.name == "Menu")
+        {
+            PlayMusic("Menu");
+        }
+        else if (scene.name == "PisoSuperior")
         {
             PlayMusic("Pisos");
         }
@@ -68,5 +91,15 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.Stop();
         sfxSource.Stop();
+    }
+
+        public void SetMusicVolume(float volume)
+    {
+        musicSource.volume = volume;
+    }
+
+        public void SetSFXVolume(float volume)
+    {
+        sfxSource.volume = volume;
     }
 }

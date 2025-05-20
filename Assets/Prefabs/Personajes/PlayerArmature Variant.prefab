@@ -282,8 +282,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25410d88c15766428725e66a4c98dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementoIcono: {fileID: 0}
-  iconosElementos: []
+  elementoIcono: {fileID: 3598390948327540281}
+  iconosElementos:
+  - {fileID: 21300000, guid: 9c258c3cb8a754c439290ed00f67ce9e, type: 3}
+  - {fileID: 21300000, guid: 2975ced789c02ee4694d5e76b8a3cf2b, type: 3}
+  - {fileID: 21300000, guid: b680ca3ee424d6c459b1f54202355dc6, type: 3}
+  - {fileID: 21300000, guid: 539de0d5b14169e4687ec01259b9979a, type: 3}
   spherePrefab: {fileID: 6351171574319857101, guid: d17a50b1cec09db43921ceff6e8e7867,
     type: 3}
   bossAI: {fileID: 0}

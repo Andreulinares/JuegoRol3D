@@ -15,25 +15,37 @@ public class ReiniciarJuego : MonoBehaviour
     public UIManager uiManager;
     public void reiniciarJuego()
     {
-        SceneManager.LoadScene("Menu");
-        Destroy(gameManager.gameObject);
-        Destroy(progressManager.gameObject);
-        playerController.transform.position = gameManager.puntoSpawn.position;
-        playerController.vidaActualPlayer = playerController.vidaMaxPlayer;
-        playerController.manaActualPlayer = playerController.manaMaxPlayer;
-        arqueroController.transform.position = gameManager.puntoSpawn.position;
-        arqueroController.vidaActualPlayer = arqueroController.vidaMaxPlayer;
-        arqueroController.manaActualPlayer = arqueroController.manaMaxPlayer;
-        uiManager.mostrarNinguno();
-        bossAI.PVActual = bossAI.PVMax;
-        bossAI.isApproaching = false;
-        bossAI.isChasing = false;
-        bossAI.Patrol();
-        bossAI.transform.position = bossAI.puntoSpawnBoss.position;
-        bossAI.agent.isStopped = false;
-        bossAI.agent.enabled = true;
-        bossAI.muerto = false;
-        bossAI.ActualizarFragmentos(0);
+        // Destruir enemigos antes de reiniciar
+    GameObject[] enemigos = GameObject.FindGameObjectsWithTag("Enemy");
+    foreach (GameObject enemigo in enemigos)
+    {
+        Destroy(enemigo);
+    }
+
+    // Resetear valores del jugador
+    playerController.vidaActualPlayer = playerController.vidaMaxPlayer;
+    playerController.manaActualPlayer = playerController.manaMaxPlayer;
+    playerController.transform.position = gameManager.puntoSpawn.position;
+
+    arqueroController.vidaActualPlayer = arqueroController.vidaMaxPlayer;
+    arqueroController.manaActualPlayer = arqueroController.manaMaxPlayer;
+    arqueroController.transform.position = gameManager.puntoSpawn.position;
+
+    // Resetear valores del boss
+    bossAI.PVActual = bossAI.PVMax;
+    bossAI.isApproaching = false;
+    bossAI.isChasing = false;
+    bossAI.Patrol();
+    bossAI.transform.position = bossAI.puntoSpawnBoss.position;
+    bossAI.agent.isStopped = false;
+    bossAI.agent.enabled = true;
+    bossAI.muerto = false;
+    bossAI.ActualizarFragmentos(0);
+
+    // Resetear la UI
+    uiManager.mostrarNinguno();
+
+    SceneManager.LoadScene("Menu");
 
     }
 }

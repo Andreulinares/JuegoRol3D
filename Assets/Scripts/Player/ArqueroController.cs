@@ -27,7 +27,7 @@ namespace StarterAssets
     public float sphereDistance = 2f;
     private GameObject currentSphere;
     public GameObject pantallaMuerte;
-    public UIManager uiManager;
+    private UIManager uiManager;
     private bool leftPressed = false;
     private bool rightPressed = false;
     private bool upPressed = false;
@@ -225,6 +225,11 @@ namespace StarterAssets
             }
         }
 
+            if (uiManager == null)
+        {
+            uiManager = FindObjectOfType<UIManager>();
+        }
+
         // Si está aturdido, cancelar controles
         if (isStunned) return;
             _hasAnimator = TryGetComponent(out _animator);
@@ -277,9 +282,10 @@ namespace StarterAssets
             {
                 //CreateStaticSphere();
                 _animator.SetTrigger(_animIDAttack);
+                AudioManager.Instance.PlaySFX("Arrow");
                 //GetComponentInChildren<PlayerAttack>().ActivarColliderGolpe();
                 //Invoke("DispararFlecha", 0.8f);
-                
+
             }
             // Actualizar la posición de la esfera para que siga al personaje
             if (currentSphere != null)

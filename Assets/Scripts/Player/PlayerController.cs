@@ -27,7 +27,7 @@ namespace StarterAssets
     public float sphereDistance = 2f;
     private GameObject currentSphere;
     public GameObject pantallaMuerte;
-    public UIManager uiManager;
+    private UIManager uiManager;
     private bool leftPressed = false;
     private bool rightPressed = false;
     private bool upPressed = false;
@@ -177,9 +177,9 @@ namespace StarterAssets
         private void Start()
         {
             vidaMaxPlayer = 100;
-            vidaActualPlayer=vidaMaxPlayer;
+            vidaActualPlayer = vidaMaxPlayer;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -200,6 +200,7 @@ namespace StarterAssets
 
             enemigoMelee = GetComponent<EnemigoMelee>();
             pantallaMuerte.SetActive(false);
+            //uiManager = FindObjectOfType<UIManager>();
         }
 
         private void Update()
@@ -224,11 +225,16 @@ namespace StarterAssets
             }
         }
 
+            if (uiManager == null)
+        {
+            uiManager = FindObjectOfType<UIManager>();
+        }
+
         // Si está aturdido, cancelar controles
         if (isStunned) return;
             _hasAnimator = TryGetComponent(out _animator);
             
-            if(LeftPadClick())
+            if(LeftPadClick() || Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 if(currentAttackType==AttackType.Electricity)
                 {
@@ -239,7 +245,7 @@ namespace StarterAssets
                     AtaqueActivo(AttackType.Electricity);
                 } 
             }
-            if(RightPadClick())
+            if(RightPadClick() || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 if(currentAttackType==AttackType.Earth)
                 {
@@ -250,7 +256,7 @@ namespace StarterAssets
                 AtaqueActivo(AttackType.Earth);
                 }
             }
-            if(UpPadClick())
+            if(UpPadClick() || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 if(currentAttackType==AttackType.Fire)
                 {
@@ -261,7 +267,7 @@ namespace StarterAssets
                 AtaqueActivo(AttackType.Fire);
                 }
             }
-            if(DownPadClick())
+            if(DownPadClick() || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if(currentAttackType==AttackType.Water)
                 {
@@ -277,6 +283,7 @@ namespace StarterAssets
                 //CreateStaticSphere();
                 _animator.SetTrigger(_animIDAttack);
                 GetComponentInChildren<PlayerAttack>().ActivarColliderGolpe();
+                AudioManager.Instance.PlaySFX("Espada");
                 
             }
             // Actualizar la posición de la esfera para que siga al personaje
