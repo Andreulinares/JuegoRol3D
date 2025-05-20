@@ -54,7 +54,6 @@ public class BossAI : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
         }
         transform.position = puntoSpawnBoss.position;
-        velocidadOriginal = 3.5f;
         estaAtacando = false;
     }
 
@@ -79,15 +78,13 @@ public class BossAI : MonoBehaviour
         fragmentosJugador = progressManager.fragmentosColocados;
 
         AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
-        Debug.Log(agent.speed + "velocidad");
         if (estaAtacando == true)
         {
             velocidadesAtaque();
         }
         else
         {
-            agent.speed = velocidadOriginal;
-            agent.updateRotation = true;
+            agent.speed = 3.5f;
         }
 
         // Si estamos atacando y ya terminó la animación
@@ -385,23 +382,18 @@ public class BossAI : MonoBehaviour
     {
         case AttackType.Water:
             agent.speed = 0f;
-            agent.updateRotation = true;   // Sí se gira
             break;
         case AttackType.Electricity:
             agent.speed = 0f;
-            agent.updateRotation = true;   // Sí se gira
             break;
         case AttackType.Earth:
             agent.speed = 0f;
-            agent.updateRotation = true;   // Sí se gira
             break;
         case AttackType.Fire:
             agent.speed = velocidadOriginal * 0.5f;
-            agent.updateRotation = true;
             break;
         default:
             agent.speed = velocidadOriginal;
-            agent.updateRotation = true;
             break;
     }
     }
