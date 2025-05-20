@@ -96229,6 +96229,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2005673461}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1235883404
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235883397}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: a42c83da6703203498e9337bea480448, type: 3}
+  m_Controller: {fileID: 9100000, guid: e66efa8dc14e7e547ae8a27a0df10d91, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1236376829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125602,7 +125623,7 @@ Transform:
   m_GameObject: {fileID: 1618713767}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.02, y: 0, z: -49.92}
+  m_LocalPosition: {x: -3.02, y: 0, z: 23.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -131159,6 +131180,95 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5312989334736930888, guid: b5eae47ef45b94167a5861428f8a9304,
     type: 3}
   m_PrefabInstance: {fileID: 1671801544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1673084584
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1875020559}
+    m_Modifications:
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7778
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7778
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7778
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786528722864231396, guid: bfec80c84b1c6724db88303984ce9d16,
+        type: 3}
+      propertyPath: m_Name
+      value: Sword02
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bfec80c84b1c6724db88303984ce9d16, type: 3}
+--- !u!4 &1673084585 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7441246425213733214, guid: bfec80c84b1c6724db88303984ce9d16,
+    type: 3}
+  m_PrefabInstance: {fileID: 1673084584}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1673241693
 GameObject:
@@ -145591,6 +145701,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1871270921}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1875020559 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: a42c83da6703203498e9337bea480448,
+    type: 3}
+  m_PrefabInstance: {fileID: 1929515033}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1875179368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149622,9 +149738,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: T-Pose
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5866666021909216657, guid: a42c83da6703203498e9337bea480448,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e66efa8dc14e7e547ae8a27a0df10d91, type: 2}
+    - target: {fileID: 5866666021909216657, guid: a42c83da6703203498e9337bea480448,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+        'mixamorig:RightHandRing2'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
+        'mixamorig:LeftHandThumb3'\n\tTransform 'mixamorig:RightArm'\n\tTransform
+        'mixamorig:LeftLeg'\n\tand more ...\n\tFrom animation clip 'mixamo.com'\n\tFrom
+        animation clip 'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation
+        clip 'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip
+        'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom
+        animation clip 'mixamo.com'"
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: a42c83da6703203498e9337bea480448, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: a42c83da6703203498e9337bea480448,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1673084585}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a42c83da6703203498e9337bea480448, type: 3}
 --- !u!1 &1930095862
@@ -156537,6 +156678,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7359911391798140907, guid: 3d6cffc9689fe11419f1af63fc16be15,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3867551038304145326, guid: 3d6cffc9689fe11419f1af63fc16be15, type: 3}
     m_RemovedGameObjects: []
@@ -156550,6 +156696,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1235883398}
+    - targetCorrespondingSourceObject: {fileID: 1488974398826565101, guid: 3d6cffc9689fe11419f1af63fc16be15,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1235883404}
   m_SourcePrefab: {fileID: 100100000, guid: 3d6cffc9689fe11419f1af63fc16be15, type: 3}
 --- !u!4 &2005701799 stripped
 Transform:
