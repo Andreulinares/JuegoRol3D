@@ -758,10 +758,10 @@ private bool DownPadClick()
     {
         damage=damage+10;
     }*/
-    /*if(bossAI.attackBuff==true)
+    if(bossAI.attackBuff==true)
     {
         damage=damage+10;
-    }*/
+    }
     vidaActualPlayer -= damage;
     
     ActualizarBarraDeVida();

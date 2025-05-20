@@ -14,6 +14,7 @@ public class BossAI : MonoBehaviour
     public NavMeshAgent agent;
     public PlayerController playerController;
     public ArqueroController arqueroController;
+    private bool isAttacking = false;
     public int attackRangeClose = 2;
     public int attackRangeMedium = 5;
     public int detectionRange = 10;
@@ -39,17 +40,21 @@ public class BossAI : MonoBehaviour
 
     private void Start()
     {
+        if (jugador == null)
+        {
+            jugador = GameObject.FindWithTag("Player");
+        }
         PVActual = PVMax;
         if (agent == null)
         {
             agent = GetComponent<NavMeshAgent>();
         }
-        transform.position=puntoSpawnBoss.position;
+        transform.position = puntoSpawnBoss.position;
     }
 
     private void Update()
     {
-        if (muerto ==true)
+        if (muerto == true)
         {
             return;
         }
@@ -59,7 +64,7 @@ public class BossAI : MonoBehaviour
             return;
         }
 
-        fragmentosJugador=progressManager.fragmentosColocados;
+        fragmentosJugador = progressManager.fragmentosColocados;
 
         // Manejo del cooldown
         if (isInCooldown)
@@ -69,11 +74,12 @@ public class BossAI : MonoBehaviour
             {
                 isInCooldown = false;
                 agent.isStopped = false;
-                currentAttackType= AttackType.None;
+                currentAttackType = AttackType.None;
                 bossDebilElemento = PlayerController.Elemento.None;
                 bossDebilElementoA = ArqueroController.Elemento.None;
-                invencibility =false;
-                attackBuff=false;
+                invencibility = false;
+                attackBuff = false;
+                isAttacking = false;
                 //animator.speed =1f;
                 //cooldownActual = baseCooldown * 1f;
             }
@@ -90,11 +96,13 @@ public class BossAI : MonoBehaviour
         {
             isChasing = true;
             ChasePlayer();
+            isAttacking = false;
         }
         else
         {
             isChasing = false;
             Patrol();
+            isAttacking = false;
         }
 
         if (isChasing && !isInCooldown && !isApproaching)
@@ -102,10 +110,12 @@ public class BossAI : MonoBehaviour
             if (distanceToPlayer <= attackRangeMedium && distanceToPlayer > attackRangeClose)
             {
                 AttackMediumRange();
+                isAttacking = true;
             }
             else if (distanceToPlayer <= attackRangeClose)
             {
                 AttackCloseRange();
+                isAttacking = true;
             }
         }
     }
@@ -136,10 +146,6 @@ public class BossAI : MonoBehaviour
 
     private void ChasePlayer()
     {
-        if (jugador == null)
-        {
-            jugador = GameObject.FindWithTag("Player");
-        }
         agent.SetDestination(jugador.transform.position);
 
         gameManager.paredBoss1.SetActive(true);
@@ -175,7 +181,7 @@ public class BossAI : MonoBehaviour
                 Debug.Log("Ataque elemental NO crítico");
             }
         }
-        else if (selectionMenu.currentSelection==2)
+        else if (selectionMenu.currentSelection == 2)
         {
             if (arqueroController.playerAtaqueElemento == ArqueroController.Elemento.None)
             {
@@ -214,7 +220,7 @@ public class BossAI : MonoBehaviour
         switch (attackChoice)
         {
             case 0:
-                if (gameManager.ElectricityEffect==true)
+                if (gameManager.ElectricityEffect == true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Earth;
                     bossDebilElementoA = ArqueroController.Elemento.Earth;
@@ -232,7 +238,7 @@ public class BossAI : MonoBehaviour
                 }
                 break;
             case 1:
-                if (gameManager.EarthEffect==true)
+                if (gameManager.EarthEffect == true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Fire;
                     bossDebilElementoA = ArqueroController.Elemento.Fire;
@@ -261,11 +267,11 @@ public class BossAI : MonoBehaviour
         switch (attackChoice)
         {
             case 0:
-                if (gameManager.FireEffect==true)
+                if (gameManager.FireEffect == true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Water;
                     bossDebilElementoA = ArqueroController.Elemento.Water;
-                    attackBuff =true;
+                    attackBuff = true;
                     PerformAttack(AttackType.Fire);
                     StartCooldown();
                 }
@@ -278,7 +284,7 @@ public class BossAI : MonoBehaviour
                 }
                 break;
             case 1:
-                if (gameManager.WaterEffect==true)
+                if (gameManager.WaterEffect == true)
                 {
                     bossDebilElemento = PlayerController.Elemento.Electricity;
                     bossDebilElementoA = ArqueroController.Elemento.Electricity;
@@ -323,13 +329,33 @@ public class BossAI : MonoBehaviour
     {
         agent.isStopped = true;
         agent.enabled = false;
-        muerto=true;
+        muerto = true;
         //animator.SetTrigger("Muerte");
         //animator.speed = 0f;
         GameManager.Instance.BossDerrotado();
         gameManager.paredBoss1.SetActive(false);
         gameManager.paredBoss2.SetActive(false);
-        
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && isAttacking == true)
+        {
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.TakeDamage(10);
+                Debug.Log("Golpe impactó a player!");
+            }
+
+            ArqueroController arquero = other.GetComponent<ArqueroController>();
+            if (arquero != null)
+            {
+                arquero.TakeDamage(10);
+                Debug.Log("Golpe impactó a arquero!");
+            }
+            isAttacking = false;
+        }
     }
 }
 
