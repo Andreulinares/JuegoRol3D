@@ -145,6 +145,7 @@ public class ElementalBehaviour : MonoBehaviour
         vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
 
         ActualizarBarraVida();
+        animator.SetTrigger("isKnockback");
 
         if (vidaActual <= 0){
             isAlive = false;

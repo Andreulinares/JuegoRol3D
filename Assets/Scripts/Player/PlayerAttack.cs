@@ -29,7 +29,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        playerController.manaActualPlayer = playerController.manaActualPlayer + 25;
+        //playerController.manaActualPlayer = playerController.manaActualPlayer + 25;
         if (other.CompareTag("enemy")) // Verifica que el objeto golpeado es un enemigo
         {
             other.GetComponent<EnemigoMelee>().TakeDamage(daño);
