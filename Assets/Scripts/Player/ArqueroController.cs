@@ -29,7 +29,7 @@ namespace StarterAssets
     public GameManager gameManager;
     public float sphereDistance = 2f;
     private GameObject currentSphere;
-    public GameObject pantallaMuerte;
+    private GameObject pantallaMuerte;
     private UIManager uiManager;
     private bool leftPressed = false;
     private bool rightPressed = false;
@@ -143,6 +143,7 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
 
         private int _animIDAttack;
+        private int _animIDDead;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -203,6 +204,7 @@ namespace StarterAssets
             ActualizarBarraMana();
 
             enemigoMelee = GetComponent<EnemigoMelee>();
+            pantallaMuerte = GameObject.FindWithTag("Derrota");
             pantallaMuerte.SetActive(false);
         }
 
@@ -456,6 +458,7 @@ private bool DownPadClick()
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDAttack = Animator.StringToHash("isAttack");
+            _animIDDead = Animator.StringToHash("isDead");
         }
 
         private void GroundedCheck()
@@ -797,7 +800,7 @@ private void ActualizarBarraDeVida()
     // Activar animación de muerte
     if (_hasAnimator)
     {
-        _animator.SetTrigger("Death"); 
+        _animator.SetTrigger(_animIDDead); 
     }
 
     // Mostrar UI de muerte

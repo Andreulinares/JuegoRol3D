@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
-using UnityEditor.Profiling.Memory.Experimental;
+//using UnityEditor.Profiling.Memory.Experimental;
 using StarterAssets;
 using UnityEngine.UI;
 

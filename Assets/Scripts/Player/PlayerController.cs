@@ -26,7 +26,7 @@ namespace StarterAssets
     public GameManager gameManager;
     public float sphereDistance = 2f;
     private GameObject currentSphere;
-    public GameObject pantallaMuerte;
+    private GameObject pantallaMuerte;
     private UIManager uiManager;
     private bool leftPressed = false;
     private bool rightPressed = false;
@@ -140,7 +140,9 @@ namespace StarterAssets
 
         private int _animIDAttack;
 
-#if ENABLE_INPUT_SYSTEM 
+        private int _animIDDead;
+
+#if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
         private Animator _animator;
@@ -199,6 +201,7 @@ namespace StarterAssets
             ActualizarBarraMana();
 
             enemigoMelee = GetComponent<EnemigoMelee>();
+            pantallaMuerte = GameObject.FindWithTag("Derrota");
             pantallaMuerte.SetActive(false);
             //uiManager = FindObjectOfType<UIManager>();
         }
@@ -458,6 +461,8 @@ private bool DownPadClick()
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDAttack = Animator.StringToHash("isAttack");
+            _animIDDead = Animator.StringToHash("isDead");
+
         }
 
         private void GroundedCheck()
@@ -766,16 +771,17 @@ private bool DownPadClick()
     
     ActualizarBarraDeVida();
 
-    if (vidaActualPlayer <= 0 && !_isDead)
-    {
-        Muerto();
+            if (vidaActualPlayer <= 0 && !_isDead)
+            {
+                Muerto();
+                Debug.Log("Jugador muerto");
     }
-    else
-    {
-        //Animacion stun
-        Stun(2);
+            else
+            {
+                //Animacion stun
+                Stun(2);
 
-    }
+            }
 }
 
 private void ActualizarBarraDeVida()
@@ -799,7 +805,7 @@ private void ActualizarBarraDeVida()
     // Activar animación de muerte
     if (_hasAnimator)
     {
-        _animator.SetTrigger("Death"); 
+        _animator.SetTrigger(_animIDDead); 
     }
 
     // Mostrar UI de muerte
