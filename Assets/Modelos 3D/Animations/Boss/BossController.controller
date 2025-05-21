@@ -486,8 +486,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AtaqueElectrididad
-  m_Speed: 1
+  m_Name: AtaqueElectricidad
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 9100041942099732711}
@@ -515,7 +515,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: AtaqueAgua
-  m_Speed: 1
+  m_Speed: 0.7
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8847102919282598124}

@@ -35,11 +35,11 @@ public class BossAttack : MonoBehaviour
             if (other.CompareTag("Player"))   
         {
             other.GetComponent<PlayerController>().TakeDamage(daño + 5);
-            Debug.Log("Golpe impacto a player!");
+            Debug.Log("Golpe fuego impacto a player!");
 
             other.GetComponent<ArqueroController>().TakeDamage(daño + 5);
 
-            Debug.Log("Golpe impactó a arquero!");
+            Debug.Log("Golpe fuego impactó a arquero!");
             bossAI.isAttacking = false;
         }
         }
