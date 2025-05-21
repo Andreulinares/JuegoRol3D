@@ -28,10 +28,15 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
 {
-    if (other.CompareTag("enemy")) // Verifica que el objeto golpeado es un enemigo
-    {
-        other.GetComponent<EnemigoMelee>().TakeDamage(daño);
-        Debug.Log("Golpe impactó al enemigo!");
-    }
+        if (other.CompareTag("enemy")) // Verifica que el objeto golpeado es un enemigo
+        {
+            other.GetComponent<EnemigoMelee>().TakeDamage(daño);
+            Debug.Log("Golpe impactó al enemigo!");
+        }
+        else if (other.CompareTag("Elemental"))
+        {
+            other.GetComponent<ElementalBehaviour>().TakeDamage(daño);
+            Debug.Log("Golpe impactó al elemental!");
+        }
 }
 }

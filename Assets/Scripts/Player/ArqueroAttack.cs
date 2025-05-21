@@ -33,28 +33,6 @@ public class ArqueroAttack : MonoBehaviour
     {
 
     }
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("enemy"))
-        {
-            other.GetComponent<EnemigoMelee>().TakeDamage(daño);
-            Debug.Log("¡Flecha impactó al enemigo!");
-            Destroy(gameObject);
-        }
-        else if (!other.isTrigger)
-        {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.isKinematic = true;
-            transform.SetParent(other.transform);
-            Debug.Log("¡Flecha impactó contra un objeto sólido!");
-        }
-        else 
-        {
-            Destroy(gameObject);
-        }
-    }*/
     
     private void OnCollisionEnter(Collision collision)
 {
@@ -62,6 +40,9 @@ public class ArqueroAttack : MonoBehaviour
         {
             collision.gameObject.GetComponent<EnemigoMelee>().TakeDamage(daño);
             Debug.Log("¡Flecha impactó al enemigo!");
+            Destroy(gameObject);
+        } else if (collision.gameObject.CompareTag("Elemental")){
+            Debug.Log("¡Flecha impactó al elemental!");
             Destroy(gameObject);
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -74,7 +55,7 @@ public class ArqueroAttack : MonoBehaviour
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.isKinematic = true; 
+                rb.isKinematic = true;
             }
 
             transform.SetParent(collision.transform);

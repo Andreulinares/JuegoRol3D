@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuPausa : MonoBehaviour
@@ -33,15 +35,16 @@ public class MenuPausa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Start"))
         {
             TogglePause();
         }
-
-        /*if (Input.GetButtonDown("StartButton"))
+        
+            if (isPaused && EventSystem.current.currentSelectedGameObject == volumeSlider.gameObject)
         {
-            TogglePause();
-        }*/
+            float input = Input.GetAxis("Horizontal"); 
+            volumeSlider.value += input * Time.deltaTime * 10f; 
+        }
     }
     
     void TogglePause()
@@ -56,5 +59,20 @@ public class MenuPausa : MonoBehaviour
 
     Cursor.visible = isPaused;
     Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+
+    if (isPaused)
+    {
+        EventSystem.current.SetSelectedGameObject(pauseMenu.transform.GetChild(0).gameObject);
+    }
 }
+
+    public void IrAlMenu()
+    {
+        SceneManager.LoadScene("Menu"); 
+    }
+
+    public void CerrarMenu()
+    {
+        TogglePause();
+    }
 }

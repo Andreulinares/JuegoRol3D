@@ -717,42 +717,48 @@ private bool DownPadClick()
     }
     private void AtaqueActivo(AttackType attack)
     {
+        if (currentAttackType == attack)
+    {
+        elementoIcono.gameObject.SetActive(false);
+        return;
+    }
+
         currentAttackType = attack;
+        elementoIcono.gameObject.SetActive(true);
 
         switch (currentAttackType)
-        {
-            case AttackType.Fire:
-                playerActivoElemento=Elemento.Fire;
-                elementoIcono.sprite = iconosElementos[(int)AttackType.Fire];
-                Debug.Log("Jugador obtiene el poder de Fuego!");
-                uiManager.mostrarFuego();
-                break;
-            case AttackType.Water:
-                playerActivoElemento=Elemento.Water;
-                elementoIcono.sprite = iconosElementos[(int)AttackType.Water];
-                Debug.Log("Jugador obtiene el poder de Agua!");
-                uiManager.mostrarAgua();
-                break;
-            case AttackType.Electricity:
-                playerActivoElemento=Elemento.Electricity;
-                elementoIcono.sprite = iconosElementos[(int)AttackType.Electricity];
-                Debug.Log("Jugador obtiene el poder de Electricidad!");
-                uiManager.mostrarElectricidad();
-                break;
-            case AttackType.Earth:
-                playerActivoElemento=Elemento.Earth;
-                elementoIcono.sprite = iconosElementos[(int)AttackType.Earth];
-                Debug.Log("Jugador obtiene el poder de Tierra!");
-                uiManager.mostrarTierra();
-                break;
-            case AttackType.None:
-                playerActivoElemento=Elemento.None;
-                elementoIcono.gameObject.SetActive(false);
-                Debug.Log("Jugador obtiene el ataque normal!");
-                uiManager.mostrarNinguno();
-                break;
-        }
-        elementoIcono.gameObject.SetActive(true);
+            {
+                case AttackType.Fire:
+                    playerActivoElemento = Elemento.Fire;
+                    elementoIcono.sprite = iconosElementos[(int)AttackType.Fire];
+                    Debug.Log("Jugador obtiene el poder de Fuego!");
+                    uiManager.mostrarFuego();
+                    break;
+                case AttackType.Water:
+                    playerActivoElemento = Elemento.Water;
+                    elementoIcono.sprite = iconosElementos[(int)AttackType.Water];
+                    Debug.Log("Jugador obtiene el poder de Agua!");
+                    uiManager.mostrarAgua();
+                    break;
+                case AttackType.Electricity:
+                    playerActivoElemento = Elemento.Electricity;
+                    elementoIcono.sprite = iconosElementos[(int)AttackType.Electricity];
+                    Debug.Log("Jugador obtiene el poder de Electricidad!");
+                    uiManager.mostrarElectricidad();
+                    break;
+                case AttackType.Earth:
+                    playerActivoElemento = Elemento.Earth;
+                    elementoIcono.sprite = iconosElementos[(int)AttackType.Earth];
+                    Debug.Log("Jugador obtiene el poder de Tierra!");
+                    uiManager.mostrarTierra();
+                    break;
+                case AttackType.None:
+                    playerActivoElemento = Elemento.None;
+                    elementoIcono.gameObject.SetActive(false);
+                    Debug.Log("Jugador obtiene el ataque normal!");
+                    uiManager.mostrarNinguno();
+                    break;
+            }
     }
     public void TakeDamage(int damage)
 {
@@ -765,10 +771,10 @@ private bool DownPadClick()
     {
         damage=damage+10;
     }*/
-    if(bossAI.attackBuff==true)
+    /*if(bossAI.attackBuff==true)
     {
         damage=damage+10;
-    }
+    }*/
     vidaActualPlayer -= damage;
     
     ActualizarBarraDeVida();
