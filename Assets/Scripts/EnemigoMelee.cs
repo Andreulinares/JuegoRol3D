@@ -339,15 +339,19 @@ public class EnemigoMelee : MonoBehaviour
         vidaActual = nuevaVida;
         //ActivarEfectoDaño();
         ActualizarBarraVida();
+        animator.SetTrigger("isKnockback");
 
-        if (vidaActual <= 0){
+        if (vidaActual <= 0)
+        {
             isAlive = false;
             /*playerController.manaActualPlayer=playerController.manaActualPlayer+25;
             if(playerController.manaActualPlayer>=100)
             {
                 playerController.manaActualPlayer=100;
             }*/
-        }else{
+        }
+        else
+        {
             //Animacion stun
             Stun(2);
             isAlive = true;

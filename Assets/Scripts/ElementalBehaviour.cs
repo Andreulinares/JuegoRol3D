@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
-using UnityEditor.Profiling.Memory.Experimental;
+//using UnityEditor.Profiling.Memory.Experimental;
 using StarterAssets;
 using UnityEngine.UI;
 
@@ -145,6 +145,7 @@ public class ElementalBehaviour : MonoBehaviour
         vidaActual = Mathf.Clamp(vidaActual, 0, vidaMaxima);
 
         ActualizarBarraVida();
+        animator.SetTrigger("isKnockback");
 
         if (vidaActual <= 0){
             isAlive = false;

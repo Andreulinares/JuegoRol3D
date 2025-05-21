@@ -52,7 +52,7 @@ public class MenuOpciones : MonoBehaviour
             musicSlider.value += input * Time.deltaTime;
         }
 
-        if (resolutionDropdown.gameObject.activeSelf && EventSystem.current.currentSelectedGameObject == resolutionDropdown.gameObject)
+        /*if (resolutionDropdown.gameObject.activeSelf && EventSystem.current.currentSelectedGameObject == resolutionDropdown.gameObject)
         {
             if (Input.GetButtonDown("D-Pad Up") || Input.GetAxis("Vertical") > 0.5f)
             {
@@ -63,7 +63,7 @@ public class MenuOpciones : MonoBehaviour
             {
                 resolutionDropdown.value = Mathf.Min(resolutionDropdown.value + 1, resolutionDropdown.options.Count - 1);
             }
-        }
+        }*/
         
             if (muteToggle.gameObject.activeSelf && EventSystem.current.currentSelectedGameObject == muteToggle.gameObject)
         {
