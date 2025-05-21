@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    PlayerController playerController;
+    private PlayerController playerController;
     public int daño = 10;
     private Collider golpe;
     // Start is called before the first frame update

@@ -12,6 +12,8 @@ public class MenuPausa : MonoBehaviour
     private AudioManager audioManager;
     public Slider volumeSlider;
     public Slider sfxVolumeSlider;
+    public GameObject panelControles;
+    private GameObject botonControles;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +22,9 @@ public class MenuPausa : MonoBehaviour
         {
             volumeSlider.onValueChanged.AddListener(audioManager.SetMusicVolume);
             volumeSlider.value = audioManager.musicSource.volume;
-            
+
             sfxVolumeSlider.onValueChanged.AddListener(audioManager.SetSFXVolume);
-            sfxVolumeSlider.value = audioManager.sfxSource.volume;  
+            sfxVolumeSlider.value = audioManager.sfxSource.volume;
         }
         else
         {
@@ -30,6 +32,7 @@ public class MenuPausa : MonoBehaviour
         }
 
         pauseMenu.SetActive(false);
+        botonControles = GameObject.Find("BotonControles");
     }
 
     // Update is called once per frame
@@ -45,6 +48,11 @@ public class MenuPausa : MonoBehaviour
             float input = Input.GetAxis("Horizontal"); 
             volumeSlider.value += input * Time.deltaTime * 10f; 
         }
+
+        /*    if (EventSystem.current.currentSelectedGameObject == botonControles && Input.GetButtonDown("Submit"))
+        {
+            MostrarControles(); 
+        }*/
     }
     
     void TogglePause()
@@ -74,5 +82,17 @@ public class MenuPausa : MonoBehaviour
     public void CerrarMenu()
     {
         TogglePause();
+    }
+
+        public void MostrarControles()
+    {
+        panelControles.SetActive(true);  
+        pauseMenu.SetActive(false);
+    }
+
+    public void CerrarControles()
+    {
+        panelControles.SetActive(false);  
+        pauseMenu.SetActive(true);
     }
 }

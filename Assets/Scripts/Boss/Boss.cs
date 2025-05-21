@@ -103,10 +103,10 @@ public class BossAI : MonoBehaviour
                     aura.SetActive(false);
                 }
             }
-            aguaBossCollider.SetActive(false);
-            tierraBossCollider.SetActive(false);
-            fuegoBossCollider.SetActive(false);
-            electricidadBossCollider.SetActive(false);
+            //aguaBossCollider.SetActive(false);
+            //tierraBossCollider.SetActive(false);
+            //fuegoBossCollider.SetActive(false);
+            //electricidadBossCollider.SetActive(false);
         }
 
         animator.SetBool("isChasing", isChasing);
