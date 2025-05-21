@@ -11,7 +11,7 @@ public class ElementalBehaviour : MonoBehaviour
     private Animator animator;
 
     public int vidaMaxima = 30;
-    private int vidaActual;
+    public int vidaActual;
     private NavMeshAgent agent;
     private GameObject jugador;
     public EnemigoMelee enemigo;
@@ -82,6 +82,7 @@ public class ElementalBehaviour : MonoBehaviour
             {
                 //HayEnemigoMeleeEnArea = ComprobarAreaInfluencia();
                 if (!enemigoEstaEnAreaInfluencia){
+                    DetenerPatrullaje();
                     LlamarEnemigoMelee();
                 } else{
 
@@ -160,8 +161,9 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     void Muerte(){
-        //Animacion muerte
-        Destroy(gameObject);
+        animator.SetTrigger("isDead");
+        animator.SetBool("isAttack", false);
+        Destroy(gameObject, 3f);
     }
 
     //Asignar tipo al enemigo

@@ -51,7 +51,7 @@ public class AudioManager : MonoBehaviour
         {
             PlayMusic("Menu");
         }
-        else if (scene.name == "PisoSuperior")
+        else if (scene.name == "Prueba Juntar")
         {
             PlayMusic("Pisos");
         }

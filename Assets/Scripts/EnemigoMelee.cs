@@ -95,10 +95,13 @@ public class EnemigoMelee : MonoBehaviour
 
             if (!EstoyConvertido){
                 if(EstoySiendoLlamado){
-                    EstoyEnAreaInfluencia = ComprobarAreaConversion();
+                    //EstoyEnAreaInfluencia = ComprobarAreaConversion();
+                    Debug.Log("Estoy en area de influencia: " + EstoyEnAreaInfluencia);
                     if(EstoyEnAreaInfluencia){
                         AplicarTransformacion();
                     }else{
+                        Debug.Log("Deteniendo patrullaje y moviendo al elemental");
+                        DetenerPatrullaje();
                         MoverHaciaElemental(enemigoElemental.position);
                     }
                 }else{
@@ -148,37 +151,37 @@ public class EnemigoMelee : MonoBehaviour
     public void ObtenerTipoElemental(AsignarTipo.TipoElemental tipo)
     {
         tipoActual = tipo;
-        tieneTipo = true;
+        //tieneTipo = true;
 
         Debug.Log("Enemigo melee ha recibido tipo elemental: " + tipo);
     }
 
     void AplicarTransformacion()
     {
-        transformado = true;
+        Debug.Log("Aplicando transformación para el tipo: " + tipoActual);
 
         switch (tipoActual)
         {
             case AsignarTipo.TipoElemental.Fuego:
-                GetComponent<Renderer>().material.color = Color.red;
+                //GetComponent<Renderer>().material.color = Color.red;
                 aura = auraPrefabs[0];
                 damageBufo=true;
                 meleeDebilElemento=PlayerController.Elemento.Water;
                 break;
             case AsignarTipo.TipoElemental.Agua:
-                GetComponent<Renderer>().material.color = Color.blue;
+                //GetComponent<Renderer>().material.color = Color.blue;
                 aura = auraPrefabs[1];
                 curarBufo=true;
                 meleeDebilElemento=PlayerController.Elemento.Electricity;
                 break;
             case AsignarTipo.TipoElemental.Tierra:
-                GetComponent<Renderer>().material.color = Color.green;
+                //GetComponent<Renderer>().material.color = Color.green;
                 aura = auraPrefabs[2];
                 resistenciaBufo=true;
                 meleeDebilElemento=PlayerController.Elemento.Fire;
                 break;
             case AsignarTipo.TipoElemental.Electricidad:
-                GetComponent<Renderer>().material.color = Color.yellow;
+                //GetComponent<Renderer>().material.color = Color.yellow;
                 aura = auraPrefabs[3];
                 agent.speed = 6f;
                 meleeDebilElemento=PlayerController.Elemento.Earth;
@@ -189,10 +192,13 @@ public class EnemigoMelee : MonoBehaviour
             GameObject auraInstanciada = Instantiate(aura, transform.position, Quaternion.identity);
             auraInstanciada.transform.parent = transform; 
         }
+
+        tieneTipo = true;
         Debug.Log("Transformación aplicada correctamente");
     }
 
-    public void Llamada(Transform elemental){
+    public void Llamada(Transform elemental)
+    {
         enemigoElemental = elemental;
         EstoySiendoLlamado = true;
     }
@@ -210,15 +216,17 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     bool ComprobarConversion(){
-        return transformado;
+        return tieneTipo;
     }
 
     public void NotificarEstadoArea(bool estaEnArea)
     {
         EstoyDentro = estaEnArea;
+        EstoyEnAreaInfluencia = EstoyDentro;
     }
 
     bool ComprobarAreaConversion(){
+        //Debug.Log("ComprobarAreaConversion devuelve: " + EstoyDentro);
         return EstoyDentro;
     }
 

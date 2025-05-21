@@ -7,7 +7,10 @@ using UnityEngine;
 public class MenuControl : MonoBehaviour
 {
     public Button[] buttons; // Lista de botones del menú
-    private int selectedIndex = 0; // botón seleccionado
+    private int selectedIndex = 0;
+    private float verticalInputCooldown = 0.3f; // tiempo entre movimientos
+    private float lastInputTime;
+
 
     void Start()
     {
@@ -24,6 +27,27 @@ public class MenuControl : MonoBehaviour
         {
             MoveSelection(-1);
         }
+
+        float vertical = Input.GetAxis("Vertical");
+
+        if (Time.time - lastInputTime > verticalInputCooldown)
+        {
+            if (vertical < -0.5f)
+            {
+                MoveSelection(1); // hacia abajo
+                lastInputTime = Time.time;
+            }
+            else if (vertical > 0.5f)
+            {
+                MoveSelection(-1); // hacia arriba
+                lastInputTime = Time.time;
+            }
+        }
+        
+        if (Input.GetButtonDown("Submit"))
+        {
+            buttons[selectedIndex].onClick.Invoke(); // ejecutar acción del botón
+        }
     }
 
     void MoveSelection(int direction)
@@ -31,11 +55,10 @@ public class MenuControl : MonoBehaviour
         selectedIndex += direction;
 
         if (selectedIndex >= buttons.Length)
-            selectedIndex = 0; // Si llega al final, volver al inicio
+            selectedIndex = 0;
         else if (selectedIndex < 0)
-            selectedIndex = buttons.Length - 1; // Si está en el inicio, ir al final
+            selectedIndex = buttons.Length - 1;
 
-        // Cambiar la selección en el EventSystem
         EventSystem.current.SetSelectedGameObject(buttons[selectedIndex].gameObject);
     }
 }

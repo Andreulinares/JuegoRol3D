@@ -20,7 +20,7 @@ public class MeleeDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Melee") && tipoDetector == TipoDetector.DetectarMelee)
+        if (other.CompareTag("enemy") && tipoDetector == TipoDetector.DetectarMelee)
         {
             elemental.EnemigoDetectado(true);
             Debug.Log("Melee detectado");
@@ -30,17 +30,17 @@ public class MeleeDetection : MonoBehaviour
             elemental.JugadorDetectado(true);
             Debug.Log("Jugador detectado");
         }
-        else if (other.CompareTag("Melee") && tipoDetector == TipoDetector.AreaInfluencia)
+        else if (other.CompareTag("enemy") && tipoDetector == TipoDetector.AreaInfluencia)
         {
             elemental.EnemigoEnArea(true);
             EnemigoMelee melee = other.GetComponent<EnemigoMelee>();
             melee.NotificarEstadoArea(true);
 
-            if (!melee.tieneTipo){
+            /*if (!melee.tieneTipo){
                 efectoArea.SetActive(true);
             }else{
                 efectoArea.SetActive(false);
-            }
+            }*/
 
             Debug.Log("El melee está en la área de influencia");
         }
@@ -48,7 +48,7 @@ public class MeleeDetection : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Melee") && tipoDetector == TipoDetector.DetectarMelee)
+        if (other.CompareTag("enemy") && tipoDetector == TipoDetector.DetectarMelee)
         {
             elemental.EnemigoDetectado(false);
             Debug.Log("No detecto ningún enemigo melee");
@@ -58,13 +58,13 @@ public class MeleeDetection : MonoBehaviour
             elemental.JugadorDetectado(false);
             Debug.Log("No detecto ningún jugador");
         }
-        else if (other.CompareTag("Melee") && tipoDetector == TipoDetector.AreaInfluencia)
+        else if (other.CompareTag("enemy") && tipoDetector == TipoDetector.AreaInfluencia)
         {
             elemental.EnemigoEnArea(false);
             EnemigoMelee melee = other.GetComponent<EnemigoMelee>();
             melee.NotificarEstadoArea(false);
 
-            efectoArea.SetActive(false);
+            //efectoArea.SetActive(false);
             
             Debug.Log("El melee ya no está en la área de influencia");
         }
