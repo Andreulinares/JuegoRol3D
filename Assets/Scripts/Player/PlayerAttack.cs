@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-
+    PlayerController playerController;
     public int daño = 10;
     private Collider golpe;
     // Start is called before the first frame update
@@ -27,7 +28,8 @@ public class PlayerAttack : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-{
+    {
+        playerController.manaActualPlayer = playerController.manaActualPlayer + 25;
         if (other.CompareTag("enemy")) // Verifica que el objeto golpeado es un enemigo
         {
             other.GetComponent<EnemigoMelee>().TakeDamage(daño);
@@ -37,6 +39,11 @@ public class PlayerAttack : MonoBehaviour
         {
             other.GetComponent<ElementalBehaviour>().TakeDamage(daño);
             Debug.Log("Golpe impactó al elemental!");
+        }
+        else if (other.CompareTag("Boss"))
+        {
+            other.GetComponent<BossAI>().TakeDamage(daño);
+            Debug.Log("Golpe impactó al boss!");
         }
 }
 }

@@ -17,8 +17,8 @@ public class BossAI : MonoBehaviour
     private Animator animator;
     private bool estaAtacando = false;
     private string estadoActual = "";
-    private bool isAttacking = false;
-    public int attackRangeClose = 2;
+    public bool isAttacking = false;
+    public int attackRangeClose = 3;
     public int attackRangeMedium = 5;
     public int detectionRange = 10;
     public int PVMax = 100;
@@ -28,6 +28,7 @@ public class BossAI : MonoBehaviour
     public bool invencibility = false;
     public Transform[] puntosPatrulla;
     public Transform puntoSpawnBoss;
+    public GameObject[] auras;
     public int indiceActual = 0;
     public enum AttackType { Fire, Water, Electricity, Earth, None }
     public AttackType currentAttackType = AttackType.None;
@@ -37,8 +38,9 @@ public class BossAI : MonoBehaviour
     public bool isChasing = false;
     public bool isApproaching = false;
     public bool muerto = false;
-    private float velocidadOriginal;
     public float velocidadAgente;
+    private float attackCooldown = 5.0f; // segundos entre ataques, ajusta según necesites
+    private float lastAttackTime = -999f; // momento del último ataque
 
 
     private void Start()
@@ -54,21 +56,31 @@ public class BossAI : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
         }
         transform.position = puntoSpawnBoss.position;
-        estaAtacando = false;
+        foreach (GameObject aura in auras)
+        {
+            if (aura != null)
+            {
+                aura.SetActive(false);
+            }
+        }
     }
 
     private void Update()
     {
         velocidadAgente = agent.speed;
-        Debug.Log(velocidadAgente);
-        animator.SetBool("isChasing", isChasing);
         animator.SetBool("isApproaching", isApproaching);
         animator.SetBool("Muerto", muerto);
 
-        if (muerto == true)
+        if (attackCooldown == 4f)
         {
-            return;
+            auras[0].SetActive(false);
+            animator.SetTrigger("TerminarElectrico");
         }
+        if (muerto)
+            {
+                return;
+            }
+
         if (PVActual == 0)
         {
             Muerte();
@@ -78,23 +90,23 @@ public class BossAI : MonoBehaviour
         fragmentosJugador = progressManager.fragmentosColocados;
 
         AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
-        if (estaAtacando == true)
+
+        if (estaAtacando)
         {
             velocidadesAtaque();
+            LogicaAuras();
+            isChasing = false;
         }
         else
         {
             agent.speed = 3.5f;
         }
 
-        // Si estamos atacando y ya terminó la animación
-        Debug.Log(estaAtacando);
-        Debug.Log(state.normalizedTime);
-        Debug.Log(estadoActual);
-        Debug.Log(state.IsName(estadoActual));
+        animator.SetBool("isChasing", isChasing);
+
+        // Detectar fin de animación de ataque
         if (estaAtacando && state.normalizedTime >= 1f && state.IsName(estadoActual))
         {
-            Debug.Log($"Ataque '{estadoActual}' finalizado.");
             estaAtacando = false;
             currentAttackType = AttackType.None;
             bossDebilElemento = PlayerController.Elemento.None;
@@ -102,9 +114,17 @@ public class BossAI : MonoBehaviour
             invencibility = false;
             attackBuff = false;
             isAttacking = false;
+            playerController.isInvincible = false;
             agent.speed = 3.5f;
             animator.speed = 1f;
             animator.SetTrigger("AcabaAtaque");
+            foreach (GameObject aura in auras)
+            {
+                if (aura != null)
+                {
+                    aura.SetActive(false);
+                }
+            }
             return;
         }
 
@@ -130,19 +150,27 @@ public class BossAI : MonoBehaviour
         }
 
         if (isChasing && !isApproaching)
+{
+    if (Time.time >= lastAttackTime + attackCooldown)
+    {
+        if (distanceToPlayer <= attackRangeMedium && distanceToPlayer > attackRangeClose)
         {
-            if (distanceToPlayer <= attackRangeMedium && distanceToPlayer > attackRangeClose)
-            {
-                AttackMediumRange();
-                isAttacking = true;
-            }
-            else if (distanceToPlayer <= attackRangeClose)
-            {
-                AttackCloseRange();
-                isAttacking = true;
-            }
+            AttackMediumRange();
+            lastAttackTime = Time.time;  // actualizar el tiempo del último ataque
+            isAttacking = true;
+            isChasing = false;
+        }
+        else if (distanceToPlayer <= attackRangeClose)
+        {
+            AttackCloseRange();
+            lastAttackTime = Time.time;  // actualizar el tiempo del último ataque
+            isAttacking = true;
+            isChasing = false;
         }
     }
+}
+    }
+
     public void ActualizarFragmentos(int cantidad)
     {
         fragmentosJugador = Mathf.Clamp(cantidad, 0, 4); // máximo 4 fragmentos
@@ -167,22 +195,18 @@ public class BossAI : MonoBehaviour
 
         gameManager.paredBoss1.SetActive(true);
         gameManager.paredBoss2.SetActive(true);
-        Debug.Log("persiguiendo");
     }
 
     public void TakeDamage(int pega)
     {
         int vidaVulnerable = fragmentosJugador * 25;
         int vidaMinimaPermitida = PVMax - vidaVulnerable;
+
         if (selectionMenu.currentSelection == 1)
         {
             if (playerController.playerAtaqueElemento == PlayerController.Elemento.None)
             {
-                playerController.manaActualPlayer = playerController.manaActualPlayer + 25;
-                if (playerController.manaActualPlayer >= 100)
-                {
-                    playerController.manaActualPlayer = 100;
-                }
+                playerController.manaActualPlayer = Mathf.Min(playerController.manaActualPlayer + 25, 100);
             }
 
             if (currentAttackType == AttackType.None)
@@ -203,11 +227,7 @@ public class BossAI : MonoBehaviour
         {
             if (arqueroController.playerAtaqueElemento == ArqueroController.Elemento.None)
             {
-                arqueroController.manaActualPlayer = arqueroController.manaActualPlayer + 25;
-                if (arqueroController.manaActualPlayer >= 100)
-                {
-                    arqueroController.manaActualPlayer = 100;
-                }
+                arqueroController.manaActualPlayer = Mathf.Min(arqueroController.manaActualPlayer + 25, 100);
             }
 
             if (currentAttackType == AttackType.None)
@@ -224,8 +244,8 @@ public class BossAI : MonoBehaviour
                 Debug.Log("Ataque elemental NO crítico");
             }
         }
-        int nuevaVida = Mathf.Max(PVActual - pega, vidaMinimaPermitida);
 
+        int nuevaVida = Mathf.Max(PVActual - pega, vidaMinimaPermitida);
         int pegaReal = PVActual - nuevaVida;
         PVActual = nuevaVida;
 
@@ -238,34 +258,24 @@ public class BossAI : MonoBehaviour
         switch (attackChoice)
         {
             case 0:
-                if (gameManager.ElectricityEffect == true)
+                bossDebilElemento = PlayerController.Elemento.Earth;
+                bossDebilElementoA = ArqueroController.Elemento.Earth;
+                if (gameManager.ElectricityEffect)
                 {
-                    bossDebilElemento = PlayerController.Elemento.Earth;
-                    bossDebilElementoA = ArqueroController.Elemento.Earth;
-                    animator.speed =1.5f;
-                    PerformAttack(AttackType.Electricity);
+                    animator.speed = 1.5f;
                 }
-                else
-                {
-                    bossDebilElemento = PlayerController.Elemento.Earth;
-                    bossDebilElementoA = ArqueroController.Elemento.Earth;
-                    PerformAttack(AttackType.Electricity);
-                }
+                PerformAttack(AttackType.Electricity);
+                auras[0].SetActive(true);
                 break;
             case 1:
-                if (gameManager.EarthEffect == true)
+                bossDebilElemento = PlayerController.Elemento.Fire;
+                bossDebilElementoA = ArqueroController.Elemento.Fire;
+                if (gameManager.EarthEffect)
                 {
-                    bossDebilElemento = PlayerController.Elemento.Fire;
-                    bossDebilElementoA = ArqueroController.Elemento.Fire;
                     invencibility = true;
-                    PerformAttack(AttackType.Earth);
                 }
-                else
-                {
-                    bossDebilElemento = PlayerController.Elemento.Fire;
-                    bossDebilElementoA = ArqueroController.Elemento.Fire;
-                    PerformAttack(AttackType.Earth);
-                }
+                PerformAttack(AttackType.Earth);
+                auras[1].SetActive(true);
                 break;
             case 2:
                 isApproaching = true;
@@ -280,33 +290,20 @@ public class BossAI : MonoBehaviour
         switch (attackChoice)
         {
             case 0:
-                if (gameManager.FireEffect == true)
+                bossDebilElemento = PlayerController.Elemento.Water;
+                bossDebilElementoA = ArqueroController.Elemento.Water;
+                if (gameManager.FireEffect)
                 {
-                    bossDebilElemento = PlayerController.Elemento.Water;
-                    bossDebilElementoA = ArqueroController.Elemento.Water;
                     attackBuff = true;
-                    PerformAttack(AttackType.Fire);
                 }
-                else
-                {
-                    bossDebilElemento = PlayerController.Elemento.Water;
-                    bossDebilElementoA = ArqueroController.Elemento.Water;
-                    PerformAttack(AttackType.Fire);
-                }
+                PerformAttack(AttackType.Fire);
                 break;
             case 1:
-                if (gameManager.WaterEffect == true)
-                {
-                    bossDebilElemento = PlayerController.Elemento.Electricity;
-                    bossDebilElementoA = ArqueroController.Elemento.Electricity;
-                    PerformAttack(AttackType.Water);
-                    PVActual = Mathf.Min(PVActual + 15, PVMax);
-                }
-                else
-                {
-                    bossDebilElementoA = ArqueroController.Elemento.Electricity;
-                    PerformAttack(AttackType.Water);
-                }
+                bossDebilElemento = PlayerController.Elemento.Electricity;
+                bossDebilElementoA = ArqueroController.Elemento.Electricity;
+                PerformAttack(AttackType.Water);
+                PVActual = Mathf.Min(PVActual + 15, PVMax);
+                auras[2].SetActive(true);
                 break;
         }
     }
@@ -319,19 +316,15 @@ public class BossAI : MonoBehaviour
         {
             case AttackType.Fire:
                 EjecutarAtaque("AtaqueFuego", "AtacarFuego");
-                Debug.Log("Boss realiza un ataque de Fuego!");
                 break;
             case AttackType.Water:
                 EjecutarAtaque("AtaqueAgua", "AtacarAgua");
-                Debug.Log("Boss realiza un ataque de Agua!");
                 break;
             case AttackType.Electricity:
                 EjecutarAtaque("AtaqueElectricidad", "AtacarElectricidad");
-                Debug.Log("Boss realiza un ataque de Electricidad!");
                 break;
             case AttackType.Earth:
                 EjecutarAtaque("AtaqueTierra", "AtacarTierra");
-                Debug.Log("Boss realiza un ataque de Tierra!");
                 break;
             case AttackType.None:
                 break;
@@ -343,60 +336,73 @@ public class BossAI : MonoBehaviour
         agent.isStopped = true;
         agent.enabled = false;
         muerto = true;
-        //animator.SetTrigger("Muerte");
-        //animator.speed = 0f;
         GameManager.Instance.BossDerrotado();
         gameManager.paredBoss1.SetActive(false);
         gameManager.paredBoss2.SetActive(false);
-
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && isAttacking == true)
+        if (other.CompareTag("Player") && isAttacking)
         {
             PlayerController player = other.GetComponent<PlayerController>();
             if (player != null)
             {
                 player.TakeDamage(10);
-                Debug.Log("Golpe impacto a player!");
             }
 
             ArqueroController arquero = other.GetComponent<ArqueroController>();
             if (arquero != null)
             {
                 arquero.TakeDamage(10);
-                Debug.Log("Golpe impactó a arquero!");
             }
-            isAttacking = false;
+            playerController.isInvincible = true;
         }
     }
-    void EjecutarAtaque(string nombreEstado, string nombreAtaque)
+
+    public void EjecutarAtaque(string nombreEstado, string nombreAtaque)
     {
         animator.SetTrigger(nombreAtaque);
-        Debug.Log(nombreAtaque);
         estadoActual = nombreEstado;
         estaAtacando = true;
     }
-    void velocidadesAtaque()
+
+    public void velocidadesAtaque()
     {
         switch (currentAttackType)
-    {
-        case AttackType.Water:
-            agent.speed = 0f;
-            break;
-        case AttackType.Electricity:
-            agent.speed = 0f;
-            break;
-        case AttackType.Earth:
-            agent.speed = 0f;
-            break;
-        case AttackType.Fire:
-            agent.speed = 3.5f * 0.5f;
-            break;
-        default:
-            agent.speed = 3.5f;
-            break;
+        {
+            case AttackType.Water:
+            case AttackType.Electricity:
+            case AttackType.Earth:
+                agent.speed = 0f;
+                break;
+            case AttackType.Fire:
+                agent.speed = 3.5f * 0.5f;
+                break;
+            default:
+                agent.speed = 3.5f;
+                break;
+        }
     }
+
+    public void LogicaAuras()
+    {
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        if (state.IsName("AtaqueFuego"))
+        {
+            auras[3].SetActive(true);
+        }
+        if (state.IsName("AtaqueAgua"))
+        {
+            auras[2].SetActive(true);
+        }
+        if (state.IsName("AtaqueElectricidad"))
+        {
+            auras[0].SetActive(true);
+        }
+        if (state.IsName("AtaqueTierra"))
+        {
+            auras[1].SetActive(true);
+        }
     }
 }
-

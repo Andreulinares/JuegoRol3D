@@ -294,7 +294,6 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   sphereDistance: 2
   pantallaMuerte: {fileID: 0}
-  uiManager: {fileID: 0}
   sphereDamage: 10
   vidaMaxPlayer: 5
   vidaActualPlayer: 0

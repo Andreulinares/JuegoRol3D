@@ -205,6 +205,7 @@ namespace StarterAssets
 
         private void Update()
         {
+            ActualizarBarraMana();
             ActualizarBarraDeVida();
             if (isStunned)
             {
@@ -281,6 +282,7 @@ namespace StarterAssets
             if (MouseLeftClick())
             {
                 //CreateStaticSphere();
+                ActualizaMana();
                 _animator.SetTrigger(_animIDAttack);
                 GetComponentInChildren<PlayerAttack>().ActivarColliderGolpe();
                 AudioManager.Instance.PlaySFX("Espada");
@@ -404,43 +406,28 @@ private bool DownPadClick()
     }
     return false;
 }
-        private void CreateStaticSphere()
+        public void ActualizaMana()
         {
-            if (currentSphere == null)
+            if(currentAttackType==AttackType.None)
             {
-                if(currentAttackType==AttackType.None)
+                PerformAttack(AttackType.None);
+            }
+            else if(currentAttackType!=AttackType.None && manaActualPlayer>0)
+            {
+                PerformAttack(currentAttackType);
+                manaActualPlayer=manaActualPlayer-25;
+                if(manaActualPlayer<=0)
                 {
-                    PerformAttack(AttackType.None);
+                    manaActualPlayer=0;
                 }
-                else if(currentAttackType!=AttackType.None && manaActualPlayer>0)
-                {
-                    PerformAttack(currentAttackType);
-                    manaActualPlayer=manaActualPlayer-25;
-                    if(manaActualPlayer<=0)
-                    {
-                        manaActualPlayer=0;
-                    }
-                    ActualizarBarraMana();
-                    
-                }
-                else
-                {   
-                    PerformAttack(AttackType.None);
-                }
-                // Calculamos la posición delante del personaje
-                Vector3 spawnPosition = transform.position + transform.forward * sphereDistance + transform.up * 1;
-
-                // Instanciamos la esfera en la posición calculada
-                currentSphere = Instantiate(spherePrefab, spawnPosition, Quaternion.identity);
-
-                // Asegurarnos de que el collider sea trigger y no tenga física
-                Collider collider = currentSphere.GetComponent<Collider>();
-                if (collider != null)
-                {
-                    collider.isTrigger = true; // Activar el modo trigger
-                }
+                ActualizarBarraMana();      
+            }
+            else
+            {   
+                PerformAttack(AttackType.None);
             }
         }
+        
 
         private void ActualizarBarraMana()
         {

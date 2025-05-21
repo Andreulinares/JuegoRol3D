@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6604211732278745274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470919286235986367}
+  - component: {fileID: 4677790853209865616}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470919286235986367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604211732278745274}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.4632225, y: -3.046237, z: 70.692375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4677790853209865616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604211732278745274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75247ce17f3a0d048986db7188a1a646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressManager: {fileID: 0}
+  pantallaVictoria: {fileID: 0}
+  fragmentosTotales: 4
+  WaterEffect: 1
+  FireEffect: 1
+  EarthEffect: 1
+  ElectricityEffect: 1
+  elementoBoss: 0
+  estadoActual: 0
+  PisoActual: 2
+  objetosSuperior:
+  - {fileID: 0}
+  objetosInferior:
+  - {fileID: 0}
+  objetosAfueras:
+  - {fileID: 0}
+  objetosPagina1:
+  - {fileID: 0}
+  objetosPagina2:
+  - {fileID: 0}
+  objetosPagina3:
+  - {fileID: 0}
+  objetosPagina4:
+  - {fileID: 0}
+  objetosPagina5:
+  - {fileID: 0}
+  objetosPagina6:
+  - {fileID: 0}
+  objetosPagina7:
+  - {fileID: 0}
+  paredBoss1: {fileID: 0}
+  paredBoss2: {fileID: 0}
+  musicaFondo: {fileID: 0}
+  musicaNormal: {fileID: 0}
+  musicaBoss: {fileID: 0}
+  jugadorMelee: 1
+  onFragmentoRecolectado:
+    m_PersistentCalls:
+      m_Calls: []
+  onTodosFragmentosRecolectados:
+    m_PersistentCalls:
+      m_Calls: []
+  onBossDerrotado:
+    m_PersistentCalls:
+      m_Calls: []
+  meleePrefab: {fileID: 4179133203949872447, guid: c6b9649f34526764b8f20d8a3ac1b08b,
+    type: 3}
+  ArqueroPrefab: {fileID: 5598695734267346415, guid: ec53c6658499e354a913fa796f2b0d5a,
+    type: 3}
+  virtualCam: {fileID: 0}
+  puntoSpawn: {fileID: 0}
