@@ -88,20 +88,24 @@ public class BossAI : MonoBehaviour
         }
 
         // Si estamos atacando y ya terminó la animación
+        Debug.Log(estaAtacando);
+        Debug.Log(state.normalizedTime);
+        Debug.Log(estadoActual);
+        Debug.Log(state.IsName(estadoActual));
         if (estaAtacando && state.normalizedTime >= 1f && state.IsName(estadoActual))
         {
             Debug.Log($"Ataque '{estadoActual}' finalizado.");
             estaAtacando = false;
-
-            agent.isStopped = false;
             currentAttackType = AttackType.None;
             bossDebilElemento = PlayerController.Elemento.None;
             bossDebilElementoA = ArqueroController.Elemento.None;
             invencibility = false;
             attackBuff = false;
             isAttacking = false;
-            agent.speed = velocidadOriginal;
+            agent.speed = 3.5f;
+            animator.speed = 1f;
             animator.SetTrigger("AcabaAtaque");
+            return;
         }
 
         distanceToPlayer = Vector3.Distance(transform.position, jugador.transform.position);
@@ -116,6 +120,7 @@ public class BossAI : MonoBehaviour
             isChasing = true;
             ChasePlayer();
             isAttacking = false;
+            animator.SetBool("Patrol", false);
         }
         else
         {
@@ -153,6 +158,7 @@ public class BossAI : MonoBehaviour
         {
             indiceActual = (indiceActual + 1) % puntosPatrulla.Length;
         }
+        animator.SetBool("Patrol", true);
     }
 
     private void ChasePlayer()
@@ -236,8 +242,7 @@ public class BossAI : MonoBehaviour
                 {
                     bossDebilElemento = PlayerController.Elemento.Earth;
                     bossDebilElementoA = ArqueroController.Elemento.Earth;
-                    //animator.speed =1.5f;
-                    //cooldownActual = baseCooldown * 0.5f;
+                    animator.speed =1.5f;
                     PerformAttack(AttackType.Electricity);
                 }
                 else
@@ -317,7 +322,7 @@ public class BossAI : MonoBehaviour
                 Debug.Log("Boss realiza un ataque de Fuego!");
                 break;
             case AttackType.Water:
-                EjecutarAtaque("PosicionAgua", "AtacarAgua");
+                EjecutarAtaque("AtaqueAgua", "AtacarAgua");
                 Debug.Log("Boss realiza un ataque de Agua!");
                 break;
             case AttackType.Electricity:
@@ -369,10 +374,6 @@ public class BossAI : MonoBehaviour
     {
         animator.SetTrigger(nombreAtaque);
         Debug.Log(nombreAtaque);
-        if (nombreEstado=="PosicionAgua")
-        {
-            nombreEstado = "CargarAgua";
-        }
         estadoActual = nombreEstado;
         estaAtacando = true;
     }
@@ -390,10 +391,10 @@ public class BossAI : MonoBehaviour
             agent.speed = 0f;
             break;
         case AttackType.Fire:
-            agent.speed = velocidadOriginal * 0.5f;
+            agent.speed = 3.5f * 0.5f;
             break;
         default:
-            agent.speed = velocidadOriginal;
+            agent.speed = 3.5f;
             break;
     }
     }
