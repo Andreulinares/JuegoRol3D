@@ -98461,10 +98461,10 @@ MonoBehaviour:
   playerController: {fileID: 2014239691555928069, guid: c6b9649f34526764b8f20d8a3ac1b08b,
     type: 3}
   arqueroController: {fileID: 0}
-  aguaBossCollider: {fileID: 0}
-  tierraBossCollider: {fileID: 0}
-  fuegoBossCollider: {fileID: 0}
-  electricidadBossCollider: {fileID: 0}
+  aguaBossCollider: {fileID: 1005753367}
+  tierraBossCollider: {fileID: 1454170718}
+  fuegoBossCollider: {fileID: 631659703}
+  electricidadBossCollider: {fileID: 1290301430}
   isAttacking: 0
   attackRangeClose: 2
   attackRangeMedium: 5

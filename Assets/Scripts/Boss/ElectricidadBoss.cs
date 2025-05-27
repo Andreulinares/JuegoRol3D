@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
-using UnityEditor.Animations;
+//using UnityEditor.Animations;
 using UnityEngine;
 
 public class ElectricidadBoss : MonoBehaviour

@@ -23,7 +23,7 @@ namespace StarterAssets
     public GameObject spherePrefab;
     public GameObject flechaPrefab;
     public Transform puntoDisparo;
-    public float potenciaFlecha = 30f;
+    public float potenciaFlecha = 20f;
     private EnemigoMelee enemigoMelee;
     public BossAI bossAI;
     public GameManager gameManager;
@@ -304,11 +304,13 @@ namespace StarterAssets
         }
 
         public void DispararFlecha(){
-            GameObject nuevaFlecha = Instantiate(flechaPrefab, puntoDisparo.position, puntoDisparo.rotation);
+            GameObject nuevaFlecha = Instantiate(flechaPrefab, puntoDisparo.position, Quaternion.LookRotation(puntoDisparo.forward));
 
             Rigidbody rb = nuevaFlecha.GetComponent<Rigidbody>();
-            if (rb != null){
+            if (rb != null)
+            {
                 rb.AddForce(puntoDisparo.forward * potenciaFlecha, ForceMode.Impulse);
+                //rb.velocity = puntoDisparo.forward * potenciaFlecha;
             }
         }
 
@@ -759,10 +761,10 @@ private bool DownPadClick()
     {
         damage=damage+10;
     }*/
-    if(bossAI.attackBuff==true)
+    /*if(bossAI.attackBuff==true)
     {
         damage=damage+10;
-    }
+    }*/
     vidaActualPlayer -= damage;
     
     ActualizarBarraDeVida();

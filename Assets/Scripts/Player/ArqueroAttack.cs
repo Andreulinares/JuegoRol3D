@@ -42,6 +42,7 @@ public class ArqueroAttack : MonoBehaviour
             Debug.Log("¡Flecha impactó al enemigo!");
             Destroy(gameObject);
         } else if (collision.gameObject.CompareTag("Elemental")){
+            collision.gameObject.GetComponent<ElementalBehaviour>().TakeDamage(daño);
             Debug.Log("¡Flecha impactó al elemental!");
             Destroy(gameObject);
         }

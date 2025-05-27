@@ -68,8 +68,11 @@ public class GhostRunner : MonoBehaviour
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomPos, out hit, 2f, NavMesh.AllAreas))
             {
-                resultado = hit.position;
-                return true;
+                    if (!Physics.Raycast(hit.position + Vector3.up * 2f, Vector3.down, 3f, LayerMask.GetMask("Obstacles")))
+                {
+                    resultado = hit.position;
+                    return true;
+                }
             }
         }
         resultado = Vector3.zero;

@@ -288,9 +288,16 @@ public class EnemigoMelee : MonoBehaviour
 
     void Patrullar(){
         PatrolMelee.ActivarPatrullaje();
-        animator.SetBool("isWalking", true);
+        float speed = agent.velocity.magnitude;
+
+        bool isMoving = speed > 0.1f && agent.remainingDistance > 0.5f;
+
+        animator.SetBool("isWalking", isMoving);
         animator.SetBool("isRun", false);
         animator.SetBool("isAttack", false);
+        /*SetBool("isWalking", true);
+        animator.SetBool("isRun", false);
+        animator.SetBool("isAttack", false);*/
 
         if (agent.velocity.magnitude > 0.1f) 
         {
@@ -303,7 +310,7 @@ public class EnemigoMelee : MonoBehaviour
     void DetenerPatrullaje(){
         PatrolMelee.DesactivarPatrullaje();
         animator.SetBool("isWalking", false);
-        PatrolMelee.ghost.GetComponent<GhostMeleeRunner>().Detener();
+        PatrolMelee.ghost.GetComponent<GhostMelee>().Detener();
     }
 
     /*private void OnTriggerEnter(Collider other)
