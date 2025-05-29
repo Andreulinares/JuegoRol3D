@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Diario2 : MonoBehaviour
 {
+    public Animator animator;
     private bool jugadorCerca = false;
     public int Pagina=2;
     public GameManager gameManager;
@@ -15,6 +16,7 @@ public class Diario2 : MonoBehaviour
             gameManager.SumarPorcentaje(5);
             gameManager.RecogerPagina(Pagina);
             activarPagina();
+            animator.SetTrigger("pickup");
         }
     }
 

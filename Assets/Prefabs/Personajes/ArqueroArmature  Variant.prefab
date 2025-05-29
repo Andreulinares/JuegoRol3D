@@ -103,6 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7951372192866230491}
   - component: {fileID: 6850235772265150604}
+  - component: {fileID: 5442767603648490681}
   m_Layer: 8
   m_Name: ElementoIcono
   m_TagString: Untagged
@@ -177,6 +178,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5442767603648490681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4062644635786972689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ca5d0cfe4df0c4593825006f8d3dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8267626779592920672
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +635,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5572168134185399987}
+    - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 675431130655474959}
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
 --- !u!1 &235466113390609588 stripped
 GameObject:
@@ -690,7 +707,6 @@ MonoBehaviour:
   bossAI: {fileID: 0}
   gameManager: {fileID: 0}
   sphereDistance: 2
-  pantallaMuerte: {fileID: 0}
   sphereDamage: 10
   vidaMaxPlayer: 100
   vidaActualPlayer: 0
@@ -726,6 +742,18 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+--- !u!114 &675431130655474959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598695734267346415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd20721ee9329e4eb03e15f5964f763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8257054428931142542
 PrefabInstance:
   m_ObjectHideFlags: 0

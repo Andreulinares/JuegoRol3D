@@ -215,10 +215,13 @@ public class ElementalBehaviour : MonoBehaviour
     void Patrullar()
     {
         ElementalPatrolScript.ActivarPatrullaje();
-        animator.SetBool("isWalking", true);
+        float speed = agent.velocity.magnitude;
+
+        bool isMoving = speed > 0.1f && agent.remainingDistance > 0.5f;
+        animator.SetBool("isWalking", isMoving);
         animator.SetBool("isAttack", false);
         
-        if (agent.velocity.magnitude > 0.1f) 
+        if (agent.velocity.magnitude > 0.1f)
         {
             Vector3 direccionMovimiento = agent.velocity.normalized;
             Quaternion rotacionObjetivo = Quaternion.LookRotation(direccionMovimiento);

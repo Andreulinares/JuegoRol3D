@@ -2,23 +2,39 @@ using UnityEngine;
 
 public class Diario1 : MonoBehaviour
 {
+    private Animator animator;
     private bool jugadorCerca = false;
     public int Pagina=1;
     public GameManager gameManager;
     public Diario diario;
-    
+    private GameObject player;
+
+    private void Start()
+    {
+    }
 
     private void Update()
     {
+        if (player == null)
+        { 
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+
+        animator = player.GetComponent<Animator>();
+
         if (jugadorCerca && Input.GetButtonDown("Interact"))
         {
-            gameManager.SumarPorcentaje(2);
-            gameManager.RecogerPagina(Pagina);
-            activarPagina();
+            animator.SetTrigger("pickup");
+            player.GetComponent<PlayerPickup>().SetDiario(this);
         }
     }
 
-    
+    public void EjecutarRecogida()
+    {
+        gameManager.SumarPorcentaje(2);
+        gameManager.RecogerPagina(Pagina);
+        activarPagina();
+    }    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -39,7 +55,6 @@ public class Diario1 : MonoBehaviour
     }
     public void activarPagina()
     {
-        diario.pagina1= true;
-        diario.activarPagina();
+        diario.ActivarPaginaPorNumero(Pagina);
     }
 }

@@ -17,7 +17,6 @@ namespace StarterAssets
     {
         [Header("Player")]
         // Referencia al prefab de la esfera
-
     public SpriteRenderer elementoIcono;
     public Sprite[] iconosElementos;
     public GameObject spherePrefab;
@@ -302,8 +301,9 @@ namespace StarterAssets
             GroundedCheck();
             Move();
         }
-
-        public void DispararFlecha(){
+    
+        public void DispararFlecha()
+        {
             GameObject nuevaFlecha = Instantiate(flechaPrefab, puntoDisparo.position, Quaternion.LookRotation(puntoDisparo.forward));
 
             Rigidbody rb = nuevaFlecha.GetComponent<Rigidbody>();

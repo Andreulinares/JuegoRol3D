@@ -84,33 +84,57 @@ public class Diario : MonoBehaviour
             pagina.SetActive(false);
         }
     }
+
+    public void ActivarPaginaPorNumero(int numero)
+    {
+        if (numero >= 1 && numero <= textosPaginas.Length)
+        {
+            
+            textosPaginas[numero - 1].SetActive(true);
+
+            
+            switch (numero)
+            {
+                case 1: pagina1 = true; break;
+                case 2: pagina2 = true; break;
+                case 3: pagina3 = true; break;
+                case 4: pagina4 = true; break;
+                case 5: pagina5 = true; break;
+                case 6: pagina6 = true; break;
+                case 7: pagina7 = true; break;
+            }
+
+            activarPagina(); 
+        }
+    }
+
     public void activarPagina()
     {
-        if(pagina1==true)
+        if (pagina1 == true)
         {
             textosPaginas[0].SetActive(true);
         }
-        if(pagina2==true)
+        if (pagina2 == true)
         {
             textosPaginas[1].SetActive(true);
         }
-        if(pagina3==true)
+        if (pagina3 == true)
         {
             textosPaginas[2].SetActive(true);
         }
-        if(pagina4==true)
+        if (pagina4 == true)
         {
             textosPaginas[3].SetActive(true);
         }
-        if(pagina5==true)
+        if (pagina5 == true)
         {
             textosPaginas[4].SetActive(true);
         }
-        if(pagina6==true)
+        if (pagina6 == true)
         {
             textosPaginas[5].SetActive(true);
         }
-        if(pagina7==true)
+        if (pagina7 == true)
         {
             textosPaginas[6].SetActive(true);
         }

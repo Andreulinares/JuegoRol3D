@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8506902407346488606}
   - component: {fileID: 3598390948327540281}
+  - component: {fileID: 5415207592127412493}
   m_Layer: 8
   m_Name: ElementoIcono
   m_TagString: Untagged
@@ -84,6 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5415207592127412493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7166387000023004546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ca5d0cfe4df0c4593825006f8d3dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &338703866897412078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -257,6 +270,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7446537707715134182}
+    - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9165824228480485203}
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
 --- !u!4 &3653707020542459781 stripped
 Transform:
@@ -293,7 +310,6 @@ MonoBehaviour:
   bossAI: {fileID: 0}
   gameManager: {fileID: 0}
   sphereDistance: 2
-  pantallaMuerte: {fileID: 0}
   sphereDamage: 10
   vidaMaxPlayer: 5
   vidaActualPlayer: 0
@@ -352,6 +368,18 @@ CapsuleCollider:
   m_Height: 2.9284687
   m_Direction: 1
   m_Center: {x: 0, y: 0.96423435, z: 0}
+--- !u!114 &9165824228480485203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4179133203949872447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd20721ee9329e4eb03e15f5964f763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8577484495845661796 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8338988566280778634, guid: 64dce48905ffd9b4293e595fa6941544,
