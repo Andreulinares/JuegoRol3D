@@ -51,7 +51,7 @@ namespace StarterAssets
     public Elemento playerActivoElemento = Elemento.None;
     public Elemento playerAtaqueElemento = Elemento.None;
     
-
+    public PlayerAttack playerAttackScript;
 
     // Tiempo de vida de la esfera
     public float sphereLifetime = 2f;
@@ -712,6 +712,7 @@ private bool DownPadClick()
         if (currentAttackType == attack)
     {
         elementoIcono.gameObject.SetActive(false);
+        playerAttackScript.elementalBonusDamage = 0;
         return;
     }
 
@@ -724,6 +725,7 @@ private bool DownPadClick()
                     playerActivoElemento = Elemento.Fire;
                     elementoIcono.sprite = iconosElementos[(int)AttackType.Fire];
                     Debug.Log("Jugador obtiene el poder de Fuego!");
+                    playerAttackScript.elementalBonusDamage = 5;
                     uiManager.mostrarFuego();
                     break;
                 case AttackType.Water:
