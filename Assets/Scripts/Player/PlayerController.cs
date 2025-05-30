@@ -722,29 +722,67 @@ private bool DownPadClick()
         switch (currentAttackType)
             {
                 case AttackType.Fire:
-                    playerActivoElemento = Elemento.Fire;
-                    elementoIcono.sprite = iconosElementos[(int)AttackType.Fire];
-                    Debug.Log("Jugador obtiene el poder de Fuego!");
-                    playerAttackScript.elementalBonusDamage = 5;
-                    uiManager.mostrarFuego();
+                    if (manaActualPlayer >= 25)
+                    {
+                        playerActivoElemento = Elemento.Fire;
+                        elementoIcono.sprite = iconosElementos[(int)AttackType.Fire];
+                        Debug.Log("Jugador obtiene el poder de Fuego!");
+                        playerAttackScript.elementalBonusDamage = 5;
+                        uiManager.mostrarFuego();
+                        uiManager.MostrarNotificacionFire();
+                        manaActualPlayer -= 25;
+                        ActualizarBarraMana();
+                    }
+                    else
+                    {
+                        Debug.Log("¡No tienes suficiente maná!");
+                    }
                     break;
                 case AttackType.Water:
-                    playerActivoElemento = Elemento.Water;
-                    elementoIcono.sprite = iconosElementos[(int)AttackType.Water];
-                    Debug.Log("Jugador obtiene el poder de Agua!");
-                    uiManager.mostrarAgua();
+                    if (manaActualPlayer >= 25)
+                    {
+                        playerActivoElemento = Elemento.Water;
+                        elementoIcono.sprite = iconosElementos[(int)AttackType.Water];
+                        Debug.Log("Jugador obtiene el poder de Agua!");
+                        uiManager.mostrarAgua();
+                        manaActualPlayer -= 25;
+                        ActualizarBarraMana();
+                    }
+                    else
+                    { 
+                        Debug.Log("¡No tienes suficiente maná!");
+                    }
                     break;
                 case AttackType.Electricity:
-                    playerActivoElemento = Elemento.Electricity;
-                    elementoIcono.sprite = iconosElementos[(int)AttackType.Electricity];
-                    Debug.Log("Jugador obtiene el poder de Electricidad!");
-                    uiManager.mostrarElectricidad();
+                    if (manaActualPlayer >= 25)
+                    {
+                        playerActivoElemento = Elemento.Electricity;
+                        elementoIcono.sprite = iconosElementos[(int)AttackType.Electricity];
+                        Debug.Log("Jugador obtiene el poder de Electricidad!");
+                        MoveSpeed = 4f;
+                        uiManager.mostrarElectricidad();
+                        manaActualPlayer -= 25;
+                        ActualizarBarraMana();
+                    }
+                    else
+                    {
+                        Debug.Log("¡No tienes suficiente maná!");
+                    }
                     break;
                 case AttackType.Earth:
-                    playerActivoElemento = Elemento.Earth;
-                    elementoIcono.sprite = iconosElementos[(int)AttackType.Earth];
-                    Debug.Log("Jugador obtiene el poder de Tierra!");
-                    uiManager.mostrarTierra();
+                    if (manaActualPlayer >= 25)
+                    {
+                        playerActivoElemento = Elemento.Earth;
+                        elementoIcono.sprite = iconosElementos[(int)AttackType.Earth];
+                        Debug.Log("Jugador obtiene el poder de Tierra!");
+                        uiManager.mostrarTierra();
+                        manaActualPlayer -= 25;
+                        ActualizarBarraMana();
+                    }
+                    else
+                    {
+                        Debug.Log("¡No tienes suficiente maná!");
+                    }
                     break;
                 case AttackType.None:
                     playerActivoElemento = Elemento.None;

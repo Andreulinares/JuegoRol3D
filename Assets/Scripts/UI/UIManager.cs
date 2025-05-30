@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Interface;
 
     public Image BarraVida;
-    public List <Image> barrasMana;
+    public List<Image> barrasMana;
 
     public Image ruedaElementos;
     private Sprite spritePorDefecto;
@@ -25,24 +26,31 @@ public class UIManager : MonoBehaviour
 
     private int ElementoSeleccionado = 0;
 
-    private void Awake(){
-        if (Interface == null){
+    public TMP_Text textFire;
+
+    private void Awake()
+    {
+        if (Interface == null)
+        {
             Interface = this;
             DontDestroyOnLoad(gameObject);
-        }else{
+        }
+        else
+        {
             Destroy(gameObject);
         }
     }
 
-    public void ActualizarVida(float porcentaje){
+    public void ActualizarVida(float porcentaje)
+    {
         BarraVida.fillAmount = porcentaje;
     }
 
     public void ActualizarMana(float manaActual)
     {
-    
-        manaActual = Mathf.Clamp01(manaActual); 
-        float porcentajePorBarra = 1f / barrasMana.Count; 
+
+        manaActual = Mathf.Clamp01(manaActual);
+        float porcentajePorBarra = 1f / barrasMana.Count;
 
         for (int i = 0; i < barrasMana.Count; i++)
         {
@@ -68,12 +76,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void CambiarElemento(int direccion){
+    public void CambiarElemento(int direccion)
+    {
         ElementoSeleccionado += direccion;
 
-        if (ElementoSeleccionado < 0){
+        if (ElementoSeleccionado < 0)
+        {
             ElementoSeleccionado = ElementosSeleccionados.Count - 1;
-        }else if (ElementoSeleccionado >= ElementosSeleccionados.Count){
+        }
+        else if (ElementoSeleccionado >= ElementosSeleccionados.Count)
+        {
             ElementoSeleccionado = 0;
         }
 
@@ -82,22 +94,22 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     public void mostrarFuego()
     {
-        ElementoSeleccionado = 0; // Asumimos que el fuego está en la posición 0 de la lista
+        ElementoSeleccionado = 0;
         ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
     }
     public void mostrarTierra()
     {
-        ElementoSeleccionado = 1; // Asumimos que el fuego está en la posición 0 de la lista
+        ElementoSeleccionado = 1;
         ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
     }
     public void mostrarAgua()
     {
-        ElementoSeleccionado = 2; // Asumimos que el fuego está en la posición 0 de la lista
+        ElementoSeleccionado = 2;
         ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
     }
     public void mostrarElectricidad()
     {
-        ElementoSeleccionado = 3; // Asumimos que el fuego está en la posición 0 de la lista
+        ElementoSeleccionado = 3;
         ruedaElementos.sprite = ElementosSeleccionados[ElementoSeleccionado];
     }
     public void mostrarNinguno()
@@ -108,7 +120,7 @@ public class UIManager : MonoBehaviour
     {
         elementoDeFuego.gameObject.SetActive(false);
     }
-    
+
     public void coleccionadoTierra()
     {
         elementoDeTierra.gameObject.SetActive(true);
@@ -125,6 +137,17 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void MostrarNotificacionFire()
+    {
+        textFire.gameObject.SetActive(true);
+        Invoke("DesactivarNotificacion", 2f);
+    }
+
+    private void DesactivarNotificacion()
+    { 
+        textFire.gameObject.SetActive(false);
     }
 }

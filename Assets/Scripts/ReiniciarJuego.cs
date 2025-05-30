@@ -16,7 +16,7 @@ public class ReiniciarJuego : MonoBehaviour
     public void reiniciarJuego()
     {
         // Destruir enemigos antes de reiniciar
-    GameObject[] enemigos = GameObject.FindGameObjectsWithTag("Enemy");
+    /*GameObject[] enemigos = GameObject.FindGameObjectsWithTag("Enemy");
     foreach (GameObject enemigo in enemigos)
     {
         Destroy(enemigo);
@@ -45,7 +45,7 @@ public class ReiniciarJuego : MonoBehaviour
     // Resetear la UI
     uiManager.mostrarNinguno();
 
-    SceneManager.LoadScene("Menu");
-
+    */
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
