@@ -590,6 +590,16 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 80b328617dda78c42a8665e721bcdf96, type: 3}
   - soundName: Arrow
     clip: {fileID: 8300000, guid: f96a3144e659baf4daab1480fee50a88, type: 3}
+  - soundName: Footsteps
+    clip: {fileID: 8300000, guid: f8b24db730b60bb4b97e126296a18384, type: 3}
+  - soundName: Jump
+    clip: {fileID: 8300000, guid: 0559f815cea33f548839dc55aa711c39, type: 3}
+  - soundName: Run
+    clip: {fileID: 8300000, guid: 52c21d6a9c662e5499dbd30821d4db96, type: 3}
+  - soundName: "Pu\xF1etazo"
+    clip: {fileID: 8300000, guid: 6f9590306bc19ee4fb6aa775d6a1eff4, type: 3}
+  - soundName: Proyectil
+    clip: {fileID: 8300000, guid: e10e8ac8e2d66d34c8bad7ac73795e02, type: 3}
   musicSource: {fileID: 162765129}
   sfxSource: {fileID: 162765131}
 --- !u!82 &162765131

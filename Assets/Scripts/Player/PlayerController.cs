@@ -18,6 +18,8 @@ namespace StarterAssets
         [Header("Player")]
         // Referencia al prefab de la esfera
 
+    public AudioSource footstepSource;
+
     public SpriteRenderer elementoIcono;
     public Sprite[] iconosElementos;
     public GameObject spherePrefab;
@@ -552,6 +554,7 @@ private bool DownPadClick()
 
                 // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+
             }
 
 
@@ -561,12 +564,27 @@ private bool DownPadClick()
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
+
             // update animator if using character
             if (_hasAnimator)
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                //AudioManager.Instance.PlaySFX("Footsteps");
             }
+            /*if (_input.move != Vector2.zero && _controller.isGrounded)
+            {
+                footstepTimer -= Time.deltaTime;
+                if (footstepTimer <= 0f)
+                {
+                    AudioManager.Instance.PlaySFX("Footsteps");
+                    footstepTimer = footstepInterval;
+                }
+                else
+                {
+                    footstepTimer = 0f;
+                }
+            }*/
         }
 
         private void JumpAndGravity()
@@ -666,7 +684,8 @@ private bool DownPadClick()
                 if (FootstepAudioClips.Length > 0)
                 {
                     var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    //AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    footstepSource.PlayOneShot(FootstepAudioClips[index], FootstepAudioVolume);
                 }
             }
         }

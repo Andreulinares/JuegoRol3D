@@ -283,6 +283,7 @@ public class EnemigoMelee : MonoBehaviour
         animator.SetBool("isWalking", false);
         animator.SetBool("isRun", false);
         GetComponentInChildren<EnemyAttack>().ActivarColliderGolpe();
+        AudioManager.Instance.PlaySFX("Puñetazo");
         Debug.Log("Golpeando al jugador");
     }
 
