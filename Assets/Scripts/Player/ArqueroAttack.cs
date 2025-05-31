@@ -6,6 +6,8 @@ public class ArqueroAttack : MonoBehaviour
 {
 
     public int daño = 10;
+
+    public int elementalBonusDamage = 0;
     public float tiempoVida = 10f;
     // Start is called before the first frame update
     void Start()
@@ -33,16 +35,24 @@ public class ArqueroAttack : MonoBehaviour
     {
 
     }
+
+    public int CalcularDañoFinal()
+    {
+        return daño + elementalBonusDamage;
+    }
     
     private void OnCollisionEnter(Collision collision)
 {
+        int dañoFinal = CalcularDañoFinal();
         if (collision.gameObject.CompareTag("enemy"))
         {
-            collision.gameObject.GetComponent<EnemigoMelee>().TakeDamage(daño);
+            collision.gameObject.GetComponent<EnemigoMelee>().TakeDamage(dañoFinal);
             Debug.Log("¡Flecha impactó al enemigo!");
             Destroy(gameObject);
-        } else if (collision.gameObject.CompareTag("Elemental")){
-            collision.gameObject.GetComponent<ElementalBehaviour>().TakeDamage(daño);
+        }
+        else if (collision.gameObject.CompareTag("Elemental"))
+        {
+            collision.gameObject.GetComponent<ElementalBehaviour>().TakeDamage(dañoFinal);
             Debug.Log("¡Flecha impactó al elemental!");
             Destroy(gameObject);
         }
