@@ -53,7 +53,7 @@ namespace StarterAssets
     public Elemento playerActivoElemento = Elemento.None;
     public Elemento playerAtaqueElemento = Elemento.None;
     
-    public PlayerAttack playerAttackScript;
+    //public PlayerAttack playerAttackScript;
 
     // Tiempo de vida de la esfera
     public float sphereLifetime = 2f;
@@ -731,12 +731,12 @@ private bool DownPadClick()
         if (currentAttackType == attack)
     {
         elementoIcono.gameObject.SetActive(false);
-        playerAttackScript.elementalBonusDamage = 0;
+        GetComponentInChildren<PlayerAttack>().elementalBonusDamage = 0;
         return;
     }
 
         currentAttackType = attack;
-        elementoIcono.gameObject.SetActive(true);
+        //elementoIcono.gameObject.SetActive(true);
 
         switch (currentAttackType)
             {
@@ -746,15 +746,17 @@ private bool DownPadClick()
                         playerActivoElemento = Elemento.Fire;
                         elementoIcono.sprite = iconosElementos[(int)AttackType.Fire];
                         Debug.Log("Jugador obtiene el poder de Fuego!");
-                        playerAttackScript.elementalBonusDamage = 5;
+                        GetComponentInChildren<PlayerAttack>().elementalBonusDamage = 5;
                         uiManager.mostrarFuego();
                         uiManager.MostrarNotificacionFire();
                         manaActualPlayer -= 25;
                         ActualizarBarraMana();
+                        elementoIcono.gameObject.SetActive(true);
                     }
                     else
                     {
                         Debug.Log("¡No tienes suficiente maná!");
+                        elementoIcono.gameObject.SetActive(false);
                     }
                     break;
                 case AttackType.Water:
@@ -766,10 +768,12 @@ private bool DownPadClick()
                         uiManager.mostrarAgua();
                         manaActualPlayer -= 25;
                         ActualizarBarraMana();
+                        elementoIcono.gameObject.SetActive(true);
                     }
                     else
-                    { 
+                    {
                         Debug.Log("¡No tienes suficiente maná!");
+                        elementoIcono.gameObject.SetActive(false);
                     }
                     break;
                 case AttackType.Electricity:
@@ -782,10 +786,12 @@ private bool DownPadClick()
                         uiManager.mostrarElectricidad();
                         manaActualPlayer -= 25;
                         ActualizarBarraMana();
+                        elementoIcono.gameObject.SetActive(true);
                     }
                     else
                     {
                         Debug.Log("¡No tienes suficiente maná!");
+                        elementoIcono.gameObject.SetActive(false);
                     }
                     break;
                 case AttackType.Earth:
@@ -797,10 +803,12 @@ private bool DownPadClick()
                         uiManager.mostrarTierra();
                         manaActualPlayer -= 25;
                         ActualizarBarraMana();
+                        elementoIcono.gameObject.SetActive(true);
                     }
                     else
                     {
                         Debug.Log("¡No tienes suficiente maná!");
+                        elementoIcono.gameObject.SetActive(false);
                     }
                     break;
                 case AttackType.None:

@@ -21,6 +21,8 @@ public class Diario : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pagina1 = true;
+        
         panelDiario.SetActive(false);
         DesactivarTodasLasPaginas();
         DesactivarTextosPaginas();
@@ -63,20 +65,56 @@ public class Diario : MonoBehaviour
     }
     private void CambiarPagina(int direccion)
     {
-        paginaActual += direccion;
+        /*paginaActual += direccion;
 
         // Limitar el rango entre 0 y paginas.Length - 1
         paginaActual = Mathf.Clamp(paginaActual, 0, paginas.Length - 1);
 
-        MostrarPagina(paginaActual);
+        MostrarPagina(paginaActual);*/
+        int nuevoIndice = paginaActual;
+
+        do
+        {
+            nuevoIndice += direccion;
+        } while (nuevoIndice >= 0 && nuevoIndice < paginas.Length && !EstaPaginaDesbloqueada(nuevoIndice));
+
+        if (nuevoIndice >= 0 && nuevoIndice < paginas.Length && EstaPaginaDesbloqueada(nuevoIndice))
+        {
+            paginaActual = nuevoIndice;
+            MostrarPagina(paginaActual);
+        }
     }
     private void MostrarPagina(int indice)
     {
-        for (int i = 0; i < paginas.Length; i++)
+        /*for (int i = 0; i < paginas.Length; i++)
         {
             paginas[i].SetActive(i == indice);
+        }*/
+        DesactivarTodasLasPaginas();
+
+        // Verificamos si la página está desbloqueada antes de mostrarla
+        if (EstaPaginaDesbloqueada(indice))
+        {
+            paginas[indice].SetActive(true);
+            textosPaginas[indice].SetActive(true);
         }
     }
+
+    private bool EstaPaginaDesbloqueada(int indice)
+    {
+        switch (indice)
+        {
+            case 0: return pagina1;
+            case 1: return pagina2;
+            case 2: return pagina3;
+            case 3: return pagina4;
+            case 4: return pagina5;
+            case 5: return pagina6;
+            case 6: return pagina7;
+            default: return false;
+        }
+    }
+
     private void DesactivarTodasLasPaginas()
     {
         foreach (GameObject pagina in paginas)
@@ -89,10 +127,11 @@ public class Diario : MonoBehaviour
     {
         if (numero >= 1 && numero <= textosPaginas.Length)
         {
-            
-            textosPaginas[numero - 1].SetActive(true);
 
-            
+            textosPaginas[numero - 1].SetActive(true);
+            paginas[numero - 1].SetActive(true);
+
+
             switch (numero)
             {
                 case 1: pagina1 = true; break;
@@ -104,7 +143,13 @@ public class Diario : MonoBehaviour
                 case 7: pagina7 = true; break;
             }
 
-            activarPagina(); 
+            //activarPagina(); 
+            
+            paginaActual = numero - 1; 
+            if (diarioAbierto)
+            {
+                MostrarPagina(paginaActual);
+            }
         }
     }
 

@@ -28,6 +28,7 @@ public class Proyectil : MonoBehaviour
             {
                 player.TakeDamage(daño);
                 Debug.Log("Proyectil impactó a player1!");
+                AudioManager.Instance.PlaySFX("Proyectil");
                 Destroy(gameObject);
             }
 
@@ -36,11 +37,13 @@ public class Proyectil : MonoBehaviour
             {
                 arquero.TakeDamage(daño);
                 Debug.Log("Proyectil impactó a arquero!");
+                AudioManager.Instance.PlaySFX("Proyectil");
                 Destroy(gameObject);
             }
         }
         else
         {
+            AudioManager.Instance.PlaySFX("Proyectil");
             Destroy(gameObject, tiempoDeVida);
         }
     }

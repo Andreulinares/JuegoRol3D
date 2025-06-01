@@ -726,8 +726,8 @@ MonoBehaviour:
   SpeedChangeRate: 10
   LandingAudioClip: {fileID: 0}
   FootstepAudioClips:
-  - {fileID: 8300000, guid: f8b24db730b60bb4b97e126296a18384, type: 3}
-  FootstepAudioVolume: 0.5
+  - {fileID: 8300000, guid: c79f34bc4839aad4686ff67897c043af, type: 3}
+  FootstepAudioVolume: 0.716
   JumpHeight: 1.2
   Gravity: -15
   JumpTimeout: 0.5

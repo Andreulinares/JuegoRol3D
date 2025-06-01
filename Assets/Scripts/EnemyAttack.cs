@@ -47,12 +47,14 @@ public class EnemyAttack : MonoBehaviour
             PlayerController player = other.GetComponent<PlayerController>();
             if (player != null){
                 player.TakeDamage(daño);
+                AudioManager.Instance.PlaySFX("Puñetazo");
                 Debug.Log("Golpe impactó a player1!");
             }
 
             ArqueroController arquero = other.GetComponent<ArqueroController>();
             if (arquero != null){
                 arquero.TakeDamage(daño);
+                AudioManager.Instance.PlaySFX("Puñetazo");
                 Debug.Log("Golpe impactó a arquero!");
             }
         }
