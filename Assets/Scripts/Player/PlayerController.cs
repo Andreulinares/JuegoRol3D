@@ -18,7 +18,9 @@ namespace StarterAssets
         [Header("Player")]
         // Referencia al prefab de la esfera
 
-    public AudioSource footstepSource;
+        //public AudioSource footstepSource;
+
+    private Escudo escudo;
 
     public SpriteRenderer elementoIcono;
     public Sprite[] iconosElementos;
@@ -206,6 +208,7 @@ namespace StarterAssets
             pantallaMuerte = GameObject.FindWithTag("Derrota");
             pantallaMuerte.SetActive(false);
             //uiManager = FindObjectOfType<UIManager>();
+            escudo = GetComponentInChildren<Escudo>();
         }
 
         private void Update()
@@ -752,6 +755,8 @@ private bool DownPadClick()
                         manaActualPlayer -= 25;
                         ActualizarBarraMana();
                         elementoIcono.gameObject.SetActive(true);
+
+                        Invoke("RestaurarFuerza", 5f);
                     }
                     else
                     {
@@ -784,9 +789,12 @@ private bool DownPadClick()
                         Debug.Log("Jugador obtiene el poder de Electricidad!");
                         MoveSpeed = 4f;
                         uiManager.mostrarElectricidad();
+                        uiManager.MostrarImagenVelocidad();
                         manaActualPlayer -= 25;
                         ActualizarBarraMana();
                         elementoIcono.gameObject.SetActive(true);
+
+                        Invoke("RestaurarVelocidad", 5f);
                     }
                     else
                     {
@@ -800,6 +808,7 @@ private bool DownPadClick()
                         playerActivoElemento = Elemento.Earth;
                         elementoIcono.sprite = iconosElementos[(int)AttackType.Earth];
                         Debug.Log("Jugador obtiene el poder de Tierra!");
+                        escudo.ActivarEscudo();
                         uiManager.mostrarTierra();
                         manaActualPlayer -= 25;
                         ActualizarBarraMana();
@@ -818,6 +827,18 @@ private bool DownPadClick()
                     uiManager.mostrarNinguno();
                     break;
             }
+    }
+
+        void RestaurarVelocidad()
+    {
+        MoveSpeed = 2f; 
+        Debug.Log("Se ha restaurado la velocidad del jugador.");
+    }
+
+    void RestaurarFuerza()
+    {
+        GetComponentInChildren<PlayerAttack>().elementalBonusDamage = 0;
+        Debug.Log("Se ha restaurado la fuerza del jugador.");
     }
     public void TakeDamage(int damage)
 {

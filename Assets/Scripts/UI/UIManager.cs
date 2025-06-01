@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     public Image elementoDeElectricidad;
     public Image elementoDeElectricidadDes;
 
+    public Image VelocidadAumentada;
+
     private int ElementoSeleccionado = 0;
 
     public TMP_Text textFire;
@@ -140,6 +142,7 @@ public class UIManager : MonoBehaviour
 
     }
 
+    //Mostrar notificacion cuando se seleccione el elemento de fuego
     public void MostrarNotificacionFire()
     {
         textFire.gameObject.SetActive(true);
@@ -147,7 +150,18 @@ public class UIManager : MonoBehaviour
     }
 
     private void DesactivarNotificacion()
-    { 
+    {
         textFire.gameObject.SetActive(false);
+    }
+
+    public void MostrarImagenVelocidad()
+    {
+        VelocidadAumentada.gameObject.SetActive(true);
+        Invoke("DesactivarVelocidad", 5f);
+    }
+
+    private void DesactivarVelocidad()
+    { 
+        VelocidadAumentada.gameObject.SetActive(false);
     }
 }
