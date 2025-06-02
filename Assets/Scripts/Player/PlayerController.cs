@@ -268,7 +268,7 @@ namespace StarterAssets
         {
             uiManager = FindObjectOfType<UIManager>();
         }
-
+        if (Time.timeScale == 0) return; //Si esta en pausa cancelar controles 
         // Si está aturdido, cancelar controles
         if (isStunned) return;
             _hasAnimator = TryGetComponent(out _animator);

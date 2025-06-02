@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,9 @@ public class MenuPausa : MonoBehaviour
     private AudioManager audioManager;
     public Slider volumeSlider;
     public Slider sfxVolumeSlider;
+    public Slider footstepSlider;
+    private GameObject player;
+    private PlayerController playerAudio;
     public GameObject panelControles;
     private GameObject botonControles;
     // Start is called before the first frame update
@@ -31,6 +35,8 @@ public class MenuPausa : MonoBehaviour
             Debug.LogWarning("AudioManager no encontrado en la escena.");
         }
 
+        footstepSlider.onValueChanged.AddListener(SetFootstepVolume);
+
         pauseMenu.SetActive(false);
         botonControles = GameObject.Find("BotonControles");
     }
@@ -38,6 +44,15 @@ public class MenuPausa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                playerAudio = player.GetComponent<PlayerController>();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Start"))
         {
             TogglePause();
@@ -54,7 +69,11 @@ public class MenuPausa : MonoBehaviour
             MostrarControles(); 
         }*/
     }
-    
+    public void SetFootstepVolume(float value)
+    {
+        playerAudio.FootstepAudioVolume = value;
+    }
+
     void TogglePause()
 {
     isPaused = !isPaused;
