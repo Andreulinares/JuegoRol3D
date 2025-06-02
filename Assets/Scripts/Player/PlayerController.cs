@@ -20,7 +20,14 @@ namespace StarterAssets
 
         //public AudioSource footstepSource;
 
-    private Escudo escudo;
+    public Escudo escudo;
+    public GameObject auraAgua;
+
+    private bool regenerandoVida = false;
+    private float tiempoRegeneracion = 4f;
+    private int CuracionPorSegundo = 2;
+    private float FinalRegeneracion = 0f;
+    private float tiempoUltimaCuracion = 0f;
 
     public SpriteRenderer elementoIcono;
     public Sprite[] iconosElementos;
@@ -182,6 +189,12 @@ namespace StarterAssets
 
         private void Start()
         {
+            /*escudo = GetComponentInChildren<Escudo>();
+            if (escudo == null)
+            {
+                Debug.Log("❌ Error: No se encontró el escudo en los hijos del personaje.");
+            }*/
+
             vidaMaxPlayer = 100;
             vidaActualPlayer = vidaMaxPlayer;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -208,13 +221,30 @@ namespace StarterAssets
             pantallaMuerte = GameObject.FindWithTag("Derrota");
             pantallaMuerte.SetActive(false);
             //uiManager = FindObjectOfType<UIManager>();
-            escudo = GetComponentInChildren<Escudo>();
         }
 
         private void Update()
         {
             ActualizarBarraMana();
             ActualizarBarraDeVida();
+
+            if (regenerandoVida)
+            {
+                if (Time.time > tiempoUltimaCuracion + 1f) // Se cura cada segundo
+                {
+                    vidaActualPlayer = Mathf.Min(vidaMaxPlayer, vidaActualPlayer + CuracionPorSegundo);
+                    ActualizarBarraDeVida();
+                    tiempoUltimaCuracion = Time.time;
+                }
+
+                if (Time.time >= FinalRegeneracion) // Si pasó el tiempo de curación, se desactiva
+                {
+                    regenerandoVida = false;
+                    auraAgua.SetActive(false);
+                    Debug.Log("🚰 La regeneración de vida ha terminado.");
+                }
+            }
+
             if (isStunned)
             {
                 stunTimer -= Time.deltaTime;
@@ -767,13 +797,25 @@ private bool DownPadClick()
                 case AttackType.Water:
                     if (manaActualPlayer >= 25)
                     {
-                        playerActivoElemento = Elemento.Water;
-                        elementoIcono.sprite = iconosElementos[(int)AttackType.Water];
-                        Debug.Log("Jugador obtiene el poder de Agua!");
-                        uiManager.mostrarAgua();
-                        manaActualPlayer -= 25;
-                        ActualizarBarraMana();
-                        elementoIcono.gameObject.SetActive(true);
+                        if (vidaActualPlayer < vidaMaxPlayer / 2)
+                        {
+                            playerActivoElemento = Elemento.Water;
+                            elementoIcono.sprite = iconosElementos[(int)AttackType.Water];
+                            Debug.Log("Jugador obtiene el poder de Agua!");
+                            uiManager.mostrarAgua();
+                            manaActualPlayer -= 25;
+                            ActualizarBarraMana();
+                            elementoIcono.gameObject.SetActive(true);
+
+                            regenerandoVida = true;
+                            FinalRegeneracion = Time.time + tiempoRegeneracion;
+                            auraAgua.SetActive(true);
+                        }
+                        else
+                        {
+                            Debug.Log("Tienes suficiente vida");
+                            elementoIcono.gameObject.SetActive(false);
+                        }
                     }
                     else
                     {

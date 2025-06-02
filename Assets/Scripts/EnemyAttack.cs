@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
 
+    private Escudo escudoJugador;
     public int daño = 20;
     private Collider golpe;
     // Start is called before the first frame update
@@ -13,6 +14,18 @@ public class EnemyAttack : MonoBehaviour
     {
         golpe = GetComponent<Collider>();
         golpe.enabled = false; 
+    }
+
+    void Update()
+    { 
+        if (escudoJugador == null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                escudoJugador = player.GetComponentInChildren<Escudo>();
+            }
+        }
     }
 
     public void ActivarColliderGolpe()
@@ -24,12 +37,6 @@ public class EnemyAttack : MonoBehaviour
     private void DesactivarColliderGolpe()
     {
         golpe.enabled = false; 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,11 +51,19 @@ public class EnemyAttack : MonoBehaviour
         }*/
 
         if (other.CompareTag("Player")){
-            PlayerController player = other.GetComponent<PlayerController>();
-            if (player != null){
-                player.TakeDamage(daño);
-                AudioManager.Instance.PlaySFX("Puñetazo");
-                Debug.Log("Golpe impactó a player1!");
+            if (escudoJugador != null && escudoJugador.gameObject.activeSelf)
+            {
+                Debug.Log("Golpe bloqueado por el escudo");
+                return;
+            }
+            else
+            { 
+                PlayerController player = other.GetComponent<PlayerController>();
+                if (player != null){
+                    player.TakeDamage(daño);
+                    AudioManager.Instance.PlaySFX("Puñetazo");
+                    Debug.Log("Golpe impactó a player1!");
+                }
             }
 
             ArqueroController arquero = other.GetComponent<ArqueroController>();

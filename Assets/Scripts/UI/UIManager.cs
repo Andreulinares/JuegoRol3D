@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     public Image elementoDeElectricidadDes;
 
     public Image VelocidadAumentada;
+    public Image RegeneracionVida;
 
     private int ElementoSeleccionado = 0;
 
@@ -141,6 +142,8 @@ public class UIManager : MonoBehaviour
     {
 
     }
+    
+    //INDICADORES PODERES ELEMENTALES UI
 
     //Mostrar notificacion cuando se seleccione el elemento de fuego
     public void MostrarNotificacionFire()
