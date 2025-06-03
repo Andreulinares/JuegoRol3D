@@ -14,6 +14,7 @@ public class EnemigoMelee : MonoBehaviour
     public ArqueroController arqueroController;
     //public Transform puntoAura;
     private GameObject aura;
+    public Transform puntoAura;
     public float vidaMaxima = 50;
     public float vidaActual;
     public bool damageBufo = false;
@@ -189,8 +190,11 @@ public class EnemigoMelee : MonoBehaviour
         }
         if (aura != null)
         {
-            GameObject auraInstanciada = Instantiate(aura, transform.position, Quaternion.identity);
-            auraInstanciada.transform.parent = transform; 
+            /*GameObject auraInstanciada = Instantiate(aura, transform.position, Quaternion.identity);
+            auraInstanciada.transform.parent = transform; */
+            GameObject auraInstanciada = Instantiate(aura, puntoAura);
+            auraInstanciada.transform.localRotation = Quaternion.identity;
+
         }
 
         tieneTipo = true;
