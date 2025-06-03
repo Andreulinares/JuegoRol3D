@@ -7,7 +7,7 @@ public class EnemyBarra : MonoBehaviour
 {
     public static EnemyBarra InterfaceEnemy;
     //public Image barraVidaEnemy;
-    private Camera camara;
+    private Transform cam;
 
     private void Awake(){
         if (InterfaceEnemy == null){
@@ -20,13 +20,18 @@ public class EnemyBarra : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        camara = Camera.main;
+        cam = Camera.main.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void LateUpdate()
+    {
+        transform.LookAt(transform.position + cam.forward);
     }
 
     public void ActualizarVidaEnemy(Image barraVidaEnemy, float porcentaje){
