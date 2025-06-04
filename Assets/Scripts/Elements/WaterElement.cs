@@ -7,8 +7,8 @@ public class WaterElement : MonoBehaviour
 {
     public GameManager gameManager; // Referencia al GameManager
     public AguaDiario aguaDiario;
-    public GameObject waypointPrefab; 
-    public Transform waypointTarget;
+
+    public GameObject waypoint;
 
     void OnTriggerEnter(Collider other)
     {
@@ -22,10 +22,10 @@ public class WaterElement : MonoBehaviour
             Debug.Log("¡Has recogido un fragmento!");
             aguaDiario.ColeccionadoAgua();
             Destroy(gameObject);
-            if (waypointPrefab != null && waypointTarget != null)
+
+            if (waypoint != null)
             {
-                GameObject waypointInstance = Instantiate(waypointPrefab);
-                waypointInstance.GetComponent<Waypoint>().SetTarget(waypointTarget);
+                waypoint.SetActive(true);
             }
         }
     }

@@ -1,36 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Waypoint : MonoBehaviour
 {
-    private Transform target;
-    public Vector3 offset = new Vector3(0, 2, 0);
+    public Image img;
+    // The target (location, enemy, etc..)
+    public Transform target;
+    // UI Text to display the distance
+    public TMP_Text meter;
+    // To adjust the position of the icon
+    public Vector3 offset;
 
-    private Camera cam;
-    // Start is called before the first frame update
-    void Start()
+    private Transform player;
+
+    private void Update()
     {
-        cam = Camera.main;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (target != null)
-        {
-            Vector3 screenPos = cam.WorldToScreenPoint(target.position + offset);
-
-            if (screenPos.z > 0)
-                transform.position = screenPos;
-            else
-                transform.position = new Vector3(-1000, -1000, 0); 
+        if (player == null)
+        { 
+            player = GameObject.FindGameObjectWithTag("Player").transform;
         }
-    }
-    
-    public void SetTarget(Transform newTarget)
-    {
-        target = newTarget;
+
+        float minX = img.GetPixelAdjustedRect().width / 2;
+        
+        float maxX = Screen.width - minX;
+
+        
+        float minY = img.GetPixelAdjustedRect().height / 2;
+        
+        float maxY = Screen.height - minY;
+
+        
+        Vector2 pos = Camera.main.WorldToScreenPoint(target.position + offset);
+
+        
+        if (Vector3.Dot(target.position - transform.position, transform.forward) < 0)
+        {
+            
+            if (pos.x < Screen.width / 2)
+            {
+                
+                pos.x = maxX;
+            }
+            else
+            {
+                
+                pos.x = minX;
+            }
+        }
+
+        
+        pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        pos.y = Mathf.Clamp(pos.y, minY, maxY);
+
+        
+        img.transform.position = pos;
+        
+        meter.text = ((int)Vector3.Distance(target.position, player.position)).ToString() + "m";
     }
 }
