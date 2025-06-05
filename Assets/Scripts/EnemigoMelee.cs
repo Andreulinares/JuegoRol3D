@@ -46,7 +46,7 @@ public class EnemigoMelee : MonoBehaviour
     private MeleePatrol PatrolMelee;
     private PlayerDetection playerDetection;
 
-    private EnemyBarra enemyBarra;
+    public EnemyBarra enemyBarra;
 
     public Image barraVidaMelee;
 
@@ -58,19 +58,20 @@ public class EnemigoMelee : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        vidaActual=vidaMaxima;
+
+        vidaActual =vidaMaxima;
         agent = GetComponent<NavMeshAgent>();
         PatrolMelee = GetComponent<MeleePatrol>();
         jugador = GameObject.FindWithTag("Player");
         playerDetection = GetComponentInChildren<PlayerDetection>();
         animator = GetComponent<Animator>();
         controllerPlayer = jugador.GetComponent<PlayerController>();
-        enemyBarra = GetComponentInChildren<EnemyBarra>();
+        //enemyBarra = GetComponentInChildren<EnemyBarra>();
         agent.updateRotation = false;
-        //render = GetComponent<Renderer>();
-        //colorOriginal = render.material.color;
 
         ActualizarBarraVida();
+        //render = GetComponent<Renderer>();
+        //colorOriginal = render.material.color;
     }
 
     // Update is called once per frame
@@ -250,9 +251,11 @@ public class EnemigoMelee : MonoBehaviour
         return distancia <= rangoDeAtaque;
     }
 
-    void Muerte(){
+    void Muerte()
+    {
         animator.SetTrigger("isDead");
         animator.SetBool("isAttack", false);
+        animator.ResetTrigger("isKnockback");
         //Destroy(gameObject, 3f);
     }
 
@@ -391,6 +394,18 @@ public class EnemigoMelee : MonoBehaviour
     }
 
     void ActualizarBarraVida(){
+        if (enemyBarra == null)
+    {
+        Debug.LogError("enemyBarra es null");
+        return;
+    }
+
+    if (barraVidaMelee == null)
+    {
+        Debug.LogError("barraVidaMelee es null");
+        return;
+    }
+
         float porcentajeVida = vidaActual / vidaMaxima;
         enemyBarra.ActualizarVidaEnemy(barraVidaMelee, porcentajeVida);
     }

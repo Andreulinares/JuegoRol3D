@@ -40,18 +40,19 @@ public class ElementalBehaviour : MonoBehaviour
     private ElementalPatrol ElementalPatrolScript;
     private AsignarTipo AsignadorDeTipos;
 
-    private EnemyBarra enemyBarra;
+    public EnemyBarra enemyBarra;
 
     public Image barraVidaElemental;
 
     // Start is called before the first frame update
     void Start()
     {
+
         agent = GetComponent<NavMeshAgent>();
         ElementalPatrolScript = GetComponent<ElementalPatrol>();
         AsignadorDeTipos = GetComponent<AsignarTipo>();
         jugador = GameObject.FindWithTag("Player");
-        enemyBarra = GetComponentInChildren<EnemyBarra>();
+        //enemyBarra = GetComponentInChildren<EnemyBarra>();
 
         vidaActual = vidaMaxima;
 
