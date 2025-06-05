@@ -46,6 +46,8 @@ public class EnemigoMelee : MonoBehaviour
     private MeleePatrol PatrolMelee;
     private PlayerDetection playerDetection;
 
+    private EnemyBarra enemyBarra;
+
     public Image barraVidaMelee;
 
     private Renderer render;
@@ -63,6 +65,7 @@ public class EnemigoMelee : MonoBehaviour
         playerDetection = GetComponentInChildren<PlayerDetection>();
         animator = GetComponent<Animator>();
         controllerPlayer = jugador.GetComponent<PlayerController>();
+        enemyBarra = GetComponentInChildren<EnemyBarra>();
         agent.updateRotation = false;
         //render = GetComponent<Renderer>();
         //colorOriginal = render.material.color;
@@ -352,6 +355,7 @@ public class EnemigoMelee : MonoBehaviour
         //ActivarEfectoDaño();
         ActualizarBarraVida();
         animator.SetTrigger("isKnockback");
+        animator.SetBool("isAttack", false);
 
         if (vidaActual <= 0)
         {
@@ -388,6 +392,6 @@ public class EnemigoMelee : MonoBehaviour
 
     void ActualizarBarraVida(){
         float porcentajeVida = vidaActual / vidaMaxima;
-        EnemyBarra.InterfaceEnemy.ActualizarVidaEnemy(barraVidaMelee, porcentajeVida);
+        enemyBarra.ActualizarVidaEnemy(barraVidaMelee, porcentajeVida);
     }
 }

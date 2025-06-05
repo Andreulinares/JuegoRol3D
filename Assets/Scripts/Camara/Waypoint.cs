@@ -59,5 +59,10 @@ public class Waypoint : MonoBehaviour
         img.transform.position = pos;
         
         meter.text = ((int)Vector3.Distance(target.position, player.position)).ToString() + "m";
+
+        if ( Vector3.Distance(target.position, player.position) < 2f) 
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

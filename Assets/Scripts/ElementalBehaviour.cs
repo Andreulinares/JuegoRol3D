@@ -40,6 +40,8 @@ public class ElementalBehaviour : MonoBehaviour
     private ElementalPatrol ElementalPatrolScript;
     private AsignarTipo AsignadorDeTipos;
 
+    private EnemyBarra enemyBarra;
+
     public Image barraVidaElemental;
 
     // Start is called before the first frame update
@@ -49,6 +51,7 @@ public class ElementalBehaviour : MonoBehaviour
         ElementalPatrolScript = GetComponent<ElementalPatrol>();
         AsignadorDeTipos = GetComponent<AsignarTipo>();
         jugador = GameObject.FindWithTag("Player");
+        enemyBarra = GetComponentInChildren<EnemyBarra>();
 
         vidaActual = vidaMaxima;
 
@@ -146,15 +149,19 @@ public class ElementalBehaviour : MonoBehaviour
 
         ActualizarBarraVida();
         animator.SetTrigger("isKnockback");
+        animator.SetBool("isAttack", false);
 
-        if (vidaActual <= 0){
+        if (vidaActual <= 0)
+        {
             isAlive = false;
-            playerController.manaActualPlayer=playerController.manaActualPlayer+25;
-            if(playerController.manaActualPlayer>=100)
+            playerController.manaActualPlayer = playerController.manaActualPlayer + 25;
+            if (playerController.manaActualPlayer >= 100)
             {
-                playerController.manaActualPlayer=100;
+                playerController.manaActualPlayer = 100;
             }
-        }else{
+        }
+        else
+        {
             //Animacion stun
             Stun(2);
             isAlive = true;
@@ -261,6 +268,6 @@ public class ElementalBehaviour : MonoBehaviour
     }
 
     void ActualizarBarraVida(){
-        EnemyBarra.InterfaceEnemy.ActualizarVidaEnemy(barraVidaElemental, vidaActual / vidaMaxima);
+        enemyBarra.ActualizarVidaEnemy(barraVidaElemental, vidaActual / vidaMaxima);
     }
 }
