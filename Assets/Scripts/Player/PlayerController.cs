@@ -815,6 +815,7 @@ private bool DownPadClick()
                         {
                             Debug.Log("Tienes suficiente vida");
                             elementoIcono.gameObject.SetActive(false);
+                            uiManager.ActivarPanelAviso();
                         }
                     }
                     else
@@ -852,6 +853,7 @@ private bool DownPadClick()
                         Debug.Log("Jugador obtiene el poder de Tierra!");
                         escudo.ActivarEscudo();
                         uiManager.mostrarTierra();
+                        uiManager.MostrarImagenEscudo();
                         manaActualPlayer -= 25;
                         ActualizarBarraMana();
                         elementoIcono.gameObject.SetActive(true);

@@ -25,7 +25,9 @@ public class UIManager : MonoBehaviour
     public Image elementoDeElectricidadDes;
 
     public Image VelocidadAumentada;
-    public Image RegeneracionVida;
+    public Image Escudo;
+
+    public GameObject panelAviso;
 
     private int ElementoSeleccionado = 0;
 
@@ -142,7 +144,7 @@ public class UIManager : MonoBehaviour
     {
 
     }
-    
+
     //INDICADORES PODERES ELEMENTALES UI
 
     //Mostrar notificacion cuando se seleccione el elemento de fuego
@@ -157,6 +159,7 @@ public class UIManager : MonoBehaviour
         textFire.gameObject.SetActive(false);
     }
 
+    //Mostrar Icono cuando se seleccione el elemento de velocidad
     public void MostrarImagenVelocidad()
     {
         VelocidadAumentada.gameObject.SetActive(true);
@@ -164,7 +167,31 @@ public class UIManager : MonoBehaviour
     }
 
     private void DesactivarVelocidad()
-    { 
+    {
         VelocidadAumentada.gameObject.SetActive(false);
+    }
+
+    //Mostrar Icono cuando se seleccione el elemento de tierra
+    public void MostrarImagenEscudo()
+    {
+        Escudo.gameObject.SetActive(true);
+        Invoke("DesactivarEscudo", 5f);
+    }
+
+    private void DesactivarEscudo()
+    {
+        Escudo.gameObject.SetActive(false);
+    }
+
+    //Mostrar panel de aviso cuando se seleccione el elemento de agua y se tenga suficiente vida
+    public void ActivarPanelAviso()
+    {
+        panelAviso.SetActive(true);
+        Invoke("DesactivarPanelAviso", 5f);
+    }
+
+    private void DesactivarPanelAviso()
+    { 
+        panelAviso.SetActive(false);
     }
 }
