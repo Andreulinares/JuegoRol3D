@@ -21,6 +21,8 @@ TagManager:
   - Suelo
   - arco
   - Derrota
+  - Destination
+  - pared
   layers:
   - Default
   - TransparentFX
@@ -34,8 +36,8 @@ TagManager:
   - Arrow
   - Escudo
   - enemy
-  - 
-  - 
+  - pared
+  - indicadorMiniMapa
   - 
   - 
   - 

@@ -4,63 +4,44 @@ using UnityEngine;
 
 public class PlayerMovementPrueba : MonoBehaviour
 {
-
     public float speed = 5f;
     public float rotationSpeed = 720f;
-    private Animator animator;
-    public CharacterController controller;
+    public float jumpHeight = 2f;
+    public float gravity = 9.81f;
 
-    private Vector3 moveDirection;
-    // Start is called before the first frame update
+    private CharacterController controller;
+    private Vector3 velocity;
+    private bool isGrounded;
+
     void Start()
     {
-        animator = GetComponent<Animator>();
+        controller = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        isGrounded = controller.isGrounded;
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        Vector3 move = transform.forward * vertical + transform.right * horizontal;
+        controller.Move(move * speed * Time.deltaTime);
 
-        moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+        // Rotación suave con Quaternion.Lerp
+        float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
+        Quaternion targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + mouseX, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
-        // Movimiento
-        if (moveDirection.magnitude > 0)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            controller.Move(moveDirection * speed * Time.deltaTime);
-            transform.forward = moveDirection;
-            animator.SetBool("isWalking", true);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
+            velocity.y = Mathf.Sqrt(jumpHeight * 2f * gravity);
         }
 
-        // Salto
-        if (Input.GetKeyDown(KeyCode.Space)) // Barra espaciadora para saltar
-        {
-            animator.SetBool("isJumping", true);
-        }
-        else
-        {
-            animator.SetBool("isJumping", false);
-        }
-
-        // Ataque
-        if (Input.GetKeyDown(KeyCode.F)) // La tecla "F" para atacar
-        {
-            animator.SetBool("isAttacking", true);
-        }
-        else
-        {
-            animator.SetBool("isAttacking", false);
-        }
-
-        // Muerte
-        if (Input.GetKeyDown(KeyCode.K)) // La tecla "K" para la animación de muerte
-        {
-            animator.SetBool("isDead", true);
-        }
+        velocity.y -= gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
     }
