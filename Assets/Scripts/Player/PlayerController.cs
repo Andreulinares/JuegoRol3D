@@ -873,6 +873,20 @@ private bool DownPadClick()
             }
     }
 
+    //Funcion para desactivar el poder elemental una vez finalizada su habilidad
+        private void DesactivarPoder()
+    {
+        currentAttackType = AttackType.None;
+        playerActivoElemento = Elemento.None;
+        elementoIcono.gameObject.SetActive(false);
+        GetComponentInChildren<PlayerAttack>().elementalBonusDamage = 0;
+        MoveSpeed = 2f; 
+        auraAgua.SetActive(false); 
+        escudo.DesactivarEscudo(); 
+        uiManager.mostrarNinguno();
+        Debug.Log("Elemento desactivado automáticamente.");
+    }
+
         void RestaurarVelocidad()
     {
         MoveSpeed = 2f; 
@@ -910,8 +924,7 @@ private bool DownPadClick()
     }
             else
             {
-                //Animacion stun
-                Stun(2);
+                //Animacion knockback
 
             }
 }
