@@ -6,14 +6,26 @@ using UnityEngine;
 public class SubtitleController : MonoBehaviour
 {
     // Start is called before the first frame update
+    public AudioSource audioSource;
     public TextMeshProUGUI substitleText;
+    public float substitleDuration = 3f;
 
-    public void MostrarSubtitol(string text)
+    private bool hasPlayed = false;
+
+    private void OnTriggerEnter(Collider other)
     {
-        substitleText.gameObject.SetActive(true);
+        if (!hasPlayed && other.CompareTag("Player"))
+        {
+            hasPlayed = true;
+
+            audioSource.Play();
+            substitleText.gameObject.SetActive(true);
+
+            Invoke(nameof(AmagaSubstitle), substitleDuration);
+        }
     }
 
-    public void AmagaSubtitol()
+    private void AmagaSubstitle()
     {
         substitleText.gameObject.SetActive(false);
     }
