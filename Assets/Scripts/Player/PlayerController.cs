@@ -241,6 +241,7 @@ namespace StarterAssets
                 {
                     regenerandoVida = false;
                     auraAgua.SetActive(false);
+                    DesactivarPoder();
                     Debug.Log("🚰 La regeneración de vida ha terminado.");
                 }
             }
@@ -857,6 +858,8 @@ private bool DownPadClick()
                         manaActualPlayer -= 25;
                         ActualizarBarraMana();
                         elementoIcono.gameObject.SetActive(true);
+
+                        Invoke("QuitarEscudo", 5f);
                     }
                     else
                     {
@@ -874,7 +877,7 @@ private bool DownPadClick()
     }
 
     //Funcion para desactivar el poder elemental una vez finalizada su habilidad
-        private void DesactivarPoder()
+    private void DesactivarPoder()
     {
         currentAttackType = AttackType.None;
         playerActivoElemento = Elemento.None;
@@ -887,47 +890,54 @@ private bool DownPadClick()
         Debug.Log("Elemento desactivado automáticamente.");
     }
 
-        void RestaurarVelocidad()
+    void RestaurarVelocidad()
     {
-        MoveSpeed = 2f; 
+        //MoveSpeed = 2f;
+        DesactivarPoder();
         Debug.Log("Se ha restaurado la velocidad del jugador.");
     }
 
     void RestaurarFuerza()
     {
-        GetComponentInChildren<PlayerAttack>().elementalBonusDamage = 0;
+        //GetComponentInChildren<PlayerAttack>().elementalBonusDamage = 0;
+        DesactivarPoder();
         Debug.Log("Se ha restaurado la fuerza del jugador.");
     }
-    public void TakeDamage(int damage)
-{
-    if(isInvincible)
+
+    void QuitarEscudo()
     {
-        Debug.Log("Jugador invencible. No recibe daño.");
-        return;
+        DesactivarPoder();
     }
-    /*if(enemigoMelee.damageBufo==true)
-    {
-        damage=damage+10;
-    }*/
-    /*if(bossAI.attackBuff==true)
-    {
-        damage=damage+10;
-    }*/
-    vidaActualPlayer -= damage;
-    
-    ActualizarBarraDeVida();
+    public void TakeDamage(int damage)
+        {
+            if (isInvincible)
+            {
+                Debug.Log("Jugador invencible. No recibe daño.");
+                return;
+            }
+            /*if(enemigoMelee.damageBufo==true)
+            {
+                damage=damage+10;
+            }*/
+            /*if(bossAI.attackBuff==true)
+            {
+                damage=damage+10;
+            }*/
+            vidaActualPlayer -= damage;
+
+            ActualizarBarraDeVida();
 
             if (vidaActualPlayer <= 0 && !_isDead)
             {
                 Muerto();
                 Debug.Log("Jugador muerto");
-    }
+            }
             else
             {
                 //Animacion knockback
 
             }
-}
+        }
 
 private void ActualizarBarraDeVida()
 {

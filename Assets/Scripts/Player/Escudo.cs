@@ -14,7 +14,6 @@ public class Escudo : MonoBehaviour
     public void ActivarEscudo()
     {
         gameObject.SetActive(true);
-        Invoke("DesactivarEscudo", duracionEscudo);
     }
 
     public void DesactivarEscudo()

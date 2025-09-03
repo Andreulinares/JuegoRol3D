@@ -7,6 +7,7 @@ public class SubtitleController : MonoBehaviour
 {
     // Start is called before the first frame update
     public AudioSource audioSource;
+    public AudioClip audioClip;
     public TextMeshProUGUI substitleText;
     public float substitleDuration = 3f;
 
@@ -18,6 +19,7 @@ public class SubtitleController : MonoBehaviour
         {
             hasPlayed = true;
 
+            audioSource.clip = audioClip;
             audioSource.Play();
             substitleText.gameObject.SetActive(true);
 

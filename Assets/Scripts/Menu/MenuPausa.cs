@@ -24,8 +24,13 @@ public class MenuPausa : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         if (audioManager != null)
         {
+            float defaultMusicVolume = 0.3f;
+
+            audioManager.SetMusicVolume(defaultMusicVolume);
+
             volumeSlider.onValueChanged.AddListener(audioManager.SetMusicVolume);
-            volumeSlider.value = audioManager.musicSource.volume;
+            //volumeSlider.value = audioManager.musicSource.volume;
+            volumeSlider.value = defaultMusicVolume;
 
             sfxVolumeSlider.onValueChanged.AddListener(audioManager.SetSFXVolume);
             sfxVolumeSlider.value = audioManager.sfxSource.volume;
