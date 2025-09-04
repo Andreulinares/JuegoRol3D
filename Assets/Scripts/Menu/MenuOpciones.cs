@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class MenuOpciones : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class MenuOpciones : MonoBehaviour
     public Toggle muteToggle;
     private float savedMusicVolume = 1f;
     private float savedSFXVolume = 1f;
-    public Dropdown resolutionDropdown;
+    public TMP_Dropdown resolutionDropdown;
     // Start is called before the first frame update
     void Start()
     {

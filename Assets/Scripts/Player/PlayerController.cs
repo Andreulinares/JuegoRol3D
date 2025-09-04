@@ -38,6 +38,7 @@ namespace StarterAssets
     public float sphereDistance = 2f;
     private GameObject currentSphere;
     private GameObject pantallaMuerte;
+    private Animator textAnimator;
     private UIManager uiManager;
     private bool leftPressed = false;
     private bool rightPressed = false;
@@ -220,6 +221,7 @@ namespace StarterAssets
             enemigoMelee = GetComponent<EnemigoMelee>();
             pantallaMuerte = GameObject.FindWithTag("Derrota");
             pantallaMuerte.SetActive(false);
+            textAnimator = pantallaMuerte.GetComponentInChildren<Animator>();
             //uiManager = FindObjectOfType<UIManager>();
         }
 
@@ -947,24 +949,25 @@ private void ActualizarBarraDeVida()
         // Llamar a la función del UIManager para actualizar la barra
     UIManager.Interface.ActualizarVida(porcentaje);
 }
-    public void Muerto()
-{
-    _isDead = true;
+        public void Muerto()
+        {
+            _isDead = true;
 
-    // Desactivar controles
-    _input.move = Vector2.zero;
-    _input.jump = false;
-    _input.sprint = false;
-    _playerInput.enabled = false;
+            // Desactivar controles
+            _input.move = Vector2.zero;
+            _input.jump = false;
+            _input.sprint = false;
+            _playerInput.enabled = false;
 
-    // Activar animación de muerte
-    if (_hasAnimator)
-    {
-        _animator.SetTrigger(_animIDDead); 
-    }
+            // Activar animación de muerte
+            if (_hasAnimator)
+            {
+                _animator.SetTrigger(_animIDDead);
+            }
 
-    // Mostrar UI de muerte
-    pantallaMuerte.SetActive(true);
+            // Mostrar UI de muerte
+            pantallaMuerte.SetActive(true);
+            textAnimator.SetTrigger("FadeIn");
     
 }
 public void RestartGame()
