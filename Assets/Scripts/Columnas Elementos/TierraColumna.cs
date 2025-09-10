@@ -9,6 +9,7 @@ public class TierraColumna : MonoBehaviour
     private bool jugadorCerca = false;
     public GameObject fragmentoTierraPrefab;
     public Transform posicionColocacion;
+    public GameObject interactionText;
     // Update is called once per frame
     private void Update()
     {
@@ -26,7 +27,7 @@ public class TierraColumna : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             jugadorCerca = true;
-            // Mostrar UI: "Presiona E para recoger" (opcional)
+            interactionText.SetActive(true);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -34,7 +35,7 @@ public class TierraColumna : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             jugadorCerca = false;
-            // Ocultar UI
+            interactionText.SetActive(false);
         }
     }
 }
