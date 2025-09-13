@@ -9,9 +9,10 @@ public class Boss_bt : MonoBehaviour
     private Animator animator;
     private GameObject jugador;
     private NavMeshAgent agent;
+    public GameObject portal;
 
     private bool isAlive = true;
-    public int vida = 100;
+    public float vida = 100;
     public bool fuegoActivo = true;
     public bool aguaActivo = true;
     public bool tierraActivo = true;
@@ -73,8 +74,20 @@ public class Boss_bt : MonoBehaviour
                 {
                     if (JugadorEstaCerca())
                     {
-                        
+                        ComprobarFuegoActivo();
+                        if (ComprobarFuegoActivo())
+                        {
+                            UsarFuego();
+                        }
+                        else
+                        {
+                            AtaqueNormal(); 
+                        }
                     }
+                }
+                else
+                {
+
                 }
             }
         }
@@ -85,9 +98,67 @@ public class Boss_bt : MonoBehaviour
         return true;
     }
 
-    void Muerte(){
+    public void TakeDamage(int daño)
+    {
+        float vidaNueva;
+
+        vidaNueva = Mathf.Max(vida - daño);
+
+        float vidaActual = vidaNueva;
+
+        if (vidaActual <= 0)
+        {
+            isAlive = false;
+        }
+        //Actualizar barra
+        //Animacion muerte
+    }
+    void Muerte()
+    {
         //animator.SetTrigger("isDead");
         //animator.SetBool("isAttack", false);
         //Destroy(gameObject, 3f);
+
+        if (portal != null)
+        {
+            portal.SetActive(true);
+        }
+    }
+
+    bool ComprobarFuegoActivo()
+    {
+        if (fuegoActivo == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    void UsarFuego()
+    {
+
+    }
+
+    void UsarAgua()
+    {
+
+    }
+
+    void UsarElectricidad()
+    {
+
+    }
+
+    void UsarTierra()
+    {
+
+    }
+
+    void AtaqueNormal()
+    {
+        
     }
 }
