@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Boss_bt : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class Boss_bt : MonoBehaviour
     private GameObject jugador;
     private NavMeshAgent agent;
     public GameObject portal;
+    private Boss_patrol BossPatrolScript;
 
     private bool isAlive = true;
     public float vida = 100;
+    public float vidaActual;
     public bool fuegoActivo = true;
     public bool aguaActivo = true;
     public bool tierraActivo = true;
@@ -26,12 +29,19 @@ public class Boss_bt : MonoBehaviour
     public bool jugadorDetectado = false;
 
     public float rangoDeAtaque = 0f;
+
+    public EnemyBarra enemyBarra;
+
+    public Image barraVidaBoss;
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         jugador = GameObject.FindWithTag("Player");
         animator = GetComponent<Animator>();
+        BossPatrolScript = GetComponent<Boss_patrol>();
+
+        ActualizarBarraVida();
     }
 
     // Update is called once per frame
@@ -79,39 +89,75 @@ public class Boss_bt : MonoBehaviour
                         {
                             UsarFuego();
                         }
+                        else if (ComprobarTierraActivo())
+                        {
+                            UsarTierra();
+                        }
                         else
                         {
-                            AtaqueNormal(); 
+                            AtaqueNormal();
+                        }
+                    }
+                    else if (tengoPocaVida())
+                    {
+                        ComprobarAguaActivo();
+                        if (ComprobarAguaActivo())
+                        {
+                            UsarAgua();
+                        }
+                        else
+                        {
+                            AtaqueNormal();
+                        }
+                    }
+                    else if (ComprobarElectricidadActivo())
+                    {
+                        if (ComprobarElectricidadActivo())
+                        {
+                            UsarElectricidad();
+                        }
+                        else
+                        {
+                            AtaqueNormal();
                         }
                     }
                 }
                 else
                 {
-
+                    Patrullar();
                 }
             }
         }
     }
 
+    //Booleanos para comprobar si el jugador esta cerca y si el boss tiene poca vida
     bool JugadorEstaCerca()
     {
         return true;
     }
 
+    bool tengoPocaVida()
+    {
+        return true;
+    }
+
+    //Manejar vida y muerte 
     public void TakeDamage(int daño)
     {
         float vidaNueva;
 
         vidaNueva = Mathf.Max(vida - daño);
 
-        float vidaActual = vidaNueva;
+        vidaActual = vidaNueva;
+
+        ActualizarBarraVida();
 
         if (vidaActual <= 0)
         {
             isAlive = false;
         }
         //Actualizar barra
-        //Animacion muerte
+        //Animacion muerte y knockback
     }
     void Muerte()
     {
@@ -125,6 +171,14 @@ public class Boss_bt : MonoBehaviour
         }
     }
 
+    //Funcion para actualizar la barra de vida del boss cuando el jugador le golpea
+    void ActualizarBarraVida()
+    {
+        float porcentaje = vidaActual / vida;
+        enemyBarra.ActualizarVidaEnemy(barraVidaBoss, porcentaje);
+    }
+
+    //Comprobar si las siguientes habilidades elementales estan activas
     bool ComprobarFuegoActivo()
     {
         if (fuegoActivo == true)
@@ -137,6 +191,43 @@ public class Boss_bt : MonoBehaviour
         }
     }
 
+    bool ComprobarAguaActivo()
+    {
+        if (aguaActivo == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    bool ComprobarTierraActivo()
+    {
+        if (aguaActivo == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    bool ComprobarElectricidadActivo()
+    {
+        if (aguaActivo == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //Ataques del boss
     void UsarFuego()
     {
 
@@ -159,6 +250,14 @@ public class Boss_bt : MonoBehaviour
 
     void AtaqueNormal()
     {
-        
+
+    }
+
+    //Patrullaje por defecto
+    void Patrullar()
+    {
+        BossPatrolScript.ActivarPatrullaje();
+
+        //Animaciones boss caminar 
     }
 }
