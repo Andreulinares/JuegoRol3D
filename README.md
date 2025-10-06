@@ -7,7 +7,7 @@ La **exploracion** y el control de los **elementos** sera clave para acabar con 
 ## Programacion
 Se han programado behaviours tree para los 2 personajes principales, los enemigos y el boss. 
 Tambien se ha establecido la maquina de estados del jugador que se movera con sus respectivas animaciones.
-Se ha utilizado el third person controller de unity. 
+Se ha utilizado el third person controller de unity.\
 -El jugador podra utilizar 4 habilidades elementales ademas de usar el combate normal con su arma.
 Dependiendo del personaje seleccionado atacara a corta o a larga distancia. 
 Tambien se han implementado las funciones correspondientes en el gameManager y en el progressManager.
