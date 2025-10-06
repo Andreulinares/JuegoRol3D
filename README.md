@@ -17,8 +17,8 @@ El juego tiene un estilo low poly stylized y en vista isometrica inspirado en ju
 
 ## Plataformas
 PC
-**Requisitos minimos:**
-Windows x64
-8gb ram
+**Requisitos minimos:**\
+Windows x64\
+8gb ram\
 espacio en disco: 1gb
 
