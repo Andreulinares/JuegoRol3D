@@ -16,7 +16,7 @@ Tambien se han implementado las funciones correspondientes en el gameManager y e
 El juego tiene un estilo low poly stylized y en vista isometrica inspirado en juegos como tunic o death's door.
 
 ## Plataformas
-PC
+PC\
 **Requisitos minimos:**\
 Windows x64\
 8gb ram\
